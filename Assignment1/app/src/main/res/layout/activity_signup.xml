@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    tools:context=".SignupActivity">
+
+    <EditText
+        android:id="@+id/txtUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="20dp"
+        android:inputType="textPersonName"
+        android:text="Username"
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="67dp" />
+
+    <EditText
+        android:id="@+id/txtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_below="@id/txtUsername"
+        android:hint="Password"
+        tools:layout_editor_absoluteX="98dp"
+        tools:layout_editor_absoluteY="145dp" />
+
+    <EditText
+        android:id="@+id/txtRetypePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_below="@id/txtPassword"
+        android:hint="Retype Password"
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="219dp" />
+
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:layout_below="@id/txtRetypePassword"
+        android:hint="Email"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="290dp" />
+
+    <EditText
+        android:id="@+id/txtPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="phone"
+        android:layout_below="@id/txtEmail"
+        android:hint="Phone"
+        tools:layout_editor_absoluteX="109dp"
+        tools:layout_editor_absoluteY="364dp" />
+
+    <Button
+        android:id="@+id/btnSignUp2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign me up!"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/txtPhone"
+        android:layout_centerHorizontal="true"
+        tools:layout_editor_absoluteX="152dp"
+        tools:layout_editor_absoluteY="493dp" />
+</RelativeLayout>
