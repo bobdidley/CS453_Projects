@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText m_txtUsername;
     private EditText m_txtPassword;
     Context context;
+    Data data = new Data();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +33,17 @@ public class MainActivity extends AppCompatActivity {
         m_txtPassword = findViewById(R.id.password); // NOTE: txtPassword (signup) ≠ password (main)
 
         // debug
-        HashMap<String, String> users = new HashMap<>(); // NOTE: temporary data storage, still need a data class
-        users.put("String", "string");
+//        HashMap<String, String> users = new HashMap<>(); // NOTE: temporary data storage, still need a data class
+//        users.put("String", "string");
+        data.register("123", "123", "", "");
 
         m_btnLogin.setOnClickListener(new View.OnClickListener(){
             public void onClick (View v){
                 String checkUser = m_txtUsername.getText().toString();
                 String checkPassword = m_txtPassword.getText().toString();
                 // checks if credentials exist
-                if(users.size() != 0 && users.containsKey(checkUser) && users.get(checkUser).equals(checkPassword)) {
+//                if(users.size() != 0 && users.containsKey(checkUser) && users.get(checkUser).equals(checkPassword)) {
+                if(!data.isEmpty() && data.isRegistered(checkUser, checkPassword)) {
                     // Intent login --> redirect to Dashboard after clicking Login Button
                     Intent login = new Intent(context, WelcomeActivity.class);
                     startActivity(login);
@@ -59,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent signup = new Intent(context, SignupActivity.class);
                 startActivity(signup);
             }
-
-
         });
     }
 }

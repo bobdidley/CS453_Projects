@@ -1,22 +1,51 @@
 package com.example.assignment1;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 
 public class Data {
-    private HashSet<User> users;
+    private HashMap<String, User> users;
 
-    public Data() {}
-
-    public void register(String username, String password, String email, String phone) {
-        users.add(new User(username, password, email, phone));
+    public Data() {
+        users = new HashMap<String, User>();
     }
 
-    public boolean isRegistered(String username, String password) {
-        for (User u : users) {
-            if(u.getUsername().equals(username) && u.getPassword().equals(password)) {
+    /**
+     * Register a new user's credentials given the username is unique. And does not register user if the username is not
+     * unique. Returns true or false to indicate status of registration completion.
+     * @param username String
+     * @param password String
+     * @param email String
+     * @param phone String
+     * @return boolean
+     */
+    public boolean register(String username, String password, String email, String phone) {
+        if(!users.containsKey(username)) {
+            users.put(username, new User(username, password, email, phone));
+            return true;
+        }
+        return false;
+    }
 
+    /**
+     * Checks if the login credentials are registered.
+     * @param username String
+     * @param password String
+     * @return boolean
+     */
+    public boolean isRegistered(String username, String password) {
+        for (String name : users.keySet()) {
+            if(name.equals(username) && users.get(name).getPassword().equals(password)) {
+                return true;
             }
         }
+        return false;
+    }
+
+    /**
+     * Returns true if the HashMap users is empty or false if not.
+     * @return boolean
+     */
+    public boolean isEmpty() {
+        return users.isEmpty();
     }
 }
