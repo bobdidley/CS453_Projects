@@ -1,5 +1,7 @@
 package com.example.assignment1;
 
+import android.widget.EditText;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -8,10 +10,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button m_btnLogin;
     private Button m_btnSignup;
+    private EditText m_txtUsername;
+    private EditText m_txtPassword;
     Context context;
 
     @Override
@@ -22,13 +28,27 @@ public class MainActivity extends AppCompatActivity {
         context = getApplicationContext();
         m_btnLogin = findViewById(R.id.btnLogin);
         m_btnSignup = findViewById(R.id.btnSignup);
+        m_txtUsername = findViewById(R.id.username); // NOTE: txtUsername (signup) ≠ username (main)
+        m_txtPassword = findViewById(R.id.password); // NOTE: txtPassword (signup) ≠ password (main)
+
+        // debug
+        HashMap<String, String> users = new HashMap<>(); // NOTE: temporary data storage, still need a data class
+        users.put("String", "string");
 
         m_btnLogin.setOnClickListener(new View.OnClickListener(){
             public void onClick (View v){
-
-                // Intent login --> rediredct to Dashboard after clicking Login Button
-                Intent login = new Intent(context, WelcomeActivity.class);
-                startActivity(login);
+                String checkUser = m_txtUsername.getText().toString();
+                String checkPassword = m_txtPassword.getText().toString();
+                // checks if credentials exist
+                if(users.size() != 0 && users.containsKey(checkUser) && users.get(checkUser).equals(checkPassword)) {
+                    // Intent login --> redirect to Dashboard after clicking Login Button
+                    Intent login = new Intent(context, WelcomeActivity.class);
+                    startActivity(login);
+                }
+                else {
+                    Toast.makeText(context, "Incorrect Credentials\nTry Again or Sign Up", Toast.LENGTH_SHORT).show();
+                    m_txtPassword.setText("");
+                }
             }
         });
 

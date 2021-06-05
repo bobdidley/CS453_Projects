@@ -9,65 +9,70 @@
     tools:context=".SignupActivity">
 
     <EditText
-        android:id="@+id/txtUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginTop="20dp"
-        android:inputType="textPersonName"
-        android:text="Username"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="67dp" />
+            android:id="@+id/txtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="20dp"
+            android:inputType="textPersonName"
+            android:hint="@string/username"
+            tools:layout_editor_absoluteX="101dp"
+            tools:layout_editor_absoluteY="67dp"
+            android:autofillHints=""/>
 
     <EditText
-        android:id="@+id/txtPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:layout_below="@id/txtUsername"
-        android:hint="Password"
-        tools:layout_editor_absoluteX="98dp"
-        tools:layout_editor_absoluteY="145dp" />
+            android:id="@+id/txtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:layout_below="@id/txtUsername"
+            android:hint="@string/password"
+            tools:layout_editor_absoluteX="98dp"
+            tools:layout_editor_absoluteY="145dp"
+            android:autofillHints=""/>
 
     <EditText
-        android:id="@+id/txtRetypePassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:layout_below="@id/txtPassword"
-        android:hint="Retype Password"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="219dp" />
+            android:id="@+id/txtRetypePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:layout_below="@id/txtPassword"
+            android:hint="@string/retype_password"
+            tools:layout_editor_absoluteX="101dp"
+            tools:layout_editor_absoluteY="219dp"
+            android:autofillHints=""/>
 
     <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:layout_below="@id/txtRetypePassword"
-        android:hint="Email"
-        tools:layout_editor_absoluteX="105dp"
-        tools:layout_editor_absoluteY="290dp" />
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:layout_below="@id/txtRetypePassword"
+            android:hint="@string/email"
+            tools:layout_editor_absoluteX="105dp"
+            tools:layout_editor_absoluteY="290dp"
+            android:autofillHints=""/>
 
     <EditText
-        android:id="@+id/txtPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="phone"
-        android:layout_below="@id/txtEmail"
-        android:hint="Phone"
-        tools:layout_editor_absoluteX="109dp"
-        tools:layout_editor_absoluteY="364dp" />
+            android:id="@+id/txtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="phone"
+            android:layout_below="@id/txtEmail"
+            android:hint="@string/phone"
+            tools:layout_editor_absoluteX="109dp"
+            tools:layout_editor_absoluteY="364dp"
+            android:autofillHints=""/>
 
     <Button
         android:id="@+id/btnSignUp2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign me up!"
+        android:text="@string/sign_me_up"
         android:layout_marginTop="16dp"
         android:layout_below="@id/txtPhone"
         android:layout_centerHorizontal="true"
