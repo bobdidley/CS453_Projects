@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Assignment1</string>
     <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="signup">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="retype_password">Retype Password</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="sign_me_up">Sign me up!</string>
+    <string name="welcome">Welcome to Dashboard! </string>
+    <string name="RetUsername">retrieveUsername</string>
+
 </resources>
