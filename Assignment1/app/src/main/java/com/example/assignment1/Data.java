@@ -9,7 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Data extends android.app.Application {
-    Context context;
     public static HashMap<String, User> users;
     
     public Data() { users = new HashMap<String , User>(); }
@@ -45,6 +44,10 @@ public class Data extends android.app.Application {
             }
         }
         return false;
+    }
+
+    public boolean isEmpty() {
+        return users.isEmpty();
     }
 
     /**
