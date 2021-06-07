@@ -12,4 +12,5 @@
     <string name="welcome">Welcome to the Dashboard!</string>
     <string name="hello">Hello %1$s!</string>
     <string name="blurred_waves">blurred waves</string>
+    <string name="signout">Sign Out</string>
 </resources>

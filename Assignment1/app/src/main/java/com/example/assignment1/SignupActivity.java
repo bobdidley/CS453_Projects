@@ -46,6 +46,7 @@ public class SignupActivity extends AppCompatActivity {
         m_txtPhone = findViewById(R.id.txtPhone);
 
         m_btnSignup.setOnClickListener(new View.OnClickListener(){
+            @Override
             public void onClick(View v){
                 String username = m_txtUsername.getText().toString();
                 String password = m_txtPassword.getText().toString();
