@@ -1,9 +1,14 @@
 package com.example.assignment1;
 
+import android.content.Context;
+import android.text.TextUtils;
+import android.widget.EditText;
+
 import java.util.HashMap;
 
 public class Data {
     private HashMap<String, User> users;
+    Context context;
 
     public Data() {
         users = new HashMap<String, User>();
@@ -42,10 +47,13 @@ public class Data {
     }
 
     /**
-     * Returns true if the HashMap users is empty or false if not.
-     * @return boolean
+     *
+     * @param text - string text value
+     * @return empty string
      */
-    public boolean isEmpty() {
-        return users.isEmpty();
+    public boolean isEmpty(EditText text) {
+
+        CharSequence string = text.getText().toString();
+        return TextUtils.isEmpty(string);
     }
 }
