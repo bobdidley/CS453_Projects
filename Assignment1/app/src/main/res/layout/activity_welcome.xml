@@ -7,6 +7,7 @@
     android:paddingRight="16dp"
     android:paddingLeft="16dp"
     android:orientation="vertical"
+    android:backgroundTint="@color/white_smoke"
     tools:context=".WelcomeActivity">
 
     <TextView
@@ -14,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Welcome to Dashboard!"
+        android:textColor="@color/pigeon"
         android:layout_centerVertical="true"
         android:textAlignment="center"
         android:textSize="30sp"

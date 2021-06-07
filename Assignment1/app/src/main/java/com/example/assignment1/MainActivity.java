@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private Button m_btnLogin;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     private EditText m_txtUsername, m_txtPassword;
     Data data = new Data();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
