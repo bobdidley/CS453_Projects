@@ -10,17 +10,6 @@
     android:backgroundTint="@color/white_smoke">
 
     <EditText
-<<<<<<< Updated upstream
-        android:id="@+id/txtUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginTop="20dp"
-        android:inputType="textPersonName"
-        android:hint="@string/username"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="67dp" />
-=======
             android:id="@+id/txtUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +20,6 @@
             tools:layout_editor_absoluteX="101dp"
             tools:layout_editor_absoluteY="67dp"
             android:autofillHints=""/>
->>>>>>> Stashed changes
 
     <EditText
             android:id="@+id/txtPassword"
@@ -91,9 +79,5 @@
         android:layout_centerHorizontal="true"
         tools:layout_editor_absoluteX="152dp"
         tools:layout_editor_absoluteY="493dp" />
-<<<<<<< Updated upstream
-</RelativeLayout>
-=======
 
 </RelativeLayout>
->>>>>>> Stashed changes
