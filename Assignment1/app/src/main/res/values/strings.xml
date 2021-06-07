@@ -8,6 +8,6 @@
     <string name="email">Email</string>
     <string name="phone">Phone</string>
     <string name="sign_me_up">Sign me up!</string>
-    <string name="welcome">Welcome to Dashboard! </string>
+    <string name="welcome">Welcome %1$s! </string>
     <string name="RetUsername">retrieveUsername</string>
 </resources>

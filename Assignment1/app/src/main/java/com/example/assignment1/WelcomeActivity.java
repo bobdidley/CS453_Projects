@@ -16,7 +16,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         Intent intent= getIntent();
         String username = intent.getStringExtra("USERNAME");
-        txt.setText("Hello " +username);
+        txt.setText(getString(R.string.welcome, username));
 
     }
 }

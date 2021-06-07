@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         context = getApplicationContext();
         m_btnLogin = findViewById(R.id.btnLogin);
         m_btnSignup = findViewById(R.id.btnSignup);
+<<<<<<< Updated upstream
 
         m_btnLogin.setOnClickListener(new View.OnClickListener(){
             public void onClick (View v){
@@ -42,12 +43,16 @@ public class MainActivity extends AppCompatActivity {
 
                 m_txtUsername = findViewById(R.id.username); // NOTE: txtUsername (signup) ≠ username (main)
                 m_txtPassword = findViewById(R.id.password); // NOTE: txtPassword (signup) ≠ password (main)
+=======
+        m_txtUsername = findViewById(R.id.username); // NOTE: txtUsername (signup) ≠ username (main)
+        m_txtPassword = findViewById(R.id.password); // NOTE: txtPassword (signup) ≠ password (main)
+>>>>>>> Stashed changes
 
 
         // debug
             //HashMap<String, String> users = new HashMap<>(); // NOTE: temporary data storage, still need a data class
             //users.put("String", "string");
-            data.register("123", "123", "", "");
+//            data.register("123", "123", "", "");
 
         m_btnLogin.setOnClickListener(new View.OnClickListener(){
             public void onClick (View v){
@@ -96,7 +101,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(signup);
             }
         });
-    }
-});
     }
 }
