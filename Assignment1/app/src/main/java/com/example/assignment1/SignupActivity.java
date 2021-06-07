@@ -1,3 +1,13 @@
+/**
+ * This is the sign up page, any users who must register their information will be directed here. Upon successful
+ * registration, users can then access the dashboard.
+ *
+ * @file SignupActivity.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 06/07/2021
+ * @version 1.0
+ */
+
 package com.example.assignment1;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +35,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        Data data =(Data)getApplication();
+        Data data = (Data) getApplication();
 
         context =  getApplicationContext();
         m_btnSignup = findViewById(R.id.btnSignUp2);
@@ -43,7 +53,7 @@ public class SignupActivity extends AppCompatActivity {
                 String email = m_txtEmail.getText().toString();
                 String phone = m_txtPhone.getText().toString();
 
-                // Check if input fields are blanked, and show message error if any field is blanked.
+                /* Check if input fields are blanked, and show message error if any field is blanked. */
                 // Validate username field
                 if(data.isEmpty(m_txtUsername)){
                     m_txtUsername.setError("Username is required!"); }
@@ -93,16 +103,15 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(context, "Please enter valid email or phone number", Toast.LENGTH_SHORT).show();
                 }
 
-                // when all the input fields meet requirements, signup activity successfully and redirect to the welcome page.
+                /* when all the input fields meet requirements, signup activity must register information successfully
+                 * and redirect to the welcome page. otherwise, user must fix their input information
+                 */
                 else{
                     // Register new user
                     if(data.register(username, password, email, phone)) {
                         Toast.makeText(context, "Sign up successfully!", Toast.LENGTH_SHORT).show();
-                        // Intent signup --> redirect to Dashboard after clicking SIGN ME UP! Button
-                        Intent signup = new Intent(SignupActivity.this, WelcomeActivity.class);
-
-                        // Add username in welcome message
-                        signup.putExtra("USERNAME", username);
+                        // Intent signup --> redirect to Login page after clicking SIGN ME UP! Button
+                        Intent signup = new Intent(SignupActivity.this, MainActivity.class);
                         startActivity(signup);
                     }
                     else

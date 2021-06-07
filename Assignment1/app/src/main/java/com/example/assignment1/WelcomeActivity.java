@@ -1,3 +1,12 @@
+/**
+ * This is the welcome page only accessible if the user successfully logs into their account.
+ *
+ * @file WelcomeActivity.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 06/07/2021
+ * @version 1.0
+ */
+
 package com.example.assignment1;
 
 import androidx.appcompat.app.AppCompatActivity;

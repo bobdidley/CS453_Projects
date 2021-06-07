@@ -1,3 +1,13 @@
+/**
+ * This is the main login page, the first page the user will see when opening the application. The user is prompted
+ * for their account username and password to login.
+ *
+ * @file MainActivity.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 06/07/2021
+ * @version 1.0
+ */
+
 package com.example.assignment1;
 
 import android.widget.EditText;
@@ -11,17 +21,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button m_btnLogin;
     private Button m_btnSignup;
-//    private EditText m_txtUsername;
-//    private EditText m_txtPassword;
+    private EditText m_txtUsername;
+    private EditText m_txtPassword;
     Context context;
-    private EditText m_txtUsername, m_txtPassword, m_txtEmail, m_txtPhone, m_txtRePassword;
-    Data data = new Data();
+    public static Data data = new Data();
 
 
     @Override
@@ -54,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent login = new Intent(context, WelcomeActivity.class);
 
                     // Add username in welcome message
-                    login.putExtra("USERNAME",checkUser);
+                    login.putExtra("USERNAME", checkUser);
 
                     // start login activity
 

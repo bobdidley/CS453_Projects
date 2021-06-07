@@ -1,5 +1,13 @@
-package com.example.assignment1;
+/**
+ * This is where all user data is stored, accessed, and checked.
+ *
+ * @file Data.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 06/07/2021
+ * @version 1.0
+ */
 
+package com.example.assignment1;
 
 import android.text.TextUtils;
 import android.widget.EditText;
