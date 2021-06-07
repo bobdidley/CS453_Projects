@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,31 +40,58 @@ public class SignupActivity extends AppCompatActivity {
                 String phone = m_txtPhone.getText().toString();
 
                 // Check if input fields are blanked, and show message error if any field is blanked.
+                // Validate username field
                 if(data.isEmpty(m_txtUsername)){
                     m_txtUsername.setError("Username is required!"); }
+                else{
+                    m_txtUsername.setError(null);}
 
+                // Validate password field
                 if (data.isEmpty(m_txtPassword)){
                         m_txtPassword.setError("Password is required!"); }
+                else{
+                    m_txtPassword.setError(null); }
 
+                // Validate retype password field
                 if (data.isEmpty(m_txtRePassword)) {
                         m_txtRePassword.setError("Retype Password is required!"); }
+                else{
+                    m_txtRePassword.setError(null);
+                }
+                // Validate if passwrod and retype password are matched
+                if (!password.equals(rePassword)) {
+                    Toast.makeText(context, "Please retype correct password", Toast.LENGTH_SHORT).show(); }
 
+
+                //Validate email
                 if (data.isEmpty(m_txtEmail)){
                         m_txtEmail.setError("Email is required"); }
+                else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    m_txtEmail.setError("Please enter a valid email address");
+                }
 
+                // Validate phone number
                 if (data.isEmpty(m_txtPhone)){
                         m_txtPhone.setError("Input phone number is required"); }
-
-                if (!rePassword.equals(password)){
-                    Toast.makeText(context, "Retyped Password and Password must be matched", Toast.LENGTH_SHORT).show();
-                    m_txtRePassword.setError("Please retype password again");
+                else if (!phone.matches("[0-9]{10}")){
+                    m_txtPhone.setError("Invalid phone format");
                 }
+                else{
+                    m_txtPhone.setError(null);
+                }
+
+                // Show toast message if one of the input fields are blanked
                 if(data.isEmpty(m_txtUsername) || data.isEmpty(m_txtPassword) || data.isEmpty(m_txtRePassword)
                         || data.isEmpty(m_txtEmail) || data.isEmpty(m_txtPhone)){
                     Toast.makeText(context, "Please fill up all blank fields", Toast.LENGTH_SHORT).show();
                 }
-                else {
+                // Show toast message if input email type or phone number are not in correct format
+                else if((!phone.matches("[0-9]{10}") || (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) )){
+                    Toast.makeText(context, "Please enter valid email or phone number", Toast.LENGTH_SHORT).show();
+                }
 
+                // when all the input fields meet requirements, signup activity successfully and redirect to the welcome page.
+                else{
                     // Intent signup --> redirect to Dashboard after clicking SIGN ME UP! Button
                     Intent signup = new Intent(SignupActivity.this, WelcomeActivity.class);
 
@@ -75,6 +103,7 @@ public class SignupActivity extends AppCompatActivity {
                     data.register(username, password, email, phone);
                     Toast.makeText(context, "Sign up successfully!", Toast.LENGTH_SHORT).show();
                 }
+
 
 
             }
