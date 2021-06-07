@@ -9,11 +9,13 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/wave_blurred"
-        android:scaleType="fitXY"/>
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/wave_blurred"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/blurred_waves"
+            android:layout_centerInParent="true" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -31,7 +33,7 @@
                 android:layout_marginTop="30dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="Username"
+                android:hint="@string/username"
                 tools:layout_editor_absoluteX="98dp"
                 tools:layout_editor_absoluteY="95dp" />
 
@@ -39,12 +41,12 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/username"
                 android:layout_margin="10dp"
                 android:layout_marginTop="20sp"
                 android:ems="10"
                 android:hint="@string/password"
                 android:inputType="textPassword" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,22 +60,20 @@
                     android:id="@+id/btnSignup"
                     android:layout_width="111dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/password"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:backgroundTint="@color/turkish_blue"
-                    android:text="Signup" />
+                    android:text="@string/signup" />
 
                 <Button
                     android:id="@+id/btnLogin"
                     android:layout_width="103dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/password"
                     android:backgroundTint="@color/turkish_blue"
                     android:layout_marginLeft="70sp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
-                    android:text="Login" />
+                    android:text="@string/login" />
 
             </LinearLayout>
     </LinearLayout>
