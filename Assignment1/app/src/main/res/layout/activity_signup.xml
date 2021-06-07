@@ -6,19 +6,19 @@
     android:layout_height="match_parent"
     android:paddingLeft="25dp"
     android:paddingRight="25dp"
-    tools:context=".SignupActivity">
+    tools:context=".SignupActivity"
+    android:backgroundTint="@color/white_smoke">
 
     <EditText
-            android:id="@+id/txtUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginTop="20dp"
-            android:inputType="textPersonName"
-            android:hint="@string/username"
-            tools:layout_editor_absoluteX="101dp"
-            tools:layout_editor_absoluteY="67dp"
-            android:autofillHints=""/>
+        android:id="@+id/txtUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="20dp"
+        android:inputType="textPersonName"
+        android:hint="@string/username"
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="67dp" />\
 
     <EditText
             android:id="@+id/txtPassword"

@@ -1,18 +1,16 @@
 package com.example.assignment1;
 
-import android.content.Context;
+
 import android.text.TextUtils;
 import android.widget.EditText;
 
 import java.util.HashMap;
 
-public class Data {
-    private HashMap<String, User> users;
+public class Data extends android.app.Application {
     Context context;
-
-    public Data() {
-        users = new HashMap<String, User>();
-    }
+    public static HashMap<String, User> users;
+    
+    public Data() { users = new HashMap<String , User>(); }
 
     /**
      * Register a new user's credentials given the username is unique. And does not register user if the username is not
@@ -30,6 +28,7 @@ public class Data {
         }
         return false;
     }
+
 
     /**
      * Checks if the login credentials are registered.

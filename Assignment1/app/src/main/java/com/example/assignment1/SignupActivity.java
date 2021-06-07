@@ -14,13 +14,13 @@ public class SignupActivity extends AppCompatActivity {
     private Button m_btnSignup;
     private EditText m_txtUsername, m_txtPassword, m_txtRePassword, m_txtEmail, m_txtPhone;
     Context context;
-    Data data = new Data();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        Data data =(Data)getApplication();
 
         context =  getApplicationContext();
         m_btnSignup = findViewById(R.id.btnSignUp2);
@@ -29,7 +29,6 @@ public class SignupActivity extends AppCompatActivity {
         m_txtRePassword = findViewById(R.id.txtRetypePassword);
         m_txtEmail = findViewById(R.id.txtEmail);
         m_txtPhone = findViewById(R.id.txtPhone);
-
 
         m_btnSignup.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -59,9 +58,14 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(context, "Retyped Password and Password must be matched", Toast.LENGTH_SHORT).show();
                     m_txtRePassword.setError("Please retype password again");
                 }
+                if(data.isEmpty(m_txtUsername) || data.isEmpty(m_txtPassword) || data.isEmpty(m_txtRePassword)
+                        || data.isEmpty(m_txtEmail) || data.isEmpty(m_txtPhone)){
+                    Toast.makeText(context, "Please fill up all blank fields", Toast.LENGTH_SHORT).show();
+                }
+                else {
 
                     // Intent signup --> redirect to Dashboard after clicking SIGN ME UP! Button
-                    Intent signup = new Intent(context, WelcomeActivity.class);
+                    Intent signup = new Intent(SignupActivity.this, WelcomeActivity.class);
 
                     // Add username in welcome message
                     signup.putExtra("USERNAME", username);
@@ -70,6 +74,7 @@ public class SignupActivity extends AppCompatActivity {
                     // Register new user
                     data.register(username, password, email, phone);
                     Toast.makeText(context, "Sign up successfully!", Toast.LENGTH_SHORT).show();
+                }
 
 
             }
