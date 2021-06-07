@@ -4,6 +4,8 @@ package com.example.assignment1;
 import android.text.TextUtils;
 import android.widget.EditText;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Data extends android.app.Application {
     public static HashMap<String, User> users;
@@ -61,5 +63,7 @@ public class Data extends android.app.Application {
         CharSequence string = text.getText().toString();
         return TextUtils.isEmpty(string);
     }
+
+
 
 }
