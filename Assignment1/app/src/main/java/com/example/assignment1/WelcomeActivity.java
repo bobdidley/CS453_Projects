@@ -7,7 +7,12 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 public class WelcomeActivity extends AppCompatActivity {
-    TextView txt;
+    private TextView txt;
+
+    /**
+     * On creation of the Welcome Activity, screen displays a welcome message to user.
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,7 +21,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         Intent intent= getIntent();
         String username = intent.getStringExtra("USERNAME");
-        txt.setText(getString(R.string.welcome, username));
+        txt.setText(getString(R.string.hello, username));
 
     }
 }

@@ -5,12 +5,13 @@ import android.text.TextUtils;
 import android.widget.EditText;
 
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Data extends android.app.Application {
     public static HashMap<String, User> users;
-    
+
+    /**
+     * Default constructor
+     */
     public Data() { users = new HashMap<String , User>(); }
 
     /**
@@ -30,7 +31,6 @@ public class Data extends android.app.Application {
         return false;
     }
 
-
     /**
      * Checks if the login credentials are registered.
      * @param username String
@@ -46,12 +46,16 @@ public class Data extends android.app.Application {
         return false;
     }
 
+    /**
+     * Checks if hashmap is empty or not.
+     * @return boolean
+     */
     public boolean isEmpty() {
         return users.isEmpty();
     }
 
     /**
-     *
+     * Checks if input is empty or not.
      * @param text - string text value
      * @return empty string
      */

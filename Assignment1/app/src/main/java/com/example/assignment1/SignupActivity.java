@@ -16,6 +16,10 @@ public class SignupActivity extends AppCompatActivity {
     private EditText m_txtUsername, m_txtPassword, m_txtRePassword, m_txtEmail, m_txtPhone;
     Context context;
 
+    /**
+     * On creation of Signup Activity, the user is prompted to input their information to sign up.
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,10 +62,6 @@ public class SignupActivity extends AppCompatActivity {
                 else{
                     m_txtRePassword.setError(null);
                 }
-                // Validate if passwrod and retype password are matched
-                if (!password.equals(rePassword)) {
-                    Toast.makeText(context, "Please retype correct password", Toast.LENGTH_SHORT).show(); }
-
 
                 //Validate email
                 if (data.isEmpty(m_txtEmail)){
@@ -85,6 +85,9 @@ public class SignupActivity extends AppCompatActivity {
                         || data.isEmpty(m_txtEmail) || data.isEmpty(m_txtPhone)){
                     Toast.makeText(context, "Please fill up all blank fields", Toast.LENGTH_SHORT).show();
                 }
+                // Validate if password and retype password match
+                else if (!password.equals(rePassword)) {
+                    Toast.makeText(context, "Please retype correct password", Toast.LENGTH_SHORT).show(); }
                 // Show toast message if input email type or phone number are not in correct format
                 else if((!phone.matches("[0-9]{10}") || (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) )){
                     Toast.makeText(context, "Please enter valid email or phone number", Toast.LENGTH_SHORT).show();
@@ -92,20 +95,19 @@ public class SignupActivity extends AppCompatActivity {
 
                 // when all the input fields meet requirements, signup activity successfully and redirect to the welcome page.
                 else{
-                    // Intent signup --> redirect to Dashboard after clicking SIGN ME UP! Button
-                    Intent signup = new Intent(SignupActivity.this, WelcomeActivity.class);
-
-                    // Add username in welcome message
-                    signup.putExtra("USERNAME", username);
-                    startActivity(signup);
-
                     // Register new user
-                    data.register(username, password, email, phone);
-                    Toast.makeText(context, "Sign up successfully!", Toast.LENGTH_SHORT).show();
+                    if(data.register(username, password, email, phone)) {
+                        Toast.makeText(context, "Sign up successfully!", Toast.LENGTH_SHORT).show();
+                        // Intent signup --> redirect to Dashboard after clicking SIGN ME UP! Button
+                        Intent signup = new Intent(SignupActivity.this, WelcomeActivity.class);
+
+                        // Add username in welcome message
+                        signup.putExtra("USERNAME", username);
+                        startActivity(signup);
+                    }
+                    else
+                        Toast.makeText(context, "Sign up not successful\nUsername is not unique", Toast.LENGTH_SHORT).show();
                 }
-
-
-
             }
         });
     }
