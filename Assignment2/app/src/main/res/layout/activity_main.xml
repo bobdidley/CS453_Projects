@@ -9,7 +9,7 @@
 
 
     <fragment
-        android:id="@+id/fragment1"
+        android:id="@+id/frag_image"
         android:name="com.example.assignment2.ImagePreview"
         android:layout_width="408dp"
         android:layout_height="547dp"
@@ -21,15 +21,15 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <fragment
-        android:id="@+id/fragment2"
+        android:id="@+id/frag_control"
         android:name="com.example.assignment2.ControlPanel"
         android:layout_width="387dp"
         android:layout_height="128dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/fragment1"
+        app:layout_constraintEnd_toEndOf="@id/frag_image"
         app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintStart_toStartOf="@id/fragment1"
-        app:layout_constraintTop_toTopOf="@id/fragment1"
+        app:layout_constraintStart_toStartOf="@id/frag_image"
+        app:layout_constraintTop_toTopOf="@id/frag_image"
         app:layout_constraintVertical_bias="0.95" />
 
 
