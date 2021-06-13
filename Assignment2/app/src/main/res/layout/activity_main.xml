@@ -6,13 +6,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
+
+
+    <fragment
+            android:id="@+id/frag_image"
+            android:name="com.example.assignment2.ImagePreview"
+            android:layout_width="410dp"
+            android:layout_height="500dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.011" />
+
+    <fragment
+            android:id="@+id/frag_control"
+            android:name="com.example.assignment2.ControlPanel"
+            android:layout_width="387dp"
+            android:layout_height="128dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/frag_image"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toStartOf="@id/frag_image"
+            app:layout_constraintTop_toTopOf="@id/frag_image"
+            app:layout_constraintVertical_bias="0.956" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
