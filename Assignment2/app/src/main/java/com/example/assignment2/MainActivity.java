@@ -14,8 +14,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     private Button btnPrev, btnNext;
     private CheckBox slideview;
-    int i =0;
-    int animals[] = {R.drawable.animal13, R.drawable.animal14, R.drawable.animal15,
+    int[] animals = {R.drawable.animal13, R.drawable.animal14, R.drawable.animal15,
             R.drawable.animal16, R.drawable.animal17, R.drawable.animal18};
 
     @Override
@@ -29,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         //
-        for(int i=0; i<animals.length;i++){
+        for (int animal : animals) {
             imageView = new ImageView(this);
-            imageView.setImageResource(animals[i]);
+            imageView.setImageResource(animal);
             simpleViewFlipper.addView(imageView);
         }
 
@@ -40,18 +39,32 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                simpleViewFlipper.showNext();
+                if(simpleViewFlipper.getDisplayedChild() < animals.length - 1) {
+                    simpleViewFlipper.showNext();
+//                    ++imagePosition;
+                    btnPrev.setClickable(true);
+                }
+                else {
+                    btnNext.setClickable(false);   // NOTE: this may never change
+                }
             }
         });
 
         btnPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(i!=(animals.length)){
-                    simpleViewFlipper.showPrevious();}
+                if(simpleViewFlipper.getDisplayedChild() > 0){
+                    simpleViewFlipper.showPrevious();
+//                    --imagePosition;
+                    btnNext.setClickable(true);
+                }
+                else {
+                    btnPrev.setClickable(false);
+                }
             }
         });
 
+        int interval = 500;
         // Slide View Option
        slideview.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -59,20 +72,29 @@ public class MainActivity extends AppCompatActivity {
                // when the "Slide Show" checkbox is checked,
                // the slide show runs
                if(slideview.isChecked()){
-                   simpleViewFlipper.setAutoStart(true);
-                   simpleViewFlipper.setFlipInterval(3000);
+                   btnNext.setClickable(false);
+                   btnPrev.setClickable(false);
+//                   simpleViewFlipper.setAutoStart(true);
+                   simpleViewFlipper.setFlipInterval(interval);
                    simpleViewFlipper.startFlipping();
+
+                   // NOTE: only prevents the slide show when displaying the last picture and checking the box
+                   if(simpleViewFlipper.getDisplayedChild() >= animals.length - 1){
+                       simpleViewFlipper.stopFlipping();
+                       btnNext.setClickable(true);
+                       btnPrev.setClickable(true);
+                   }
                }
                // When the "Slide show" checkbox is unchecked
                // the slide show ends
                else{
                    simpleViewFlipper.stopFlipping();
+                   btnNext.setClickable(true);
+                   btnPrev.setClickable(true);
                }
 
            }
-        });
-
-
+       });
 
     }
 

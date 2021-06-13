@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 public class CustomGalleryAdapter extends BaseAdapter {
     private Context context;
-    int animals[];
+    int[] animals;
     LayoutInflater inflater;
 
     public CustomGalleryAdapter(Context applicationContext, int[] animals){
