@@ -11,9 +11,10 @@ import android.widget.ViewFlipper;
 
 public class MainActivity extends AppCompatActivity {
     private ViewFlipper simpleViewFlipper;
+    private GridView gridView;
     ImageView imageView;
     private Button btnPrev, btnNext;
-    private CheckBox slideview;
+    private CheckBox chkSlide, chkGrid;
     int[] animals = {R.drawable.animal13, R.drawable.animal14, R.drawable.animal15,
             R.drawable.animal16, R.drawable.animal17, R.drawable.animal18};
 
@@ -22,16 +23,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         simpleViewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
-        btnPrev = (Button)findViewById(R.id.btnPrevious);
-        btnNext = (Button)findViewById(R.id.btnNext);
-        slideview =(CheckBox)findViewById(R.id.chkBoxShow);
+        btnPrev = (Button) findViewById(R.id.btnPrevious);
+        btnNext = (Button) findViewById(R.id.btnNext);
+        chkSlide = (CheckBox) findViewById(R.id.chkBoxShow);
 
+        gridView = (GridView) findViewById(R.id.viewGrid);
+        chkGrid = (CheckBox) findViewById(R.id.chkBoxGallery);
 
         //
         for (int animal : animals) {
             imageView = new ImageView(this);
             imageView.setImageResource(animal);
             simpleViewFlipper.addView(imageView);
+
+//            gridView.addView(imageView);   // ERROR: app crashes here
         }
 
         //
@@ -41,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(simpleViewFlipper.getDisplayedChild() < animals.length - 1) {
                     simpleViewFlipper.showNext();
-//                    ++imagePosition;
                     btnPrev.setClickable(true);
                 }
                 else {
@@ -50,12 +54,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //
         btnPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(simpleViewFlipper.getDisplayedChild() > 0){
                     simpleViewFlipper.showPrevious();
-//                    --imagePosition;
                     btnNext.setClickable(true);
                 }
                 else {
@@ -66,24 +70,24 @@ public class MainActivity extends AppCompatActivity {
 
         int interval = 500;
         // Slide View Option
-       slideview.setOnClickListener(new View.OnClickListener() {
+       chkSlide.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                // when the "Slide Show" checkbox is checked,
                // the slide show runs
-               if(slideview.isChecked()){
+               if(chkSlide.isChecked()){
                    btnNext.setClickable(false);
                    btnPrev.setClickable(false);
-//                   simpleViewFlipper.setAutoStart(true);
+                   simpleViewFlipper.setAutoStart(true);
                    simpleViewFlipper.setFlipInterval(interval);
                    simpleViewFlipper.startFlipping();
 
                    // NOTE: only prevents the slide show when displaying the last picture and checking the box
-                   if(simpleViewFlipper.getDisplayedChild() >= animals.length - 1){
-                       simpleViewFlipper.stopFlipping();
-                       btnNext.setClickable(true);
-                       btnPrev.setClickable(true);
-                   }
+//                   if(simpleViewFlipper.getDisplayedChild() >= animals.length - 1){
+//                       simpleViewFlipper.stopFlipping();
+//                       btnNext.setClickable(true);
+//                       btnPrev.setClickable(true);
+//                   }
                }
                // When the "Slide show" checkbox is unchecked
                // the slide show ends
@@ -95,6 +99,22 @@ public class MainActivity extends AppCompatActivity {
 
            }
        });
+
+//       chkGrid.setOnClickListener(new View.OnClickListener() {
+//           @Override
+//           public void onClick(View v) {
+//               if(chkGrid.isChecked()) {
+//                   btnNext.setClickable(false);
+//                   btnPrev.setClickable(false);
+//                   gridView.setVisibility(View.VISIBLE);
+//               }
+//               else {
+//                   gridView.setVisibility(View.INVISIBLE);
+//                   btnNext.setClickable(true);
+//                   btnPrev.setClickable(true);
+//               }
+//           }
+//       });
 
     }
 
