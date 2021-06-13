@@ -36,7 +36,7 @@ public class CustomGalleryAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup){
         ImageView imageView = new ImageView(context);
-        view = inflater.inflate(R.layout.fragment_1,null);
+        view = inflater.inflate(R.layout.fragment_image_preview,null);
         ImageView icon = view.findViewById(R.id.icon);
         icon.setImageResource(animals[i]);
         return icon;

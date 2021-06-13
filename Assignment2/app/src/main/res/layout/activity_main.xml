@@ -10,27 +10,27 @@
 
     <fragment
         android:id="@+id/fragment1"
-        android:name="com.example.assignment2.Fragment1"
-        android:layout_width="410dp"
-        android:layout_height="500dp"
+        android:name="com.example.assignment2.ImagePreview"
+        android:layout_width="408dp"
+        android:layout_height="547dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.011" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <fragment
         android:id="@+id/fragment2"
-        android:name="com.example.assignment2.Fragment2"
+        android:name="com.example.assignment2.ControlPanel"
         android:layout_width="387dp"
         android:layout_height="128dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/fragment1"
-        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="@id/fragment1"
         app:layout_constraintTop_toTopOf="@id/fragment1"
-        app:layout_constraintVertical_bias="0.956" />
+        app:layout_constraintVertical_bias="0.95" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
