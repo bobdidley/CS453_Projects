@@ -27,37 +27,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4db26d88-3558-4bd9-8d5c-09df0587ef08" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/assignment2/CustomGalleryAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/assignment2/Fragment1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/assignment2/Fragment2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/animal13.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/animal14.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/animal15.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/animal16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/animal17.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/animal18.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment1/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment1/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment1/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment1/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/assignment2/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/assignment2/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/Animals/animal13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/Animals/animal14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/Animals/animal15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/Animals/animal16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/Animals/animal17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/Animals/animal18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-    </list>
+    <list default="true" id="4db26d88-3558-4bd9-8d5c-09df0587ef08" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -90,7 +60,7 @@
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-06-12T20:28:37.470333600Z" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/AndroidStudioProjects/Assignment2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
@@ -203,10 +173,10 @@
       <screen x="9600" y="0" width="1920" height="1040" />
     </state>
     <state x="10353" y="268" key="AndroidProcessChooserDialog/0.0.1536.824/9600.0.1920.1040@9600.0.1920.1040" timestamp="1623531188648" />
-    <state x="10342" y="276" key="FileChooserDialogImpl" timestamp="1623543996347">
+    <state x="10342" y="276" key="FileChooserDialogImpl" timestamp="1623533026101">
       <screen x="9600" y="0" width="1920" height="1040" />
     </state>
-    <state x="10342" y="276" key="FileChooserDialogImpl/0.0.1536.824/9600.0.1920.1040@9600.0.1920.1040" timestamp="1623543996347" />
+    <state x="10342" y="276" key="FileChooserDialogImpl/0.0.1536.824/9600.0.1920.1040@9600.0.1920.1040" timestamp="1623533026101" />
     <state x="10223" y="226" width="672" height="678" key="search.everywhere.popup" timestamp="1623533433470">
       <screen x="9600" y="0" width="1920" height="1040" />
     </state>
