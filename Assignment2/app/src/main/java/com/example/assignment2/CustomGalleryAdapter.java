@@ -2,6 +2,7 @@ package com.example.assignment2;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +10,17 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+
+import static com.example.assignment2.R.layout.*;
+
 public class CustomGalleryAdapter extends BaseAdapter {
     private Context context;
-    int[] animals;
+    ArrayList<imageModel> animals;
     LayoutInflater inflater;
+    ArrayList<imageModel> arrayImage;
 
-    public CustomGalleryAdapter(Context applicationContext, int[] animals){
+    public CustomGalleryAdapter(Context applicationContext, ArrayList<imageModel> animals){
         this.context = applicationContext;
         this.animals = animals;
         inflater = (LayoutInflater.from(applicationContext));
@@ -22,21 +28,26 @@ public class CustomGalleryAdapter extends BaseAdapter {
 
     @Override
     public int getCount(){
-        return animals.length;
+        return animals.size();
     }
 
     @Override
     public Object getItem(int i){
-        return animals[i];
+        return animals.get(i);
     }
 
     @Override
     public long getItemId(int i){
-        return 0;
+        return i;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup){
+        ImageView imageView;
+        view = inflater.inflate(image_list,null);
+        imageView = (ImageView) view.findViewById(R.id.image);
+        imageView.setImageResource(animals.get(i).getmThumbIds());
+        return view;
 //        ImageView imageView;
 //
 //        if(view == null) {
@@ -49,13 +60,14 @@ public class CustomGalleryAdapter extends BaseAdapter {
 //            imageView = (ImageView) view;
 //        }
 //        imageView.setImageBitmap(Bitmap.decode(animals[i].getAbsoluteFile()));
-
+//
 //        ImageView imageView = new ImageView(context);
-        view = inflater.inflate(R.layout.fragment_image_preview, null);
-        ImageView grid = view.findViewById(R.id.viewGrid);
-        grid.setImageResource(animals[i]);
 
-        return grid;
+//        view = inflater.inflate(R.layout.fragment_image_preview, null);
+//        ImageView grid = view.findViewById(R.id.viewGrid);
+//        grid.setImageResource(animals[i]);
+
+//        return grid;
 
     }
 

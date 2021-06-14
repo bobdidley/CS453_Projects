@@ -10,6 +10,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     Context context;
     private ViewFlipper simpleViewFlipper;
@@ -19,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox chkSlide, chkGrid;
     int[] animals = {R.drawable.animal13, R.drawable.animal14, R.drawable.animal15,
             R.drawable.animal16, R.drawable.animal17, R.drawable.animal18};
+
+    GridView gridview;
+    ArrayList<imageModel> arrayImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
         gridView = (GridView) findViewById(R.id.viewGrid);
         chkGrid = (CheckBox) findViewById(R.id.chkBoxGallery);
-        CustomGalleryAdapter galleryAdapter = new CustomGalleryAdapter(context, animals);
+
+        gridView = (GridView) findViewById(R.id.viewGrid);
+        arrayImage = new ArrayList<>();
+
+       // CustomGalleryAdapter galleryAdapter = new CustomGalleryAdapter(context, animals);
 //        gridView.setAdapter(galleryAdapter);   // ERROR: app crashes here
 
         //
@@ -125,6 +135,16 @@ public class MainActivity extends AppCompatActivity {
                    simpleViewFlipper.setVisibility(View.INVISIBLE);
 //                   gridView.setAdapter(galleryAdapter);   // ERROR: app crashes here
                    gridView.setVisibility(View.VISIBLE);
+
+
+                   for (int i =0; i<animals.length; i++){
+                       imageModel imageModel = new imageModel();
+                       imageModel.setmThumbIds(animals[i]);
+                       // add in array list
+                       arrayImage.add(imageModel);
+                   }
+                   CustomGalleryAdapter galleryAdapter = new CustomGalleryAdapter(getApplicationContext(), arrayImage);
+                   gridView.setAdapter(galleryAdapter);
                }
                else {
                    gridView.setVisibility(View.INVISIBLE);
@@ -137,6 +157,10 @@ public class MainActivity extends AppCompatActivity {
                }
            }
        });
+
+
+
+
 
     }
 
