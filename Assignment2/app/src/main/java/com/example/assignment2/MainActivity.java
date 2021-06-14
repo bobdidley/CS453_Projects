@@ -1,17 +1,15 @@
 package com.example.assignment2;
 
+import android.content.Context;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    Context context;
     private ViewFlipper simpleViewFlipper;
     private GridView gridView;
     private ImageView imageView;
@@ -28,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = getApplicationContext();
         simpleViewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
         btnPrev = (Button) findViewById(R.id.btnPrevious);
         btnNext = (Button) findViewById(R.id.btnNext);
@@ -49,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     btnNext.setClickable(false);
+                    Toast.makeText(context, "You've reached the end of the line.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -63,11 +63,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     btnPrev.setClickable(false);
+                    Toast.makeText(context, "You've reached the end of the line.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-
 
         int interval = 500;
         // Slide View Option
@@ -144,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             // add in array list
             arrayImage.add(imageModel);
         }
-        CustomGalleryAdapter galleryAdapter = new CustomGalleryAdapter(getApplicationContext(), arrayImage);
+        CustomGalleryAdapter galleryAdapter = new CustomGalleryAdapter(context, arrayImage);
         gridView.setAdapter(galleryAdapter);
     }
 
