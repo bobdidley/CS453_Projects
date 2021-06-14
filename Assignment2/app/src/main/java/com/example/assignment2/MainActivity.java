@@ -1,5 +1,6 @@
 package com.example.assignment2;
 
+import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
 public class MainActivity extends AppCompatActivity {
+    Context context;
     private ViewFlipper simpleViewFlipper;
     private GridView gridView;
     ImageView imageView;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = getApplicationContext();
         simpleViewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
         btnPrev = (Button) findViewById(R.id.btnPrevious);
         btnNext = (Button) findViewById(R.id.btnNext);
@@ -29,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         gridView = (GridView) findViewById(R.id.viewGrid);
         chkGrid = (CheckBox) findViewById(R.id.chkBoxGallery);
+        CustomGalleryAdapter galleryAdapter = new CustomGalleryAdapter(context, animals);
+//        gridView.setAdapter(galleryAdapter);   // ERROR: app crashes here
 
         //
         for (int animal : animals) {
@@ -49,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                     btnPrev.setClickable(true);
                 }
                 else {
-                    btnNext.setClickable(false);   // NOTE: this may never change
+                    btnNext.setClickable(false);
                 }
             }
         });
@@ -100,21 +105,24 @@ public class MainActivity extends AppCompatActivity {
            }
        });
 
-//       chkGrid.setOnClickListener(new View.OnClickListener() {
-//           @Override
-//           public void onClick(View v) {
-//               if(chkGrid.isChecked()) {
-//                   btnNext.setClickable(false);
-//                   btnPrev.setClickable(false);
-//                   gridView.setVisibility(View.VISIBLE);
-//               }
-//               else {
-//                   gridView.setVisibility(View.INVISIBLE);
-//                   btnNext.setClickable(true);
-//                   btnPrev.setClickable(true);
-//               }
-//           }
-//       });
+       chkGrid.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               if(chkGrid.isChecked()) {
+                   btnNext.setClickable(false);
+                   btnPrev.setClickable(false);
+                   simpleViewFlipper.setVisibility(View.INVISIBLE);
+//                   gridView.setAdapter(galleryAdapter);   // ERROR: app crashes here
+                   gridView.setVisibility(View.VISIBLE);
+               }
+               else {
+                   gridView.setVisibility(View.INVISIBLE);
+                   simpleViewFlipper.setVisibility(View.VISIBLE);
+                   btnNext.setClickable(true);
+                   btnPrev.setClickable(true);
+               }
+           }
+       });
 
     }
 
