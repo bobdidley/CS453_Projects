@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         int interval = 500;
         // Slide View Option
        chkSlide.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
                if(chkSlide.isChecked()){
                    btnNext.setClickable(false);
                    btnPrev.setClickable(false);
+                   //when slide show option is checked,
+                   // gallery view checkbox is disable
+                   chkGrid.setClickable(false);
                    simpleViewFlipper.setAutoStart(true);
                    simpleViewFlipper.setFlipInterval(interval);
                    simpleViewFlipper.startFlipping();
@@ -100,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
                    simpleViewFlipper.stopFlipping();
                    btnNext.setClickable(true);
                    btnPrev.setClickable(true);
+                   //when slide show option is unchecked,
+                   // gallery view checkbox is available
+                   chkGrid.setClickable(true);
                }
 
            }
@@ -111,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
                if(chkGrid.isChecked()) {
                    btnNext.setClickable(false);
                    btnPrev.setClickable(false);
+                   //when gallery view option is checked,
+                   // slide show checkbox is disable
+                   chkSlide.setClickable(false);
                    simpleViewFlipper.setVisibility(View.INVISIBLE);
 //                   gridView.setAdapter(galleryAdapter);   // ERROR: app crashes here
                    gridView.setVisibility(View.VISIBLE);
@@ -118,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
                else {
                    gridView.setVisibility(View.INVISIBLE);
                    simpleViewFlipper.setVisibility(View.VISIBLE);
+                   //when gallery view option is checked,
+                   //slide show checkbox is disable
+                   chkSlide.setClickable(true);
                    btnNext.setClickable(true);
                    btnPrev.setClickable(true);
                }
