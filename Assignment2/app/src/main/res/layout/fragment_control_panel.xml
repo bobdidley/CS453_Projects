@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="387dp"
                 android:layout_height="128dp"
                 android:orientation="vertical"
                 android:background="@color/orange_500"
-                tools:context=".ControlPanel">
+                tools:context=".ControlPanel"
+    >
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -14,24 +17,26 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
         <Button
                 android:id="@+id/btnPrevious"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@null"
                 android:layout_marginLeft="60dp"
-                android:textColor="@color/teal_200"
-                android:text="@string/previous" />
+                android:text="@string/previous"
+                android:textSize="25dp"/>
 
         <Button
                 android:id="@+id/btnNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
+                android:layout_marginLeft="70dp"
                 android:layout_marginRight="60dp"
-                android:textColor="@color/teal_200"
-                android:text="@string/next"/>
+                android:text="@string/next"
+                android:textSize="25dp"/>
     </LinearLayout>
 
     <LinearLayout

@@ -16,7 +16,9 @@ public class MainActivity extends AppCompatActivity {
     private Button btnPrev, btnNext;
     private CheckBox chkSlide, chkGrid;
     int[] animals = {R.drawable.animal13, R.drawable.animal14, R.drawable.animal15,
-            R.drawable.animal16, R.drawable.animal17, R.drawable.animal18};
+            R.drawable.animal16, R.drawable.animal17, R.drawable.animal18, R.drawable.animal19,
+            R.drawable.animal20,R.drawable.animal21,R.drawable.animal22,R.drawable.animal23,
+            R.drawable.animal24};
 
     GridView gridview;
     ArrayList<imageModel> arrayImage;
