@@ -20,7 +20,7 @@ display a slide show of the images, and present a grid view of the gallery.
   - The bottom fragment controls what is displayed in the top fragment.
 - We provide three capabilities:
   - Next and previous buttons to view images individually,
-  - Slide show to flip between all images in the album, and
+  - Slide show to automatically flip between all images in the album, and
   - Gallery view to display all images in a grid.
 - We chose to design with a Pixel XL screen to view images more clearly.
 
