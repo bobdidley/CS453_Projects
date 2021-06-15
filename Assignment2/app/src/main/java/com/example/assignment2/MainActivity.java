@@ -1,6 +1,8 @@
 package com.example.assignment2;
 
 import android.content.Context;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -76,28 +78,31 @@ public class MainActivity extends AppCompatActivity {
            @Override
            public void onClick(View v) {
                // when the "Slide Show" checkbox is checked,
-               // the slide show runs
-               if(chkSlide.isChecked()){
+               // must not be currently displaying last image,
+               // then slide show runs
+               if(chkSlide.isChecked() && simpleViewFlipper.getDisplayedChild() < animals.length - 1){
                    btnNext.setClickable(false);
                    btnPrev.setClickable(false);
                    //when slide show option is checked,
                    // gallery view checkbox is disable
                    chkGrid.setClickable(false);
+
                    simpleViewFlipper.setAutoStart(true);
                    simpleViewFlipper.setFlipInterval(interval);
                    simpleViewFlipper.startFlipping();
 
-                   // NOTE: only prevents the slide show when displaying the last picture and checking the box
-//                   if(simpleViewFlipper.getDisplayedChild() >= animals.length - 1){
-//                       simpleViewFlipper.stopFlipping();
-//                       btnNext.setClickable(true);
-//                       btnPrev.setClickable(true);
-//                   }
+                   // Animates the transitions for each image and stops the flipping once at the end of the image list
+                   instantiateAnimationListener();
+
                }
                // When the "Slide show" checkbox is unchecked
                // the slide show ends
                else{
                    simpleViewFlipper.stopFlipping();
+                   // reset the animations so there is visual glitches
+                   simpleViewFlipper.setInAnimation(null);
+                   simpleViewFlipper.setOutAnimation(null);
+
                    btnNext.setClickable(true);
                    btnPrev.setClickable(true);
                    //when slide show option is unchecked,
@@ -159,4 +164,31 @@ public class MainActivity extends AppCompatActivity {
             simpleViewFlipper.addView(imageView);
         }
     }
+
+    private void instantiateAnimationListener() {
+        simpleViewFlipper.setInAnimation(AnimationUtils.loadAnimation(context,R.anim.slide_in_right));
+        simpleViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_out_left));
+
+        Animation.AnimationListener mAnimationListener = new Animation.AnimationListener() {
+
+            public void onAnimationStart(Animation animation) {
+            }
+
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            // We only care about the end of the animation since the slide show must stop at the end
+            public void onAnimationEnd(Animation animation) {
+                if (simpleViewFlipper.getDisplayedChild() == animals.length - 1){
+                    simpleViewFlipper.stopFlipping();
+                    // reset the animations so there is no visual glitches
+                    simpleViewFlipper.setInAnimation(null);
+                    simpleViewFlipper.setOutAnimation(null);
+                }
+            }
+        };
+
+        simpleViewFlipper.getInAnimation().setAnimationListener(mAnimationListener);
+    }
+
 }
