@@ -165,6 +165,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Instantiates the AnimationListener for simpleViewFlipper with the necessary information
+     */
     private void instantiateAnimationListener() {
         simpleViewFlipper.setInAnimation(AnimationUtils.loadAnimation(context,R.anim.slide_in_right));
         simpleViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_out_left));
