@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.animal16, R.drawable.animal17, R.drawable.animal18, R.drawable.animal19,
             R.drawable.animal20,R.drawable.animal21,R.drawable.animal22,R.drawable.animal23,
             R.drawable.animal24};
-
-    GridView gridview;
     ArrayList<imageModel> arrayImage;
 
 
@@ -72,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        int interval = 500;
+        int interval = 3000;
         // Slide View Option
        chkSlide.setOnClickListener(new View.OnClickListener() {
            @Override
