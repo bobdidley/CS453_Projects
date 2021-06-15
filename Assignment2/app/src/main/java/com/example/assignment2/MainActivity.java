@@ -17,30 +17,37 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button btnPrev, btnNext;
     private CheckBox chkSlide, chkGrid;
-    int[] animals = {R.drawable.animal13, R.drawable.animal14, R.drawable.animal15,
+    private int[] animals = {R.drawable.animal13, R.drawable.animal14, R.drawable.animal15,
             R.drawable.animal16, R.drawable.animal17, R.drawable.animal18, R.drawable.animal19,
             R.drawable.animal20,R.drawable.animal21,R.drawable.animal22,R.drawable.animal23,
             R.drawable.animal24};
     ArrayList<imageModel> arrayImage;
 
 
+    /**
+     * All the listeners for the buttons and their functionality are set upon creation.
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // XML id connections
         context = getApplicationContext();
         simpleViewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
         btnPrev = (Button) findViewById(R.id.btnPrevious);
         btnNext = (Button) findViewById(R.id.btnNext);
         chkSlide = (CheckBox) findViewById(R.id.chkBoxShow);
-
         gridView = (GridView) findViewById(R.id.viewGrid);
         chkGrid = (CheckBox) findViewById(R.id.chkBoxGallery);
         arrayImage = new ArrayList<>();
 
+        // instantiation methods
         instantiateGridView();
         instantiateViewFlipper();
 
+        // Next button represented by '>>' and stops showing next image if at the end of the image list
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //
+        // Previous button represented by '<<' and stops showing previous image if at the beginning of the image list
         btnPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,8 +77,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        // Slide View check box toggles an automatic flip through all images in the list
         int interval = 3000;
-        // Slide View Option
        chkSlide.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -79,10 +87,9 @@ public class MainActivity extends AppCompatActivity {
                // must not be currently displaying last image,
                // then slide show runs
                if(chkSlide.isChecked() && simpleViewFlipper.getDisplayedChild() < animals.length - 1){
+                   // must disable other buttons while slide show is in progress
                    btnNext.setClickable(false);
                    btnPrev.setClickable(false);
-                   //when slide show option is checked,
-                   // gallery view checkbox is disable
                    chkGrid.setClickable(false);
 
                    simpleViewFlipper.setAutoStart(true);
@@ -97,14 +104,13 @@ public class MainActivity extends AppCompatActivity {
                // the slide show ends
                else{
                    simpleViewFlipper.stopFlipping();
-                   // reset the animations so there is visual glitches
+                   // reset the animations so there is no visual glitches
                    simpleViewFlipper.setInAnimation(null);
                    simpleViewFlipper.setOutAnimation(null);
 
+                   // must enable other buttons when slide show is no longer in progress
                    btnNext.setClickable(true);
                    btnPrev.setClickable(true);
-                   //when slide show option is unchecked,
-                   // gallery view checkbox is available
                    chkGrid.setClickable(true);
                }
 
@@ -115,19 +121,21 @@ public class MainActivity extends AppCompatActivity {
            @Override
            public void onClick(View v) {
                if(chkGrid.isChecked()) {
+                   // must disable other buttons while gallery is displayed
                    btnNext.setClickable(false);
                    btnPrev.setClickable(false);
-                   //when gallery view option is checked,
-                   // slide show checkbox is disable
                    chkSlide.setClickable(false);
+
+                   // switch the visibility ViewFlipper to GridView
                    simpleViewFlipper.setVisibility(View.INVISIBLE);
                    gridView.setVisibility(View.VISIBLE);
                }
                else {
+                   // switch the visibility GridView to ViewFlipper
                    gridView.setVisibility(View.INVISIBLE);
                    simpleViewFlipper.setVisibility(View.VISIBLE);
-                   //when gallery view option is checked,
-                   //slide show checkbox is disable
+
+                   // must enable other buttons when gallery is no longer displayed
                    chkSlide.setClickable(true);
                    btnNext.setClickable(true);
                    btnPrev.setClickable(true);
@@ -137,12 +145,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Instantiates the GridView object with the necessary information
+     * Instantiates the GridView object with the necessary information.
      */
     private void instantiateGridView() {
-        for (int j : animals) {
+        for (int animalIndex : animals) {
             imageModel imageModel = new imageModel();
-            imageModel.setmThumbIds(j);
+            imageModel.setmThumbIds(animalIndex);
             // add in array list
             arrayImage.add(imageModel);
         }
@@ -151,18 +159,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Instantiates the ViewFlipper object with the necessary information
+     * Instantiates the ViewFlipper object with the necessary information.
      */
     private void instantiateViewFlipper() {
-        for (int animal : animals) {
+        for (int animalIndex : animals) {
             imageView = new ImageView(this);
-            imageView.setImageResource(animal);
+            imageView.setImageResource(animalIndex);
             simpleViewFlipper.addView(imageView);
         }
     }
 
     /**
-     * Instantiates the AnimationListener for simpleViewFlipper with the necessary information
+     * Instantiates the AnimationListener for simpleViewFlipper with the necessary information.
      */
     private void instantiateAnimationListener() {
         simpleViewFlipper.setInAnimation(AnimationUtils.loadAnimation(context,R.anim.slide_in_right));

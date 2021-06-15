@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!-- Control panel -->
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +13,8 @@
                 tools:context=".ControlPanel"
     >
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- Buttons -->
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,6 +22,8 @@
             android:layout_alignParentLeft="true"
             android:layout_marginTop="15dp"
             android:orientation="horizontal">
+
+        <!-- Previous button -->
 
         <Button
                 android:id="@+id/btnPrevious"
@@ -28,6 +33,8 @@
                 android:layout_marginLeft="60dp"
                 android:text="@string/previous"
                 android:textSize="25dp"/>
+
+        <!-- Next button -->
 
         <Button
                 android:id="@+id/btnNext"
@@ -39,11 +46,15 @@
                 android:textSize="25dp"/>
     </LinearLayout>
 
+    <!-- Check boxes -->
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="70dp"
             android:orientation="horizontal">
+
+        <!-- Gallery -->
 
         <CheckBox
                 android:id="@+id/chkBoxGallery"
@@ -52,6 +63,8 @@
                 android:layout_marginStart="60dp"
                 app:buttonTint="@color/teal_700"
                 android:text="@string/galleryview" />
+
+        <!-- Slide show -->
 
         <CheckBox
                 android:id="@+id/chkBoxShow"

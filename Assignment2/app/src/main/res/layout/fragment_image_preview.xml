@@ -7,7 +7,8 @@
                 android:orientation="vertical"
                 tools:context=".ImagePreview">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- Slide show display -->
+
     <ViewFlipper
             android:id="@+id/viewFlipper"
             android:layout_width="match_parent"
@@ -15,6 +16,8 @@
             android:layout_centerInParent="true"
         >
     </ViewFlipper>
+
+    <!-- Gallery display -->
 
     <GridView
             android:id="@+id/viewGrid"

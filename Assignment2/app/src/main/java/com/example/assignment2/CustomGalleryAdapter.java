@@ -19,6 +19,11 @@ public class CustomGalleryAdapter extends BaseAdapter {
     private ArrayList<imageModel> animals;
     private LayoutInflater inflater;
 
+    /**
+     * Overloaded constructor
+     * @param applicationContext Context
+     * @param animals ArrayList<imageModel>
+     */
     public CustomGalleryAdapter(Context applicationContext, ArrayList<imageModel> animals){
         this.context = applicationContext;
         this.animals = animals;
@@ -40,6 +45,13 @@ public class CustomGalleryAdapter extends BaseAdapter {
         return i;
     }
 
+    /**
+     * Instantiates ImageView and sets the image resource as the specified image.
+     * @param i int
+     * @param view View
+     * @param viewGroup ViewGroup
+     * @return View
+     */
     @Override
     public View getView(int i, View view, ViewGroup viewGroup){
         ImageView imageView;

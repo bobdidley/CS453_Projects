@@ -7,6 +7,7 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+    <!-- Image preview fragment -->
 
     <fragment
         android:id="@+id/frag_image"
@@ -19,6 +20,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <!-- Control panel fragment -->
 
     <fragment
         android:id="@+id/frag_control"
