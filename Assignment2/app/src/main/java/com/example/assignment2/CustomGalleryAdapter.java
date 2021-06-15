@@ -16,8 +16,8 @@ import static com.example.assignment2.R.layout.*;
 
 public class CustomGalleryAdapter extends BaseAdapter {
     private Context context;
-    ArrayList<imageModel> animals;
-    LayoutInflater inflater;
+    private ArrayList<imageModel> animals;
+    private LayoutInflater inflater;
 
     public CustomGalleryAdapter(Context applicationContext, ArrayList<imageModel> animals){
         this.context = applicationContext;

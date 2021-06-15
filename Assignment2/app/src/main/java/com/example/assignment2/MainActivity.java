@@ -121,9 +121,7 @@ public class MainActivity extends AppCompatActivity {
                    // slide show checkbox is disable
                    chkSlide.setClickable(false);
                    simpleViewFlipper.setVisibility(View.INVISIBLE);
-//                   gridView.setAdapter(galleryAdapter);   // ERROR: app crashes here
                    gridView.setVisibility(View.VISIBLE);
-
                }
                else {
                    gridView.setVisibility(View.INVISIBLE);
