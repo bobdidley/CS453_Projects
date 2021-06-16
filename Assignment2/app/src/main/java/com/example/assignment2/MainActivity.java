@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                // when the "Slide Show" checkbox is checked,
                // must not be currently displaying last image,
                // then slide show runs
-               if(chkSlide.isChecked() && simpleViewFlipper.getDisplayedChild() < animals.length - 1){
+               if(chkSlide.isChecked()){
                    // must disable other buttons while slide show is in progress
                    btnNext.setClickable(false);
                    btnPrev.setClickable(false);
@@ -188,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
             public void onAnimationEnd(Animation animation) {
                 if (simpleViewFlipper.getDisplayedChild() == animals.length - 1){
                     simpleViewFlipper.stopFlipping();
+                    Toast.makeText(context, "Slide show over", Toast.LENGTH_SHORT).show();
                     // reset the animations so there is no visual glitches
                     simpleViewFlipper.setInAnimation(null);
                     simpleViewFlipper.setOutAnimation(null);
