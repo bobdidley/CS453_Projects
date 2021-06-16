@@ -1,3 +1,12 @@
+/**
+ * This is the image preview fragment where images will be displayed.
+ *
+ * @file ImagePreview.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 06/15/2021
+ * @version 1.0
+ */
+
 package com.example.assignment2;
 
 import android.os.Bundle;

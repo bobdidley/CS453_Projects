@@ -1,3 +1,13 @@
+/**
+ * This is the main screen, it contains two fragments (ImagePreview and ControlPanel) that provide an photo album
+ * interface. All buttons, animations, and other necessary objects in between are created and displayed here.
+ *
+ * @file MainActivity.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 06/15/2021
+ * @version 1.0
+ */
+
 package com.example.assignment2;
 
 import android.content.Context;

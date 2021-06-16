@@ -1,3 +1,12 @@
+/**
+ * This is the adapter to allow multiple images be displayed in a grid view.
+ *
+ * @file CustomGalleryAdapter.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 06/15/2021
+ * @version 1.0
+ */
+
 package com.example.assignment2;
 
 import android.content.Context;

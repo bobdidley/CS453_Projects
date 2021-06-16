@@ -1,3 +1,12 @@
+/**
+ * This is the control panel fragment where the user can select items to enable different view options.
+ *
+ * @file ControlPanel.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 06/15/2021
+ * @version 1.0
+ */
+
 package com.example.assignment2;
 
 import android.os.Bundle;
