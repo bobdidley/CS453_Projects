@@ -1,9 +1,7 @@
 package com.example.project3.content;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -16,57 +14,58 @@ public class Vehicles {
     /**
      * An array of sample (placeholder) items.
      */
-    public static final List<PlaceholderItem> ITEMS = new ArrayList<PlaceholderItem>();
+    public static final List<Vehicle> VEHICLE_ITEMS = new ArrayList<>();
 
-    /**
-     * A map of sample (placeholder) items, by ID.
-     */
-    public static final Map<String, PlaceholderItem> ITEM_MAP = new HashMap<String, PlaceholderItem>();
+    // The ID for the index into vehicle
+    public static final String VEHICLE_ID_KEY = "item_id";
 
-    private static final int COUNT = 25;
+    private static final int COUNT = 5;
 
-    static {
-        // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createPlaceholderItem(i));
-        }
-    }
-
-    private static void addItem(PlaceholderItem item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
-    }
-
-    private static PlaceholderItem createPlaceholderItem(int position) {
-        return new PlaceholderItem(String.valueOf(position), "Item " + position, makeDetails(position));
-    }
-
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
-    }
-
-    /**
-     * A placeholder item representing a piece of content.
-     */
-    public static class PlaceholderItem {
-        public final String id;
-        public final String content;
+    public static class Vehicle {
+        public final String title;
         public final String details;
 
-        public PlaceholderItem(String id, String content, String details) {
-            this.id = id;
-            this.content = content;
-            this.details = details;
+
+        private Vehicle( String newTitle, String newDetail) {
+            this.title = newTitle;
+            this.details = newDetail;
         }
 
-        @Override
-        public String toString() {
-            return content;
+    }
+
+
+    private static void addItem(Vehicle item) { VEHICLE_ITEMS.add(item);
+    }
+    
+    static{
+        // Fill in array with vehicles
+        for(int i=0; i<COUNT; i++){
+            addItem(createVehicleAtPosition(i));
         }
     }
+
+    private static Vehicle createVehicleAtPosition(int position) {
+        String newTitle;
+        String newDetail;
+        switch (position) {
+            case 0:
+                newTitle = "Cry for a Shadow";
+                newDetail = "Cry for a Shadow\n\nMany a Beatle fanatic " +
+                        "started down the outtake road, like I did, with a " +
+                        "first listen to this song. Originally titled “Beatle Bop” and recorded in a single session that yielded four songs (the other three featured Tony Sheridan with the Beatles as a backing band), “Cry for a Shadow” is an instrumental written by Lennon and Harrison, which makes it unique to this day. John Lennon plays rhythm guitar, George Harrison plays lead guitar, Paul McCartney plays bass, and Pete Best plays drums. The sessions were produced by Bert Kaempfert in Hamburg, Germany, during the Beatles’ second visit from April through July of 1961 to play in the Reeperbahn-section clubs.";
+                break;
+            case 1:
+                newTitle = "My Bonnie - Ain’t She Sweet";
+                newDetail = "My Bonnie - Ain’t She Sweet\n\nAt the same session, the Beatles played on “My Bonnie” (the first-ever single with Beatles playing), as the backing band for English singer Tony Sheridan, originally a member of the Jets. The popularity of this single in Liverpool brought the Beatles to the attention of Brian Epstein, who worked in the NEMS record store and tried to meet demand for the disc. John Lennon then sings a fine “Ain’t She Sweet” (his first-ever released vocal).";
+                break;
+            default:
+                newTitle = "One After 909";
+                newDetail = "One After 909\n\nA song recorded for the Let It Be album was actually worked on way back in the beginning, six years earlier. This take shows how they did it much more slowly, with an R&B feel to it.";
+                break;
+        }
+        return new Vehicle (newTitle, newDetail);
+    }
+
+
+
 }
