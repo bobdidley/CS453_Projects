@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.project3.placeholder.PlaceholderContent;
+import com.example.project3.content.Vehicles;
 
 /**
  * A fragment representing a list of Items.
@@ -64,7 +64,7 @@ public class VehicleListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS));
+            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(Vehicles.ITEMS));
         }
         return view;
     }
