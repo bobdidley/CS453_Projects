@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private RecyclerView rv;
     private boolean mTwoPane = false;
     private Spinner spin_make;
-
+    private ArrayList<Vehicles.Vehicle> modelArrayList;
     // NOTE: consider reducing HTTP into it's own class
     // HTTP request variables
     private final static String URL_MAKES    = "https://thawing-beach-68207.herokuapp.com/carmakes";                       // available car makes
@@ -118,11 +118,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 try {
 //                    JSONObject jsonObject = new JSONObject(jsonStr);   // JSON Object is already an array, don't need to distinguish from other arrays
                     JSONArray jsonArray = new JSONArray(jsonStr);
-
+                    //
+                    modelArrayList = new ArrayList<>();
                     for(int i = 0; i < jsonArray.length(); ++i) {
                         JSONObject details = jsonArray.getJSONObject(i);   // index the JSON array for each individual JSON object then derive information
 
                         HashMap<String, String> info = new HashMap<>();
+
+                        Vehicles.Vehicle model = new Vehicles.Vehicle();
+                        model.setVehicleID(details.getString("id"));
+                        model.setVehicleMakes(details.getString("vehicle_make"));
+                        modelArrayList.add(model);
 
                         // works for as many keys the JSON object has, I assume it works for all JSON forms
                         Iterator<String> it = details.keys();
@@ -150,13 +156,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 pDialog.dismiss();
             }
 
+
             // trying to set the JSON information into the Spinner options using ArrayAdapter
             ArrayList<String> makes = new ArrayList<>();
-            for(HashMap<String, String> i : vehicleList) {
-                if(i.containsKey("vehicle_make")) {
-                    makes.add(i.get("vehicle_make"));
-                }
+            //
+            //
+            for (int i = 0; i < modelArrayList.size(); i++){
+                makes.add(modelArrayList.get(i).getVehicleMakes().toString());
             }
+
+            //for(HashMap<String, String> i : vehicleList) {
+            //    if(i.containsKey("vehicle_make")) {
+            //        makes.add(i.get("vehicle_make"));
+            //    }
+            //}
             ArrayAdapter<String> aa_makes = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item, makes);
             spin_make.setAdapter(aa_makes);   // NOTE: does not set information, either due to asynchronous issue or improper data linkage
 
@@ -186,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
             holder.mIdView.setText(String.valueOf(position +1));
-            holder.mContentView.setText(mValues.get(position).title);
+            holder.mContentView.setText(mValues.get(position).vID);
         }
 
         @Override
