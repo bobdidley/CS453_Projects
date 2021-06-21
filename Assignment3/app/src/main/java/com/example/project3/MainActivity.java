@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayList<HashMap<String, String>> vehicleList;
 
     // debug
-//    private String[] makes = {"", "Car1", "Car2"};
+    //private String[] makes = {"", "Car1", "Car2"};
+    //private String[] makes = {""};
     private String[] models = {"", "Mod1", "Mod2"};
 
     @Override
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Spinner spin_model = findViewById(R.id.spinner_model);
         spin_make.setOnItemSelectedListener(this);
         spin_model.setOnItemSelectedListener(this);
-//        ArrayAdapter<String> aa_makes = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, makes);
+        //ArrayAdapter<String> aa_makes = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, makes);
         ArrayAdapter<String> aa_models = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, models);
 //        spin_make.setAdapter(aa_makes);
         spin_model.setAdapter(aa_models);
@@ -119,16 +120,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                    JSONObject jsonObject = new JSONObject(jsonStr);   // JSON Object is already an array, don't need to distinguish from other arrays
                     JSONArray jsonArray = new JSONArray(jsonStr);
                     //
-                    modelArrayList = new ArrayList<>();
+                    //modelArrayList = new ArrayList<>();
                     for(int i = 0; i < jsonArray.length(); ++i) {
                         JSONObject details = jsonArray.getJSONObject(i);   // index the JSON array for each individual JSON object then derive information
 
                         HashMap<String, String> info = new HashMap<>();
 
-                        Vehicles.Vehicle model = new Vehicles.Vehicle();
-                        model.setVehicleID(details.getString("id"));
-                        model.setVehicleMakes(details.getString("vehicle_make"));
-                        modelArrayList.add(model);
+                        // Fiona - try
+                        //Vehicles.Vehicle model = new Vehicles.Vehicle();
+                        //model.setVehicleID(details.getString("id"));
+                        //model.setVehicleMakes(details.getString("vehicle_make"));
+                        //String id = details.getString("id");
+                       //String make = details.getString("vehicle_make");
+                        //info.put(id, make);
+                        //makes[i] = info.get(make);
+
 
                         // works for as many keys the JSON object has, I assume it works for all JSON forms
                         Iterator<String> it = details.keys();
@@ -160,10 +166,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             // trying to set the JSON information into the Spinner options using ArrayAdapter
             ArrayList<String> makes = new ArrayList<>();
             //
-            //
-            for (int i = 0; i < modelArrayList.size(); i++){
-                makes.add(modelArrayList.get(i).getVehicleMakes().toString());
-            }
+            // Fiona - try
+            //for (int i = 0; i < modelArrayList.size(); i++){
+            //    makes.add(modelArrayList.get(i).getVehicleMakes().toString());
+            //}
 
             //for(HashMap<String, String> i : vehicleList) {
             //    if(i.containsKey("vehicle_make")) {
