@@ -79,7 +79,7 @@ public class VehicleListFragment extends Fragment {
 ////            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(Vehicles.ITEMS));
 //        }
         if(mVehicle!=null){
-            ((TextView) view.findViewById(R.id.vehicle_detail)).setText(mVehicle.details);
+//            ((TextView) view.findViewById(R.id.vehicle_detail)).setText(mVehicle.details);
         }
         return view;
     }

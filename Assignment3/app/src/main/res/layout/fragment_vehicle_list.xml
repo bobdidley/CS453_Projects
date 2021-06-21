@@ -9,7 +9,7 @@
     android:layout_height="wrap_content">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+        android:id="@+id/vehicle_list"
         android:name="com.example.project3.VehicleListFragment"
         android:layout_width="366dp"
         android:layout_height="match_parent"
