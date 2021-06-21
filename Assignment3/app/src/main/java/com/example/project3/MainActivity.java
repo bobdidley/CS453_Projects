@@ -27,14 +27,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle_list);
 
+        /**
+         * Spinner data initialization
+         */
         Spinner spin_make = findViewById(R.id.spinner_make);
-        spin_make.setOnItemSelectedListener(this);
         Spinner spin_model = findViewById(R.id.spinner_model);
+        spin_make.setOnItemSelectedListener(this);
         spin_model.setOnItemSelectedListener(this);
-
         ArrayAdapter<String> aa_makes = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, makes);
-        spin_make.setAdapter(aa_makes);
         ArrayAdapter<String> aa_models = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, models);
+        spin_make.setAdapter(aa_makes);
         spin_model.setAdapter(aa_models);
 
         RecyclerView rv = findViewById(R.id.list);
