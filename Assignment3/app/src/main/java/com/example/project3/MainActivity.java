@@ -1,7 +1,9 @@
 package com.example.project3;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     // variables used for project functionality once test variables have been proven to work
 
     private RecyclerView rv;
+    Context context;
     private boolean mTwoPane = false;   // used for tablet view compatibility
     private Spinner spin_make;
     private ArrayList<Makes.Make> modelArrayList;
@@ -35,8 +38,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private final static String URL_MAKES    = "https://thawing-beach-68207.herokuapp.com/carmakes";                       // available car makes
     private       static String URL_MODELS   = "https://thawing-beach-68207.herokuapp.com/carmodelmakes/<make_id>";        // available car models for specific make
     private       static String URL_VEHICLES = "https://thawing-beach-68207.herokuapp.com/cars/<make>/<model>/<zipcode>";  // available vehicles for specific make and model
-    ProgressDialog pDialog;
-    ArrayList<HashMap<String, String>> vehicleList;
+//    ProgressDialog pDialog;
 
     /*******************************************************************************/
 
@@ -44,8 +46,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     /********************************** TEST VARIABLES ************************************/
     // test for debugging purposes
 
-    private String[] makes = {"", "Car1", "Car2"};
+//    private String[] makes = {"", "Car1", "Car2"};
     private String[] models = {"", "Mod1", "Mod2"};
+//    private ArrayList<String> makes = new ArrayList<>();
+//    ArrayList<HashMap<String, String>> makes;
+    HashMap<String, String> makes = new HashMap<>();   // can be used for id tag in url
+//    ArrayList<HashMap<String, String>> vehicleList;
 
     /*******************************************************************************/
 
@@ -56,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle_list);
+        context = getApplicationContext();
 
         /**
          * Spinner data initialization
@@ -64,10 +71,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Spinner spin_model = findViewById(R.id.spinner_model);
         spin_make.setOnItemSelectedListener(this);
         spin_model.setOnItemSelectedListener(this);
-        ArrayAdapter<String> aa_makes = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, makes);
-        ArrayAdapter<String> aa_models = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, models);
-        spin_make.setAdapter(aa_makes);
+//        ArrayAdapter<String> aa_makes = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, makes);
+        ArrayAdapter<String> aa_models = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, models);
+//        spin_make.setAdapter(aa_makes);
         spin_model.setAdapter(aa_models);
+
+        new GetMakes().execute();
 
         rv = findViewById(R.id.vehicle_list);
         // debug
@@ -82,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // Spinner items are selected
+//        Toast.makeText(context, makes.get(position), Toast.LENGTH_SHORT).show();
 
         // Query the JSON data and display on fragment_vehicle_list
     }
@@ -98,7 +108,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      * Asynchronous JSON data retrieval
      * Parsing JSON data for Makes spinner
      */
-    private class GetVehicles extends AsyncTask<Void, Void, Void> {
+    private class GetMakes extends AsyncTask<Void, Void, Void> {
+
+        ProgressDialog pDialog;
+        Context context = spin_make.getContext();
+        ArrayList<String> vehicle_makes = new ArrayList<>();
+//        makes = new HashMap<String, String>();
 
         @Override
         protected void onPreExecute() {
@@ -124,17 +139,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     for(int i = 0; i < jsonArray.length(); ++i) {
                         JSONObject details = jsonArray.getJSONObject(i);   // index the JSON array for each individual JSON object then derive information
 
+                        // NOTE: this code is reusable
                         HashMap<String, String> info = new HashMap<>();
-
-                        // Could use this if we keep the Vehicles class
-                        //Vehicles.Vehicle model = new Vehicles.Vehicle();
-                        //model.setVehicleID(details.getString("id"));
-                        //model.setVehicleMakes(details.getString("vehicle_make"));
-                        //String id = details.getString("id");
-                        //String make = details.getString("vehicle_make");
-                        //info.put(id, make);
-                        //makes[i] = info.get(make);
-
 
                         // works for as many keys the JSON object has, I assume it works for all JSON forms
                         Iterator<String> it = details.keys();
@@ -142,11 +148,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             String key = it.next();
                             String val = details.getString(key);
                             info.put(key, val);
+
+                            // debug
+                            Log.i("Key = ", key);
+                            Log.i("Val = ", val);
                         }
+                        Log.i("Info:", info.toString());
 
-                        vehicleList.add(info);
+                        vehicle_makes.add(info.get("vehicle_make"));
+                        makes.put(info.get("id"), info.get("vehicle_make"));
+//                        Log.i("Make:", makes.toString());
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -162,7 +174,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 pDialog.dismiss();
             }
 
-            // try to set the JSON information into the Spinner options
+            // set array to spinner options
+            ArrayAdapter<String> make_adapt = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, vehicle_makes);
+            make_adapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spin_make.setAdapter(make_adapt);
+
         }
     }
 
