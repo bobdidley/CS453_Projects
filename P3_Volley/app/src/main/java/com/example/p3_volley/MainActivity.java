@@ -3,6 +3,8 @@ package com.example.p3_volley;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -16,15 +18,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView tv;
     private RequestQueue mQueue;
+    private ArrayList<String> names = new ArrayList<String>();
+    private List<String> name = new ArrayList<>();
+    private Spinner spinner_make;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        spinner_make = findViewById(R.id.spinner_make);
 
         tv = findViewById(R.id.textview);
         mQueue = Volley.newRequestQueue(MainActivity.this);
@@ -43,12 +53,18 @@ public class MainActivity extends AppCompatActivity {
                             for(int i=0; i<jsonArray.length(); i++){
                                 JSONObject obj = jsonArray.getJSONObject(i);
                                 String name = obj.getString("name");
+                                names.add(name);
                                 tv.append(name);
 
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
+                        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(MainActivity.this,
+                                R.layout.simple_spinner_layout,names);
+                        spinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+                        spinner_make.setAdapter(spinnerAdapter);
 
 
                     }
