@@ -2,6 +2,7 @@ package com.example.project3;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.*;
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     HashMap<String, String> models = new HashMap<>();   // can be used for id tag in url
 //    ArrayList<HashMap<String, String>> vehicleList;
 
+    boolean hasExecuted = false;
+
     /*******************************************************************************/
 
 
@@ -93,6 +96,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // Spinner items are selected
+        if ((position == 0)) {
+            ((TextView) view).setTextColor(Color.GRAY);
+        } else {
+//            ((TextView) view).setTextColor(Color.BLACK);
+            --position;
+        }
         /* makes.keySet().toArray()[position].toString() --> this translates the key set (make ids in the hashmap)
          *                                                   to an array then indexes that array with int position
          *                                                   to retrieve the key in the hashmap
@@ -100,8 +109,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Toast.makeText(context, "make_id = " + makes.keySet().toArray()[position].toString(), Toast.LENGTH_SHORT).show();
 
         // Query the JSON data and display on fragment_vehicle_list
-        Integer make_id = Integer.parseInt(makes.keySet().toArray()[position].toString());
-        new GetModels().execute(make_id);
+        if(!hasExecuted) {
+            Integer make_id = Integer.parseInt(makes.keySet().toArray()[position].toString());
+            new GetModels().execute(make_id);
+        }
+        hasExecuted = true;
     }
 
     @Override
@@ -127,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         protected void onPreExecute() {
             super.onPreExecute();
 
+            vehicle_makes.add("Select a make");
             doPreExecute();
         }
 
@@ -194,6 +207,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         protected void onPreExecute() {
             super.onPreExecute();
 
+            vehicle_models.add("Select a model");
             doPreExecute();
         }
 
@@ -208,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             // Modify url string accordingly
             try {
+//                URL_MODELS += integers[0];
                 URL_MODELS = URL_MODELS.substring(0, URL_MODELS.indexOf("<make_id>")) + integers[0];
             } catch(IndexOutOfBoundsException idx) {
             }
@@ -228,7 +243,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         vehicle_models.add(info.get("model"));
                         models.put(info.get("id"), info.get("model"));
                     }
-                    Log.i("End For", "Reached the end of the for-loop");
+                    // debug
+//                    Log.i("End For", "Reached the end of the for-loop");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
