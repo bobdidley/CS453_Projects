@@ -301,9 +301,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Index which spinner object you want to set the adapter to
         // NOTE: there may be an error where the adapter is not set to the spinner
         switch(spin) {
-            case 0: spin_make.setAdapter(adapter);
-            case 1: spin_model.setAdapter(adapter);
-            default: Log.e("Spinner Adapter", "Spinner was not set to an adapter");
+            case 0: spin_make.setAdapter(adapter); break;
+            case 1: spin_model.setAdapter(adapter); break;
+            default: Log.e("Spinner Adapter", "Spinner was not set to an adapter"); break;
         }
     }
 
