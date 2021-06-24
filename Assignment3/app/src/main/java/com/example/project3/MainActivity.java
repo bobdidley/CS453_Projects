@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     LinkedHashMap<String, String> makes = new LinkedHashMap<>();   // can be used for id tag in url
     LinkedHashMap<String, String> models = new LinkedHashMap<>();   // can be used for id tag in url
-//    ArrayList<HashMap<String, String>> vehicleList;
+    ArrayList<HashMap<String, String>> vehicleList = new ArrayList<>();   // NOTE: insertion order is not preserved
 
     boolean hasExecuted = true;
 
@@ -95,43 +95,73 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     /*******************************************************************************/
 
 
-    /********************************** SPINNER ************************************/
+    /********************************** SPINNER LOGIC ************************************/
+
+    Integer make_id = -1;
+    Integer model_id = -1;
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        /* makes.keySet().toArray()[position].toString() --> this translates the key set (make ids in the hashmap)
-         *                                                   to an array then indexes that array with int position
-         *                                                   to retrieve the key in the hashmap
-         */
-        Integer make_id = -1;
 
-        // Spinner items are selected
-        if (position == 0) {   // checks if the option position is the first default option, and does not let execute
-            ((TextView) view).setTextColor(Color.GRAY);
-            hasExecuted = true;
+        if (parent.getId() == spin_make.getId()){
+            // Spinner items are selected
+            if (position == 0) {   // checks if the option position is the first default option, and does not let execute
+                ((TextView) view).setTextColor(Color.GRAY);
+                hasExecuted = true;
+
+                // debug
+                Log.i("Position 0", "On the first spinner option");
+            } else if (position > 0) {   // position must not be default
+                hasExecuted = false;
+
+                /* makes.keySet().toArray()[position].toString() --> this translates the key set (make ids in the hashmap)
+                 *                                                   to an array then indexes that array with int position
+                 *                                                   to retrieve the key in the hashmap
+                 */
+                make_id = Integer.parseInt(makes.keySet().toArray()[position].toString());
+
+                // debug
+                Log.i("hasExecuted", "Not on the default position");
+                Log.i("Selected Make", "" + make_id);
+                Log.i("Makes Key Set", makes.keySet().toString());
+//                Toast.makeText(context, "make_id = " + make_id, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "position = " + position, Toast.LENGTH_SHORT).show();
+            }
 
             // debug
-            Log.i("Position 0", "On the first spinner option");
-        } else if(position > 0) {   // position must not be default
-            hasExecuted = false;
-            make_id = Integer.parseInt(makes.keySet().toArray()[position].toString());
-            --position;
+            Log.i("hasExecuted", "" + hasExecuted);
+
+            // Query the JSON data and display on fragment_vehicle_list
+            if (!hasExecuted) {   // check if the GetModels has already executed to avoid endless loop
+                new GetModels().execute(make_id);
+            }
+            hasExecuted = true;   // NOTE: the program technically doesn't need this b/c the endless loop
+                                  //       is caught fairly quick but let's keep it for safety purposes
+        }
+        else if(parent.getId() == spin_model.getId()) {
+            // NOTE: the Models spinner may need its own hasExecuted boolean variable
+            if(position == 0) {
+                ((TextView) view).setTextColor(Color.GRAY);
+                hasExecuted = true;
+
+            } else if(position > 0) {
+                hasExecuted = false;
+                model_id = Integer.parseInt(models.keySet().toArray()[position].toString());
+            }
 
             // debug
-            Log.i("hasExecuted", "Not on the default position");
-            Log.i("Selected Make", "" + make_id);
-            Log.i("Makes Key Set", makes.keySet().toString());
+            Log.i("Models Key Set", models.keySet().toString());
+            Log.i("Make ID", "" + make_id);
+            Log.i("Model ID", "" + model_id);
             Toast.makeText(context, "make_id = " + make_id, Toast.LENGTH_SHORT).show();
-        }
+            Toast.makeText(context, "model_id = " + model_id, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "position = " + position, Toast.LENGTH_SHORT).show();
 
-        // debug
-        Log.i("hasExecuted", "" + hasExecuted);
-
-        // Query the JSON data and display on fragment_vehicle_list
-        if(!hasExecuted) {   // check if the GetModels has already executed to avoid endless loop
-            new GetModels().execute(make_id);
+            if (!hasExecuted) {   // check if the GetModels has already executed to avoid endless loop
+                new GetVehicles().execute(make_id, model_id);
+            }
+            hasExecuted = true;
         }
-        hasExecuted = true;
     }
 
     @Override
@@ -234,16 +264,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             HttpHandler httpHandler = new HttpHandler();
 
             // debug
-            Log.i("URL Models", URL_MODELS);
+            Log.i("URL Models Before", URL_MODELS);
             Log.i("Make Tag Index", "" + URL_MODELS.indexOf("<make_id>"));
             Log.i("Integer Params", "" + integers[0]);
 
             // Modify url string accordingly
             try {
 //                URL_MODELS += integers[0];
-                URL_MODELS = URL_MODELS.substring(0, URL_MODELS.indexOf("<make_id>")) + integers[0];
+                URL_MODELS = URL_MODELS.replace("<make_id>", integers[0].toString());
             } catch(IndexOutOfBoundsException idx) {
             }
+
+            // debug
+            Log.i("URL Models Modified", URL_MODELS);
 
             String jsonStr = httpHandler.makeServiceCall(URL_MODELS);
 
@@ -254,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
 
             // debug
-            Log.i("URL Models", URL_MODELS);
+            Log.i("URL Models After", URL_MODELS);
 
             if(jsonStr != null) {
                 try {
@@ -285,6 +318,104 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             doPostExecute(vehicle_models, 1);
             Log.i("Finish", "onPostExecute() finishes here");
         }
+    }
+
+    private class GetVehicles extends AsyncTask<Integer, Void, Void> {
+
+//        ArrayList<String> vehicle_vehicles = new ArrayList<>();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+//            vehicle_vehicles.add("Select a vehicle");
+            doPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            HttpHandler httpHandler = new HttpHandler();
+
+            // debug
+            Log.i("URL Vehicles Before", URL_VEHICLES);
+            Log.i("Make Tag Index", "" + URL_VEHICLES.indexOf("<make_id>"));
+            Log.i("Model Tag Index", "" + URL_VEHICLES.indexOf("<model_id>"));
+            Log.i("Zip Tag Index", "" + URL_VEHICLES.indexOf("<zipcode>"));
+            Log.i("Integer Params", "" + integers.toString());
+
+            // for reference
+//            "https://thawing-beach-68207.herokuapp.com/cars/<make_id>/<model_id>/<zipcode>";
+
+            // Modify url string accordingly
+            try {
+                URL_VEHICLES = URL_VEHICLES.replace("<make_id>", integers[0].toString());
+                URL_VEHICLES = URL_VEHICLES.replace("<model_id>", integers[1].toString());
+                URL_VEHICLES = URL_VEHICLES.replace("<zipcode>", zipcode);
+            } catch(IndexOutOfBoundsException idx) {
+            }
+
+            // debug
+            Log.i("URL Vehicles Modified", URL_VEHICLES);
+
+            String jsonStr = httpHandler.makeServiceCall(URL_VEHICLES);
+
+            // Revert the URL string change from reverse to not affect forward index
+            try {
+                URL_VEHICLES = URL_VEHICLES.replace(zipcode, "<zipcode>");
+//                URL_VEHICLES = URL_VEHICLES.substring(0, URL_VEHICLES.lastIndexOf(integers[1].toString())) + "<model_id>";
+
+                int int1_index = URL_VEHICLES.lastIndexOf(integers[1].toString());
+                int replace1_len = integers[1].toString().length();
+
+                // debug
+//                Log.i("INT1 idx", "" + int1_index);
+//                Log.i("INT1 len", "" + replace1_len);
+
+                URL_VEHICLES = URL_VEHICLES.substring(0, int1_index) + "<model_id>" + URL_VEHICLES.substring(int1_index + replace1_len);
+
+                int int0_index = URL_VEHICLES.lastIndexOf(integers[0].toString());
+                int replace0_len = integers[0].toString().length();
+
+                // debug
+//                Log.i("INT0 idx", "" + int0_index);
+//                Log.i("INT0 len", "" + replace0_len);
+
+                URL_VEHICLES = URL_VEHICLES.substring(0, int0_index) + "<make_id>" + URL_VEHICLES.substring(int0_index + replace0_len);
+            } catch(IndexOutOfBoundsException idx) {
+            }
+
+            // debug
+            Log.i("URL Vehicles After", URL_VEHICLES);
+
+            if(jsonStr != null) {
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonStr);                // create the JSON object
+                    JSONArray jsonArray = jsonObject.getJSONArray("lists");   // index for the necessary JSON array with "lists"
+
+                    for (int i = 0; i < jsonArray.length(); ++i) {
+                        // NOTE: insertion order is not preserved
+                        //       if we care for insertion order of the key value pairs then use LinkedHashMap
+                        //       but this should not be a problem
+                        HashMap<String, String> info = doJsonParsing(jsonArray, i);
+
+//                        vehicle_vehicles.add(info.get("model"));
+                        vehicleList.add(info);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return null;
+        }
+
+//        @Override
+//        protected void onPostExecute(Void result) {
+//            super.onPostExecute(result);
+//
+//            doPostExecute(vehicleList, -1);
+//            Log.i("Finish", "onPostExecute() finishes here");
+//        }
     }
 
     /*******************************************************************************/
@@ -350,15 +481,24 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
 
         // set array to spinner options
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, data);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter;
 
         // Index which spinner object you want to set the adapter to
         // NOTE: there may be an error where the adapter is not set to the spinner
         switch(spin) {
-            case 0: spin_make.setAdapter(adapter); break;
-            case 1: spin_model.setAdapter(adapter); break;
-            default: Log.e("Spinner Adapter", "Spinner was not set to an adapter"); break;
+            case 0:   // spin_make
+                adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, data);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spin_make.setAdapter(adapter);
+                break;
+            case 1:   // spin_model
+                adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, data);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spin_model.setAdapter(adapter);
+                break;
+            case 2:   // vehicleList
+                break;
+            default: Log.w("Spinner Adapter", "Spinner was not set to an adapter"); break;
         }
     }
 
