@@ -18,10 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener  {
 
@@ -31,14 +28,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private RecyclerView rv;
     Context context;
     private boolean mTwoPane = false;   // used for tablet view compatibility
+
     private Spinner spin_make;
-    private ArrayList<Makes.Make> modelArrayList;
+    private Spinner spin_model;
+
     // NOTE: consider reducing HTTP into it's own class
     // HTTP request variables
     private final static String URL_MAKES    = "https://thawing-beach-68207.herokuapp.com/carmakes";                       // available car makes
     private       static String URL_MODELS   = "https://thawing-beach-68207.herokuapp.com/carmodelmakes/<make_id>";        // available car models for specific make
-    private       static String URL_VEHICLES = "https://thawing-beach-68207.herokuapp.com/cars/<make>/<model>/<zipcode>";  // available vehicles for specific make and model
-//    ProgressDialog pDialog;
+    private       static String URL_VEHICLES = "https://thawing-beach-68207.herokuapp.com/cars/<make_id>/<model_id>/<zipcode>";  // available vehicles for specific make and model
+    String zipcode = "92603";
+
+    ProgressDialog pDialog;
 
     /*******************************************************************************/
 
@@ -47,10 +48,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     // test for debugging purposes
 
 //    private String[] makes = {"", "Car1", "Car2"};
-    private String[] models = {"", "Mod1", "Mod2"};
-//    private ArrayList<String> makes = new ArrayList<>();
-//    ArrayList<HashMap<String, String>> makes;
+//    private String[] models = {"", "Mod1", "Mod2"};
+
     HashMap<String, String> makes = new HashMap<>();   // can be used for id tag in url
+    HashMap<String, String> models = new HashMap<>();   // can be used for id tag in url
 //    ArrayList<HashMap<String, String>> vehicleList;
 
     /*******************************************************************************/
@@ -68,13 +69,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
          * Spinner data initialization
          */
         spin_make = findViewById(R.id.spinner_make);
-        Spinner spin_model = findViewById(R.id.spinner_model);
+        spin_model = findViewById(R.id.spinner_model);
         spin_make.setOnItemSelectedListener(this);
         spin_model.setOnItemSelectedListener(this);
+        // no longer need this
 //        ArrayAdapter<String> aa_makes = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, makes);
-        ArrayAdapter<String> aa_models = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, models);
+//        ArrayAdapter<String> aa_models = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, models);
 //        spin_make.setAdapter(aa_makes);
-        spin_model.setAdapter(aa_models);
+//        spin_model.setAdapter(aa_models);
 
         new GetMakes().execute();
 
@@ -91,9 +93,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // Spinner items are selected
-//        Toast.makeText(context, makes.get(position), Toast.LENGTH_SHORT).show();
+        /* makes.keySet().toArray()[position].toString() --> this translates the key set (make ids in the hashmap)
+         *                                                   to an array then indexes that array with int position
+         *                                                   to retrieve the key in the hashmap
+         */
+        Toast.makeText(context, "make_id = " + makes.keySet().toArray()[position].toString(), Toast.LENGTH_SHORT).show();
 
         // Query the JSON data and display on fragment_vehicle_list
+//        Integer make_id = (Integer) makes.keySet().toArray()[position];
+//        new GetModels().execute();
     }
 
     @Override
@@ -102,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     /*******************************************************************************/
 
 
-    /********************************** JSON PARSE ************************************/
+    /********************************** JSON PARSE FOR MAKES ************************************/
 
     /**
      * Asynchronous JSON data retrieval
@@ -110,8 +118,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      */
     private class GetMakes extends AsyncTask<Void, Void, Void> {
 
-        ProgressDialog pDialog;
-        Context context = spin_make.getContext();
+//        ProgressDialog pDialog;
+//        Context context = spin_make.getContext();
         ArrayList<String> vehicle_makes = new ArrayList<>();
 //        makes = new HashMap<String, String>();
 
@@ -119,11 +127,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         protected void onPreExecute() {
             super.onPreExecute();
 
-            // before data is loaded in
-            pDialog = new ProgressDialog(MainActivity.this);
-            pDialog.setMessage("Please wait...");
-            pDialog.setCancelable(false);
-            pDialog.show();
+            doPreExecute();
         }
 
         @Override
@@ -137,23 +141,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     JSONArray jsonArray = new JSONArray(jsonStr);
 
                     for(int i = 0; i < jsonArray.length(); ++i) {
-                        JSONObject details = jsonArray.getJSONObject(i);   // index the JSON array for each individual JSON object then derive information
+                        // reduced code into the doJsonParsing method
+//                        JSONObject details = jsonArray.getJSONObject(i);   // index the JSON array for each individual JSON object then derive information
+//
+//                        // NOTE: this code is reusable
+//                        HashMap<String, String> info = new HashMap<>();
+//
+//                        // works for as many keys the JSON object has, I assume it works for all JSON forms
+//                        Iterator<String> it = details.keys();
+//                        while(it.hasNext()) {
+//                            String key = it.next();
+//                            String val = details.getString(key);
+//                            info.put(key, val);
+//
+//                            // debug
+//                            Log.i("Key = ", key);
+//                            Log.i("Val = ", val);
+//                        }
+//                        Log.i("Info:", info.toString());
 
-                        // NOTE: this code is reusable
-                        HashMap<String, String> info = new HashMap<>();
-
-                        // works for as many keys the JSON object has, I assume it works for all JSON forms
-                        Iterator<String> it = details.keys();
-                        while(it.hasNext()) {
-                            String key = it.next();
-                            String val = details.getString(key);
-                            info.put(key, val);
-
-                            // debug
-                            Log.i("Key = ", key);
-                            Log.i("Val = ", val);
-                        }
-                        Log.i("Info:", info.toString());
+                        HashMap<String, String> info = doJsonParsing(jsonArray, i);
 
                         vehicle_makes.add(info.get("vehicle_make"));
                         makes.put(info.get("id"), info.get("vehicle_make"));
@@ -170,15 +177,58 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
-            if(pDialog.isShowing()) {
-                pDialog.dismiss();
+            doPostExecute(vehicle_makes, 0);
+        }
+    }
+
+    /*******************************************************************************/
+
+
+    /********************************** JSON PARSE FOR MODELS ************************************/
+
+    private class GetModels extends AsyncTask<Void, Void, Void> {
+
+        ArrayList<String> vehicle_models = new ArrayList<>();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            doPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... Void) {
+            HttpHandler httpHandler = new HttpHandler();
+            // Modify url string accordingly
+            URL_MODELS = URL_MODELS.substring(0, URL_MODELS.indexOf("<make_id>")) + "2"; //integers[0];
+            String jsonStr = httpHandler.makeServiceCall(URL_MODELS);
+
+            if(jsonStr != null) {
+                try {
+//                    JSONObject jsonObject = new JSONObject(jsonStr);   // JSON Object is already an array, don't need to distinguish from other arrays
+                    JSONArray jsonArray = new JSONArray(jsonStr);
+
+                    for(int i = 0; i < jsonArray.length(); ++i) {
+                        HashMap<String, String> info = doJsonParsing(jsonArray, i);
+
+                        vehicle_models.add(info.get("model"));
+                        models.put(info.get("id"), info.get("model"));
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
-            // set array to spinner options
-            ArrayAdapter<String> make_adapt = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, vehicle_makes);
-            make_adapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spin_make.setAdapter(make_adapt);
+            return null;
+        }
 
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            doPostExecute(vehicle_models, 1);
         }
     }
 
@@ -188,6 +238,74 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     /********************************** RECYCLER VIEW ADAPTER AND VIEW HOLDER ************************************/
     // need to create the ViewHolder and RecyclerView adapter
     // consider making the Spinners into ListViews for easier adapter code
+
+    /*******************************************************************************/
+
+
+    /********************************** REUSABLE CODE ************************************/
+
+    /**
+     * Common onPreExecute code
+     */
+    private void doPreExecute() {
+        // before data is loaded in
+        pDialog = new ProgressDialog(MainActivity.this);
+        pDialog.setMessage("Please wait...");
+        pDialog.setCancelable(false);
+        pDialog.show();
+    }
+
+    /**
+     * Parses through the JSON array and returns the HashMap containing the information associated to an item
+     * @param jsonArray JSONArray
+     * @param i int
+     * @return HashMap<String, String>
+     * @throws JSONException
+     */
+    private HashMap<String, String> doJsonParsing(JSONArray jsonArray, int i) throws JSONException {
+        JSONObject details = jsonArray.getJSONObject(i);   // index the JSON array for each individual JSON object then derive information
+
+        // NOTE: this code is reusable
+        HashMap<String, String> info = new HashMap<>();
+
+        // works for as many keys the JSON object has, I assume it works for all JSON forms
+        Iterator<String> it = details.keys();
+        while(it.hasNext()) {
+            String key = it.next();
+            String val = details.getString(key);
+            info.put(key, val);
+
+            // debug
+            Log.i("Key = ", key);
+            Log.i("Val = ", val);
+        }
+        Log.i("Info:", info.toString());
+
+        return info;
+    }
+
+    /**
+     * Common onPostExecute code
+     * @param data ArrayList<String>
+     * @param spin int
+     */
+    private void doPostExecute(ArrayList<String> data, int spin) {
+        if(pDialog.isShowing()) {
+            pDialog.dismiss();
+        }
+
+        // set array to spinner options
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, data);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Index which spinner object you want to set the adapter to
+        // NOTE: there may be an error where the adapter is not set to the spinner
+        switch(spin) {
+            case 0: spin_make.setAdapter(adapter);
+            case 1: spin_model.setAdapter(adapter);
+            default: Log.e("Spinner Adapter", "Spinner was not set to an adapter");
+        }
+    }
 
     /*******************************************************************************/
 }
