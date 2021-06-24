@@ -51,11 +51,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //    private String[] makes = {"", "Car1", "Car2"};
 //    private String[] models = {"", "Mod1", "Mod2"};
 
-    HashMap<String, String> makes = new HashMap<>();   // can be used for id tag in url
-    HashMap<String, String> models = new HashMap<>();   // can be used for id tag in url
+    LinkedHashMap<String, String> makes = new LinkedHashMap<>();   // can be used for id tag in url
+    LinkedHashMap<String, String> models = new LinkedHashMap<>();   // can be used for id tag in url
 //    ArrayList<HashMap<String, String>> vehicleList;
 
-    boolean hasExecuted = false;
+    boolean hasExecuted = true;
 
     /*******************************************************************************/
 
@@ -81,6 +81,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //        spin_make.setAdapter(aa_makes);
 //        spin_model.setAdapter(aa_models);
 
+        // default values for first position since adapter array has a default too
+        makes.put("", "");
+        models.put("", "");
+
         new GetMakes().execute();
 
         rv = findViewById(R.id.vehicle_list);
@@ -95,22 +99,36 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // Spinner items are selected
-        if ((position == 0)) {
-            ((TextView) view).setTextColor(Color.GRAY);
-        } else {
-//            ((TextView) view).setTextColor(Color.BLACK);
-            --position;
-        }
         /* makes.keySet().toArray()[position].toString() --> this translates the key set (make ids in the hashmap)
          *                                                   to an array then indexes that array with int position
          *                                                   to retrieve the key in the hashmap
          */
-        Toast.makeText(context, "make_id = " + makes.keySet().toArray()[position].toString(), Toast.LENGTH_SHORT).show();
+        Integer make_id = -1;
+
+        // Spinner items are selected
+        if (position == 0) {   // checks if the option position is the first default option, and does not let execute
+            ((TextView) view).setTextColor(Color.GRAY);
+            hasExecuted = true;
+
+            // debug
+            Log.i("Position 0", "On the first spinner option");
+        } else if(position > 0) {   // position must not be default
+            hasExecuted = false;
+            make_id = Integer.parseInt(makes.keySet().toArray()[position].toString());
+            --position;
+
+            // debug
+            Log.i("hasExecuted", "Not on the default position");
+            Log.i("Selected Make", "" + make_id);
+            Log.i("Makes Key Set", makes.keySet().toString());
+            Toast.makeText(context, "make_id = " + make_id, Toast.LENGTH_SHORT).show();
+        }
+
+        // debug
+        Log.i("hasExecuted", "" + hasExecuted);
 
         // Query the JSON data and display on fragment_vehicle_list
-        if(!hasExecuted) {
-            Integer make_id = Integer.parseInt(makes.keySet().toArray()[position].toString());
+        if(!hasExecuted) {   // check if the GetModels has already executed to avoid endless loop
             new GetModels().execute(make_id);
         }
         hasExecuted = true;
@@ -228,6 +246,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
 
             String jsonStr = httpHandler.makeServiceCall(URL_MODELS);
+
+            // Revert the URL string change
+            try {
+                URL_MODELS = URL_MODELS.substring(0, URL_MODELS.lastIndexOf(integers[0].toString())) + "<make_id>";
+            } catch(IndexOutOfBoundsException idx) {
+            }
 
             // debug
             Log.i("URL Models", URL_MODELS);
