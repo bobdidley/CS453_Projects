@@ -100,8 +100,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Toast.makeText(context, "make_id = " + makes.keySet().toArray()[position].toString(), Toast.LENGTH_SHORT).show();
 
         // Query the JSON data and display on fragment_vehicle_list
-//        Integer make_id = (Integer) makes.keySet().toArray()[position];
-//        new GetModels().execute();
+        Integer make_id = Integer.parseInt(makes.keySet().toArray()[position].toString());
+        new GetModels().execute(make_id);
     }
 
     @Override
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     /********************************** JSON PARSE FOR MODELS ************************************/
 
-    private class GetModels extends AsyncTask<Void, Void, Void> {
+    private class GetModels extends AsyncTask<Integer, Void, Void> {
 
         ArrayList<String> vehicle_models = new ArrayList<>();
 
@@ -198,11 +198,24 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
 
         @Override
-        protected Void doInBackground(Void... Void) {
+        protected Void doInBackground(Integer... integers) {
             HttpHandler httpHandler = new HttpHandler();
+
+            // debug
+            Log.i("URL Models", URL_MODELS);
+            Log.i("Make Tag Index", "" + URL_MODELS.indexOf("<make_id>"));
+            Log.i("Integer Params", "" + integers[0]);
+
             // Modify url string accordingly
-            URL_MODELS = URL_MODELS.substring(0, URL_MODELS.indexOf("<make_id>")) + "2"; //integers[0];
+            try {
+                URL_MODELS = URL_MODELS.substring(0, URL_MODELS.indexOf("<make_id>")) + integers[0];
+            } catch(IndexOutOfBoundsException idx) {
+            }
+
             String jsonStr = httpHandler.makeServiceCall(URL_MODELS);
+
+            // debug
+            Log.i("URL Models", URL_MODELS);
 
             if(jsonStr != null) {
                 try {
@@ -215,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         vehicle_models.add(info.get("model"));
                         models.put(info.get("id"), info.get("model"));
                     }
+                    Log.i("End For", "Reached the end of the for-loop");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -229,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             super.onPostExecute(result);
 
             doPostExecute(vehicle_models, 1);
+            Log.i("Finish", "onPostExecute() finishes here");
         }
     }
 
