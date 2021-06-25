@@ -28,8 +28,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     // variables used for project functionality once test variables have been proven to work
 
     private RecyclerView rv;
+    private ArrayAdapter<String> spinAdapter;
+    private VehicleListAdapter vehicleAdapter;
     Context context;
-    private boolean mTwoPane = false;   // used for tablet view compatibility
+    private boolean mTwoPane = false;   // used for tablet view compatibility, should be used in VehicleListAdapter
 
     private Spinner spin_make;
     private Spinner spin_model;
@@ -88,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         new GetMakes().execute();
 
+        vehicleAdapter = new VehicleListAdapter(MainActivity.this);
         rv = findViewById(R.id.vehicle_list);
         // debug
         // set rv adapter
@@ -104,6 +107,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+//        if(vehicleAdapter != null && vehicleAdapter.getItemCount() > 0) { vehicleAdapter.reset(); } //vehicleAdapter = null; }
+//        if(vehicleAdapter.getItemCount() > 0) { vehicleAdapter.reset(); } //vehicleAdapter = null; }
+
+        vehicleAdapter.reset();
+
         if (parent.getId() == spin_make.getId()){
             // Spinner items are selected
             if (position == 0) {   // checks if the option position is the first default option, and does not let execute
@@ -111,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 hasExecuted = true;
 
                 // debug
-                Log.i("Position 0", "On the first spinner option");
+//                Log.i("Position 0", "On the first spinner option");
             } else if (position > 0) {   // position must not be default
                 hasExecuted = false;
 
@@ -120,6 +128,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                  *                                                   to retrieve the key in the hashmap
                  */
                 make_id = Integer.parseInt(makes.keySet().toArray()[position].toString());
+
+//                if(vehicleAdapter != null && vehicleAdapter.getItemCount() > 0) { vehicleAdapter.reset(); }
+//                vehicleList.clear();
+//                if(vehicleAdapter != null) vehicleAdapter.notifyDataSetChanged();
 
                 // debug
                 Log.i("hasExecuted", "Not on the default position");
@@ -148,6 +160,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             } else if(position > 0) {
                 hasExecuted = false;
                 model_id = Integer.parseInt(models.keySet().toArray()[position].toString());
+
+//                if(vehicleAdapter != null && vehicleAdapter.getItemCount() > 0) { vehicleAdapter.reset(); }
+//                vehicleList.clear();
+//                if(vehicleAdapter != null) vehicleAdapter.notifyDataSetChanged();
+
             }
 
             // debug
@@ -156,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Log.i("Model ID", "" + model_id);
             Toast.makeText(context, "make_id = " + make_id, Toast.LENGTH_SHORT).show();
             Toast.makeText(context, "model_id = " + model_id, Toast.LENGTH_SHORT).show();
-            Toast.makeText(context, "position = " + position, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "position = " + position, Toast.LENGTH_SHORT).show();
 
             if (!hasExecuted) {   // check if the GetModels has already executed to avoid endless loop
                 new GetVehicles().execute(make_id, model_id);
@@ -179,10 +196,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      */
     private class GetMakes extends AsyncTask<Void, Void, Void> {
 
-//        ProgressDialog pDialog;
-//        Context context = spin_make.getContext();
         ArrayList<String> vehicle_makes = new ArrayList<>();
-//        makes = new HashMap<String, String>();
 
         @Override
         protected void onPreExecute() {
@@ -203,29 +217,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     JSONArray jsonArray = new JSONArray(jsonStr);
 
                     for(int i = 0; i < jsonArray.length(); ++i) {
-                        // reduced code into the doJsonParsing method
-//                        JSONObject details = jsonArray.getJSONObject(i);   // index the JSON array for each individual JSON object then derive information
-//
-//                        // NOTE: this code is reusable
-//                        HashMap<String, String> info = new HashMap<>();
-//
-//                        // works for as many keys the JSON object has, I assume it works for all JSON forms
-//                        Iterator<String> it = details.keys();
-//                        while(it.hasNext()) {
-//                            String key = it.next();
-//                            String val = details.getString(key);
-//                            info.put(key, val);
-//
-//                            // debug
-//                            Log.i("Key = ", key);
-//                            Log.i("Val = ", val);
-//                        }
-//                        Log.i("Info:", info.toString());
-
                         HashMap<String, String> info = doJsonParsing(jsonArray, i);
 
                         vehicle_makes.add(info.get("vehicle_make"));
                         makes.put(info.get("id"), info.get("vehicle_make"));
+
+                        // debug
 //                        Log.i("Make:", makes.toString());
                     }
                 } catch (JSONException e) {
@@ -265,30 +262,30 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             HttpHandler httpHandler = new HttpHandler();
 
             // debug
-            Log.i("URL Models Before", URL_MODELS);
-            Log.i("Make Tag Index", "" + URL_MODELS.indexOf("<make_id>"));
-            Log.i("Integer Params", "" + integers[0]);
+//            Log.i("URL Models Before", URL_MODELS);
+//            Log.i("Make Tag Index", "" + URL_MODELS.indexOf("<make_id>"));
+//            Log.i("Integer Params", "" + integers[0]);
 
             // Modify url string accordingly
             try {
 //                URL_MODELS += integers[0];
                 URL_MODELS = URL_MODELS.replace("<make_id>", integers[0].toString());
-            } catch(IndexOutOfBoundsException idx) {
+            } catch(IndexOutOfBoundsException ignored) {
             }
 
             // debug
-            Log.i("URL Models Modified", URL_MODELS);
+//            Log.i("URL Models Modified", URL_MODELS);
 
             String jsonStr = httpHandler.makeServiceCall(URL_MODELS);
 
             // Revert the URL string change
             try {
                 URL_MODELS = URL_MODELS.substring(0, URL_MODELS.lastIndexOf(integers[0].toString())) + "<make_id>";
-            } catch(IndexOutOfBoundsException idx) {
+            } catch(IndexOutOfBoundsException ignored) {
             }
 
             // debug
-            Log.i("URL Models After", URL_MODELS);
+//            Log.i("URL Models After", URL_MODELS);
 
             if(jsonStr != null) {
                 try {
@@ -323,13 +320,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private class GetVehicles extends AsyncTask<Integer, Void, Void> {
 
-//        ArrayList<String> vehicle_vehicles = new ArrayList<>();
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-//            vehicle_vehicles.add("Select a vehicle");
+//            if(vehicleAdapter != null && vehicleAdapter.getItemCount() > 0) { vehicleAdapter.reset(); }
+//            vehicleList.clear();
+
             doPreExecute();
         }
 
@@ -339,10 +336,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             // debug
             Log.i("URL Vehicles Before", URL_VEHICLES);
-            Log.i("Make Tag Index", "" + URL_VEHICLES.indexOf("<make_id>"));
-            Log.i("Model Tag Index", "" + URL_VEHICLES.indexOf("<model_id>"));
-            Log.i("Zip Tag Index", "" + URL_VEHICLES.indexOf("<zipcode>"));
-            Log.i("Integer Params", "" + integers.toString());
+//            Log.i("Make Tag Index", "" + URL_VEHICLES.indexOf("<make_id>"));
+//            Log.i("Model Tag Index", "" + URL_VEHICLES.indexOf("<model_id>"));
+//            Log.i("Zip Tag Index", "" + URL_VEHICLES.indexOf("<zipcode>"));
+//            Log.i("Integer Params", "" + integers.toString());
 
             // for reference
 //            "https://thawing-beach-68207.herokuapp.com/cars/<make_id>/<model_id>/<zipcode>";
@@ -352,7 +349,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 URL_VEHICLES = URL_VEHICLES.replace("<make_id>", integers[0].toString());
                 URL_VEHICLES = URL_VEHICLES.replace("<model_id>", integers[1].toString());
                 URL_VEHICLES = URL_VEHICLES.replace("<zipcode>", zipcode);
-            } catch(IndexOutOfBoundsException idx) {
+            } catch(IndexOutOfBoundsException ignored) {
             }
 
             // debug
@@ -382,7 +379,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                Log.i("INT0 len", "" + replace0_len);
 
                 URL_VEHICLES = URL_VEHICLES.substring(0, int0_index) + "<make_id>" + URL_VEHICLES.substring(int0_index + replace0_len);
-            } catch(IndexOutOfBoundsException idx) {
+            } catch(IndexOutOfBoundsException ignored) {
             }
 
             // debug
@@ -392,6 +389,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 try {
                     JSONObject jsonObject = new JSONObject(jsonStr);                // create the JSON object
                     JSONArray jsonArray = jsonObject.getJSONArray("lists");   // index for the necessary JSON array with "lists"
+
+                    // debug
+                    Log.i("JSON Array Contents", jsonArray.toString());
 
                     for (int i = 0; i < jsonArray.length(); ++i) {
                         // NOTE: insertion order is not preserved
@@ -417,10 +417,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 pDialog.dismiss();
             }
 
-            VehicleListAdapter adapt;
-            adapt = new VehicleListAdapter(MainActivity.this, vehicleList);
+            // debug
+            if(vehicleAdapter != null) { Log.i("Vehicle Count", "" + vehicleAdapter.getItemCount()); }
+
+//            if(vehicleAdapter != null && vehicleAdapter.getItemCount() > 0) { vehicleAdapter.reset(); }   // resets everytime
+
+//            VehicleListAdapter vehicleAdapter = new VehicleListAdapter(MainActivity.this, vehicleList);]
+            vehicleAdapter.setVehicleList(vehicleList);
+            rv.setAdapter(vehicleAdapter);
+
+            if(vehicleAdapter != null) { Log.i("Vehicle Count", "" + vehicleAdapter.getItemCount()); }
+
+//            VehicleListAdapter adapt;
+//            adapt = new VehicleListAdapter(MainActivity.this, vehicleList);
             //rv.setLayoutManager(new LinearLayoutManager(this));
-            rv.setAdapter(adapt);
+//            adapt.reset();
+//            rv.setAdapter(adapt);
 
             //doPostExecute(vehicleList, -1);
             //Log.i("Finish", "onPostExecute() finishes here");
@@ -482,32 +494,32 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     /**
      * Common onPostExecute code
      * @param data ArrayList<String>
-     * @param spin int
+     * @param setter int
      */
-    private void doPostExecute(ArrayList<String> data, int spin) {
+    private void doPostExecute(ArrayList<String> data, int setter) {
         if(pDialog.isShowing()) {
             pDialog.dismiss();
         }
 
-        // set array to spinner options
-        ArrayAdapter<String> adapter;
-
-        // Index which spinner object you want to set the adapter to
-        // NOTE: there may be an error where the adapter is not set to the spinner
-        switch(spin) {
+        // Index which spinner object you want to set the spinAdapter to
+        // NOTE: there may be an error where the spinAdapter is not set to the spinner
+        switch(setter) {
             case 0:   // spin_make
-                adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, data);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spin_make.setAdapter(adapter);
+                spinAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, data);
+                spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spin_make.setAdapter(spinAdapter);
                 break;
             case 1:   // spin_model
-                adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, data);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spin_model.setAdapter(adapter);
+                spinAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, data);
+                spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spin_model.setAdapter(spinAdapter);
                 break;
             case 2:   // vehicleList
+//                vehicleAdapter = new VehicleListAdapter(MainActivity.this, vehicleList);
+                vehicleAdapter.setVehicleList(vehicleList);
+                rv.setAdapter(vehicleAdapter);
                 break;
-            default: Log.w("Spinner Adapter", "Spinner was not set to an adapter"); break;
+            default: Log.w("Adapter", "Adapter was not set to anything"); break;
         }
     }
 

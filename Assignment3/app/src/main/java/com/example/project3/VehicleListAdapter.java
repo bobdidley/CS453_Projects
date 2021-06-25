@@ -17,9 +17,20 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     private ArrayList<HashMap<String, String>> vehicleList;
     private LayoutInflater inflater;
 
-    public VehicleListAdapter(Context context, ArrayList<HashMap<String, String>> vehicleList) {
+    public VehicleListAdapter(Context context) {//, ArrayList<HashMap<String, String>> vehicleList) {
         this.inflater = LayoutInflater.from(context);
+//        this.vehicleList = vehicleList;
+        this.vehicleList = new ArrayList<>();
+    }
+
+    public void reset() {
+        this.vehicleList.clear();
+        notifyDataSetChanged();
+    }
+
+    public void setVehicleList(ArrayList<HashMap<String, String>> vehicleList) {
         this.vehicleList = vehicleList;
+        notifyDataSetChanged();
     }
 
     @NonNull
