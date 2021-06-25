@@ -96,20 +96,21 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
             // communicate this selection to new window or second fragment to show vehicle details
             int position = getLayoutPosition();
             final MainActivity mParentActivity = (MainActivity) inflater.getContext();
-            Vehicles.Vehicle mVehicle = (Vehicles.Vehicle) itemView.getTag();
-            if(v.findViewById(R.id.vehicle_detail_container) != null) {
-                // in tablet mode
-                if(mTwoPane){
-               // Bundle arguments = new Bundle();
+
+            // check if in tablet mode
+            if(mParentActivity.getResources().getBoolean(R.bool.isTablet)) {   // query the attrs.xml for boolean value
+                // in tablet mode, show in side fragment
                 VehicleDetailFragment frg = new VehicleDetailFragment();
-               // frg.setArguments(arguments);
-                    mParentActivity.getSupportFragmentManager().beginTransaction()
+
+                // send vehicle details through a Bundle
+                Bundle args = new Bundle();
+                args.putSerializable("details", vehicleList.get(position));
+                frg.setArguments(args);
+
+                mParentActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.vehicle_detail_container, frg)
                         .addToBackStack(null)
                         .commit();
-                }
-
-
             } else {
                 // in phone mode, send to another window
                 Intent detailActivity = new Intent(inflater.getContext(), VehicleDetailActivity.class);
