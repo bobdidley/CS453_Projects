@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -409,13 +410,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             return null;
         }
 
-//        @Override
-//        protected void onPostExecute(Void result) {
-//            super.onPostExecute(result);
-//
-//            doPostExecute(vehicleList, -1);
-//            Log.i("Finish", "onPostExecute() finishes here");
-//        }
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if(pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+
+            VehicleListAdapter adapt;
+            adapt = new VehicleListAdapter(MainActivity.this, vehicleList);
+            //rv.setLayoutManager(new LinearLayoutManager(this));
+            rv.setAdapter(adapt);
+
+            //doPostExecute(vehicleList, -1);
+            //Log.i("Finish", "onPostExecute() finishes here");
+        }
     }
 
     /*******************************************************************************/
