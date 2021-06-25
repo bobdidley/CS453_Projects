@@ -91,6 +91,8 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
 
         @Override
         public void onClick(View v) {
+            // communicate this selection to new window or second fragment to show vehicle details
+
             int position = getLayoutPosition();
 
             if(v.findViewById(R.id.vehicle_detail_container) != null) {
@@ -101,9 +103,6 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
                 detailActivity.putExtra("details", vehicleList.get(position));
                 inflater.getContext().startActivity(detailActivity);
             }
-
-            // communicate this selection to new window or second fragment to show vehicle details
-            // transfer information to onPostExecute maybe? idk
         }
     }
 }
