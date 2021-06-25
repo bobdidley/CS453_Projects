@@ -146,6 +146,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             // Query the JSON data and display on fragment_vehicle_list
             if (!hasExecuted) {   // check if the GetModels has already executed to avoid endless loop
+                // debug
+                Log.i("Models Execute", "The GetModels().execute() has been called");
+
                 new GetModels().execute(make_id);
             }
             hasExecuted = true;   // NOTE: the program technically doesn't need this b/c the endless loop
@@ -176,6 +179,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //            Toast.makeText(context, "position = " + position, Toast.LENGTH_SHORT).show();
 
             if (!hasExecuted) {   // check if the GetModels has already executed to avoid endless loop
+                // debug
+                Log.i("Vehicle Execute", "The GetVehicles().execute() has been called");
+
                 new GetVehicles().execute(make_id, model_id);
             }
             hasExecuted = true;
@@ -254,6 +260,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             super.onPreExecute();
 
             vehicle_models.add("Select a model");
+            models.clear();
+            models.put("", "");
+
             doPreExecute();
         }
 
@@ -391,7 +400,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     JSONArray jsonArray = jsonObject.getJSONArray("lists");   // index for the necessary JSON array with "lists"
 
                     // debug
-                    Log.i("JSON Array Contents", jsonArray.toString());
+//                    Log.i("JSON Array Contents", jsonArray.toString());
 
                     for (int i = 0; i < jsonArray.length(); ++i) {
                         // NOTE: insertion order is not preserved
@@ -483,10 +492,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             info.put(key, val);
 
             // debug
-            Log.i("Key = ", key);
-            Log.i("Val = ", val);
+//            Log.i("Key = ", key);
+//            Log.i("Val = ", val);
         }
-        Log.i("Info:", info.toString());
+//        Log.i("Info:", info.toString());
 
         return info;
     }
