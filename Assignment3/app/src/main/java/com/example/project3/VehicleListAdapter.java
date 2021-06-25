@@ -2,6 +2,7 @@ package com.example.project3;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
 
     private ArrayList<HashMap<String, String>> vehicleList;
     private LayoutInflater inflater;
+    private boolean mTwoPane = false;
 
     public VehicleListAdapter(Context context) {//, ArrayList<HashMap<String, String>> vehicleList) {
         this.inflater = LayoutInflater.from(context);
@@ -36,7 +38,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
 
     @NonNull
     @Override
-    public VehicleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public VehicleViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.vehicle_list_content, parent, false);
 
         return new VehicleViewHolder(itemView, this);
@@ -61,8 +63,8 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
 //        txt_model.setText(vehicle_model);
         txt_price.setText("$" + vehicle_price);
         txt_mileage.setText(vehicle_mileage + " miles");
-    }
 
+    }
     @Override
     public int getItemCount() {
         return vehicleList.size();
@@ -92,11 +94,22 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         @Override
         public void onClick(View v) {
             // communicate this selection to new window or second fragment to show vehicle details
-
             int position = getLayoutPosition();
-
+            final MainActivity mParentActivity = (MainActivity) inflater.getContext();
+            Vehicles.Vehicle mVehicle = (Vehicles.Vehicle) itemView.getTag();
             if(v.findViewById(R.id.vehicle_detail_container) != null) {
-                // in tablet mode, use the other side
+                // in tablet mode
+                if(mTwoPane){
+               // Bundle arguments = new Bundle();
+                VehicleDetailFragment frg = new VehicleDetailFragment();
+               // frg.setArguments(arguments);
+                    mParentActivity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.vehicle_detail_container, frg)
+                        .addToBackStack(null)
+                        .commit();
+                }
+
+
             } else {
                 // in phone mode, send to another window
                 Intent detailActivity = new Intent(inflater.getContext(), VehicleDetailActivity.class);
