@@ -1,6 +1,7 @@
 package com.example.project3;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,13 +47,20 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         // instantiate other necessary information
 
         String vehicle_id = vehicleList.get(position).get("id");
-//        String vehicle_name = vehicleList.get(position).get("id");
+//        String vehicle_model = vehicleList.get(position).get("model");
+        String vehicle_price = vehicleList.get(position).get("price");
+        String vehicle_mileage = vehicleList.get(position).get("mileage");
 
         TextView txt_id = holder.itemView.findViewById(R.id.id);
-//        TextView txt_name = holder.itemView.findViewById(R.id.name);
+//        TextView txt_model = holder.itemView.findViewById(R.id.model);
+        TextView txt_price = holder.itemView.findViewById(R.id.price);
+        TextView txt_mileage = holder.itemView.findViewById(R.id.mileage);
 
-        txt_id.setText(vehicle_id);   // need to make a TextView out of itemView to set text
-//        txt_content.setText(vehicle_name);
+        // need to make a TextView out of itemView to set text
+        txt_id.setText(vehicle_id);
+//        txt_model.setText(vehicle_model);
+        txt_price.setText("$" + vehicle_price);
+        txt_mileage.setText(vehicle_mileage + " miles");
     }
 
     @Override
@@ -63,12 +71,18 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     public class VehicleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public final TextView idTextView;
+//        public final TextView modelTextView;
+        public final TextView priceTextView;
+        public final TextView mileageTextView;
         final VehicleListAdapter vehicleAdapter;
 
         public VehicleViewHolder(View itemView, VehicleListAdapter vehicleAdapter) {
             super(itemView);
 
             this.idTextView = itemView.findViewById(R.id.id);
+//            this.modelTextView = itemView.findViewById(R.id.model);
+            this.priceTextView = itemView.findViewById(R.id.price);
+            this.mileageTextView = itemView.findViewById(R.id.mileage);
             // instantiate the other TextView views here
             this.vehicleAdapter = vehicleAdapter;
 
@@ -78,6 +92,15 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         @Override
         public void onClick(View v) {
             int position = getLayoutPosition();
+
+            if(v.findViewById(R.id.vehicle_detail_container) != null) {
+                // in tablet mode, use the other side
+            } else {
+                // in phone mode, send to another window
+                Intent detailActivity = new Intent(inflater.getContext(), VehicleDetailActivity.class);
+                detailActivity.putExtra("details", vehicleList.get(position));
+                inflater.getContext().startActivity(detailActivity);
+            }
 
             // communicate this selection to new window or second fragment to show vehicle details
             // transfer information to onPostExecute maybe? idk
