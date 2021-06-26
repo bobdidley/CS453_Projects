@@ -11,8 +11,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vehicle_list"
         android:name="com.example.project3.VehicleListFragment"
-        android:layout_width="366dp"
+        android:layout_width="354dp"
         android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
