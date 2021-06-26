@@ -17,7 +17,9 @@
             android:layout_width="164dp"
             android:layout_height="55dp"
             android:layout_marginLeft="20dp"
+            android:textStyle="bold"
             android:hint="Make - Model"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.134"
@@ -30,7 +32,10 @@
             android:layout_width="164dp"
             android:layout_height="55dp"
             android:hint="Price"
+            android:textColor="@color/indigo"
             android:layout_marginLeft="40dp"
+            android:textSize="24dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.134"
@@ -49,16 +54,18 @@
         <TextView
             android:id="@+id/vehicle_description"
             android:layout_width="164dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="30dp"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:layout_marginTop="50dp"
             android:layout_marginLeft="20dp"
             android:hint="Description"/>
 
         <ImageView
             android:id="@id/image"
             android:layout_marginTop="30dp"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
             android:autofillHints="image"
             />
 
@@ -75,7 +82,9 @@
             android:id="@+id/created_at_date"
             android:layout_width="164dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
+            android:textStyle="italic"
+            android:textSize="15dp"
+            android:layout_marginTop="370dp"
             android:layout_marginLeft="20dp"
             android:hint="Last Update"/>
 

@@ -68,6 +68,7 @@ public class VehicleDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_vehicle_detail, container, false);
 
+
         String model = vehicle_details.get("vehicle_make") + " - " + vehicle_details.get("model");
         String price = "$" + vehicle_details.get("price");
         String description = vehicle_details.get("veh_description");
@@ -77,7 +78,7 @@ public class VehicleDetailFragment extends Fragment {
         ((TextView) view.findViewById(R.id.vehicle_price)).setText(price);
         ((TextView) view.findViewById(R.id.vehicle_description)).setText(description);
         ((TextView) view.findViewById(R.id.created_at_date)).setText(date);
-        ((ImageView) view.findViewById(R.id.image)).setImageResource(R.drawable.ic_launcher_background);
+        ((ImageView) view.findViewById(R.id.image)).setImageResource(R.drawable.image);
 
         return view;
     }
