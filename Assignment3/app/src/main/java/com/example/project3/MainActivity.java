@@ -87,8 +87,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         vehicleAdapter = new VehicleListAdapter(MainActivity.this);
         rv = findViewById(R.id.vehicle_list);
-        // debug
-        // set rv adapter
     }
 
     /*******************************************************************************/
