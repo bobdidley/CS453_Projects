@@ -16,7 +16,7 @@
 
         <Spinner
             android:id="@+id/spinner_make"
-            android:layout_width="354dp"
+            android:layout_width="300dp"
             android:layout_height="49dp"
             android:layout_marginLeft="6dp"
             app:layout_constraintBottom_toTopOf="@+id/frameLayout"
@@ -30,7 +30,7 @@
 
         <Spinner
             android:id="@+id/spinner_model"
-            android:layout_width="354dp"
+            android:layout_width="300dp"
             android:layout_height="49dp"
             android:layout_marginLeft="6dp"
             app:layout_constraintBottom_toTopOf="@+id/frameLayout"
