@@ -30,6 +30,6 @@ public class VehicleDetailActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.vehicle_price)).setText(price);
         ((TextView) findViewById(R.id.vehicle_description)).setText(description);
         ((TextView) findViewById(R.id.created_at_date)).setText(date);
-        ((ImageView) findViewById(R.id.image)).setImageResource(R.drawable.ic_launcher_background);   // change to generic image
+        ((ImageView) findViewById(R.id.image)).setImageResource(R.drawable.image);
     }
 }

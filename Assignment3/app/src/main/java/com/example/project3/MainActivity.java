@@ -78,11 +78,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spin_model = findViewById(R.id.spinner_model);
         spin_make.setOnItemSelectedListener(this);
         spin_model.setOnItemSelectedListener(this);
-        // no longer need this
-//        ArrayAdapter<String> aa_makes = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, makes);
-//        ArrayAdapter<String> aa_models = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, models);
-//        spin_make.setAdapter(aa_makes);
-//        spin_model.setAdapter(aa_models);
 
         // default values for first position since adapter array has a default too
         makes.put("", "");
