@@ -12,7 +12,7 @@
 ### <b>Objective</b>
 
 Create a car catalog where a user can select a car make and model, then be presented
-with the results associated to their selection. The vehicles in the list must redirect
+with the results <br> associated to their selection. The vehicles in the list must redirect
 to the vehicle's details when selected.
 
 ### <b>Design</b>
