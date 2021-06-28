@@ -1,3 +1,12 @@
+/**
+ * The fragment that contains the list of vehicles associated to a car make and model.
+ *
+ * @file VehicleListFragment.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 06/27/2021
+ * @version 1.0
+ */
+
 package com.example.project3;
 
 import android.os.Bundle;

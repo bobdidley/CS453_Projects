@@ -1,3 +1,13 @@
+/**
+ * The window where vehicle details are displayed after a vehicle on the vehicle list is selected.
+ * Used in phone mode.
+ *
+ * @file VehicleDetailActivity.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 06/27/2021
+ * @version 1.0
+ */
+
 package com.example.project3;
 
 import android.content.Intent;

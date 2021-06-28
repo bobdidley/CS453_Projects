@@ -1,3 +1,12 @@
+/**
+ * The vehicle list adapter so the vehicles can appear in the recycler view.
+ *
+ * @file VehicleListAdapter.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 06/27/2021
+ * @version 1.0
+ */
+
 package com.example.project3;
 
 import android.content.Context;

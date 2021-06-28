@@ -1,3 +1,12 @@
+/**
+ * The main class which sets the controls and data for the user to interact with on the main screen.
+ *
+ * @file MainActivity.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 06/27/2021
+ * @version 1.0
+ */
+
 package com.example.project3;
 
 import android.app.ProgressDialog;

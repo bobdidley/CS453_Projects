@@ -1,3 +1,12 @@
+/**
+ * The handler for http requests so contents of a url can be read.
+ *
+ * @file HttpHandler.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 06/27/2021
+ * @version 1.0
+ */
+
 package com.example.project3;
 
 import android.util.Log;
