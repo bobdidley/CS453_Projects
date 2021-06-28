@@ -7,8 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.example.project3.content.Vehicles;
-
 import java.util.HashMap;
 
 public class VehicleDetailActivity extends AppCompatActivity {

@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.project3.content.Vehicles;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,12 +16,10 @@ import java.util.HashMap;
 public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.VehicleViewHolder> {
 
     private ArrayList<HashMap<String, String>> vehicleList;
-    private LayoutInflater inflater;
-    private boolean mTwoPane = false;
+    private final LayoutInflater inflater;
 
-    public VehicleListAdapter(Context context) {//, ArrayList<HashMap<String, String>> vehicleList) {
+    public VehicleListAdapter(Context context) {
         this.inflater = LayoutInflater.from(context);
-//        this.vehicleList = vehicleList;
         this.vehicleList = new ArrayList<>();
     }
 
@@ -38,7 +35,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
 
     @NonNull
     @Override
-    public VehicleViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+    public VehicleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.vehicle_list_content, parent, false);
 
         return new VehicleViewHolder(itemView, this);
@@ -46,21 +43,18 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull VehicleViewHolder holder, int position) {
-        // instantiate other necessary information
+        // instantiate necessary information
 
         String vehicle_id = vehicleList.get(position).get("id");
-//        String vehicle_model = vehicleList.get(position).get("model");
         String vehicle_price = vehicleList.get(position).get("price");
         String vehicle_mileage = vehicleList.get(position).get("mileage");
 
         TextView txt_id = holder.itemView.findViewById(R.id.id);
-//        TextView txt_model = holder.itemView.findViewById(R.id.model);
         TextView txt_price = holder.itemView.findViewById(R.id.price);
         TextView txt_mileage = holder.itemView.findViewById(R.id.mileage);
 
         // need to make a TextView out of itemView to set text
         txt_id.setText(vehicle_id);
-//        txt_model.setText(vehicle_model);
         txt_price.setText("$" + vehicle_price);
         txt_mileage.setText(vehicle_mileage + " miles");
 
@@ -73,7 +67,6 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     public class VehicleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public final TextView idTextView;
-//        public final TextView modelTextView;
         public final TextView priceTextView;
         public final TextView mileageTextView;
         final VehicleListAdapter vehicleAdapter;
@@ -82,7 +75,6 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
             super(itemView);
 
             this.idTextView = itemView.findViewById(R.id.id);
-//            this.modelTextView = itemView.findViewById(R.id.model);
             this.priceTextView = itemView.findViewById(R.id.price);
             this.mileageTextView = itemView.findViewById(R.id.mileage);
             // instantiate the other TextView views here
