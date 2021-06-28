@@ -18,13 +18,15 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        getSupportActionBar().hide();
+
         btn_signup = findViewById(R.id.btnSignup);
 
         btn_signup.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 // Intent signup --> Redirect to signup page after clicking signup Button
-                Intent signup = new Intent(getApplicationContext(), Signup.class);
+                Intent signup = new Intent(Login.this, Signup.class);
                 startActivity(signup);
             }
         });

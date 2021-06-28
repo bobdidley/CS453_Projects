@@ -13,6 +13,8 @@
         </activity>
         <activity android:name=".Login">
         </activity>
+        <activity android:name=".Signup">
+        </activity>
         <activity android:name=".SplashWindow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
