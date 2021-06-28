@@ -12,17 +12,21 @@ import android.view.ViewGroup;
 
 import java.util.HashMap;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class VehicleDetailFragment extends Fragment {
 
     private HashMap<String, String> vehicle_details;
 
+    /**
+     * Default constructor
+     */
     public VehicleDetailFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Grabs the appropriate Bundle arguments.
+     * @param savedInstanceState Bundle
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,18 +35,26 @@ public class VehicleDetailFragment extends Fragment {
         }
     }
 
+    /**
+     * Upon creating the view, all the values are set within.
+     * @param inflater LayoutInflater
+     * @param container ViewGroup
+     * @param savedInstanceState Bundle
+     * @return View
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_vehicle_detail, container, false);
 
-
+        // grabs necessary information
         String model = vehicle_details.get("vehicle_make") + " - " + vehicle_details.get("model");
         String price = "$" + vehicle_details.get("price");
         String description = vehicle_details.get("veh_description");
         String date = vehicle_details.get("created_at");
 
+        // sets the values to the appropriate views
         ((TextView) view.findViewById(R.id.vehicle_make_model)).setText(model);
         ((TextView) view.findViewById(R.id.vehicle_price)).setText(price);
         ((TextView) view.findViewById(R.id.vehicle_description)).setText(description);

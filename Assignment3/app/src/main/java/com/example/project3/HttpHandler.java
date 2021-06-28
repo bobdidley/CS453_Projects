@@ -15,12 +15,17 @@ public class HttpHandler {
     public HttpHandler() {
     }
 
+    /**
+     * Reads the contents of the url passed in.
+     * @param reqUrl String
+     * @return String
+     */
     public String makeServiceCall(String reqUrl) {
         String response = null;
         try {
             URL url = new URL(reqUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");  // Think about it!
+            conn.setRequestMethod("GET");
             // read the response
             InputStream in = new BufferedInputStream(conn.getInputStream());
             response = convertStreamToString(in);
@@ -36,6 +41,11 @@ public class HttpHandler {
         return response;
     }
 
+    /**
+     * Converts the Stream object into a String value response.
+     * @param is InputStream
+     * @return String
+     */
     private String convertStreamToString(InputStream is) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();

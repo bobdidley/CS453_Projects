@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     /********************************** PROJECT VARIABLES ************************************/
 
-    private RecyclerView rv;
+    private RecyclerView rec_view;
     private ArrayAdapter<String> spinAdapter;
     private VehicleListAdapter vehicleAdapter;
     Context context;
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         new GetMakes().execute();
 
         vehicleAdapter = new VehicleListAdapter(MainActivity.this);
-        rv = findViewById(R.id.vehicle_list);
+        rec_view = findViewById(R.id.vehicle_list);
     }
 
     /*******************************************************************************/
@@ -85,8 +85,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+        // need to clear out the previous vehicle list to let in the new vehicle list
         vehicleAdapter.reset();
 
+        // checks which spinner is being selected
         if (parent.getId() == spin_make.getId()){
             // Spinner items are selected
             if (position == 0) {   // checks if the option position is the first default option, does not execute
@@ -124,12 +126,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                   //       is caught fairly quick but let's keep it for safety purposes
         }
         else if(parent.getId() == spin_model.getId()) {
-            // NOTE: the Models spinner may need its own hasExecuted boolean variable
-            if(position == 0) {
+            if(position == 0) {   // checks if at default position, does not execute
                 ((TextView) view).setTextColor(Color.GRAY);
                 hasExecuted = true;
 
-            } else if(position > 0) {
+            } else if(position > 0) {   // checks if not at default position, allows execution
                 hasExecuted = false;
                 model_id = Integer.parseInt(models.keySet().toArray()[position].toString());
             }
@@ -236,6 +237,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //            Log.i("Integer Params", "" + integers[0]);
 
             // Modify url string accordingly
+            // try-catch is necessary to avoid the "does not exist" error because the String change happens so quick
             try {
                 URL_MODELS = URL_MODELS.replace("<make_id>", integers[0].toString());
             } catch(IndexOutOfBoundsException ignored) {
@@ -418,7 +420,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         HashMap<String, String> info = new HashMap<>();
 
-        // works for as many keys the JSON object has, I assume it works for all JSON forms
+        // works for as many keys the JSON object has,
         Iterator<String> it = details.keys();
         while(it.hasNext()) {
             String key = it.next();
@@ -456,9 +458,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spin_model.setAdapter(spinAdapter);
                 break;
-            case 2:   // vehicleList
+            case 2:   // rec_view
                 vehicleAdapter.setVehicleList((ArrayList<HashMap<String, String>>) data);
-                rv.setAdapter(vehicleAdapter);
+                rec_view.setAdapter(vehicleAdapter);
                 break;
             default: Log.w("Adapter", "Adapter was not set to anything"); break;
         }
