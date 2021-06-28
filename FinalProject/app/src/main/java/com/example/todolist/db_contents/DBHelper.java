@@ -28,8 +28,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     String sql;
 
-    public DBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DBHelper(@Nullable Context context) {   // do we need a version number?
+        super(context, DATABASE_NAME, null, 1);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "time text, " +
                 "status text, " +
                 "FOREIGN KEY (user_id)\n" +
-                "       REFERENCES " + USERS_TABLE_NAME + " (user_id))";
+                "       REFERENCES " + USERS_TABLE_NAME + " (user_id))";   // causes error, unknown column
         db.execSQL(sql);
     }
 
