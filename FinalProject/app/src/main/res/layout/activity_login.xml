@@ -12,9 +12,8 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:srcCompat="@drawable/post_its_wall"
+            app:srcCompat="@drawable/hallway_background"
             android:scaleType="centerCrop"
-            android:contentDescription="@string/post_its_image_description"
             android:layout_centerInParent="true" />
 
     <LinearLayout
