@@ -50,8 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "priority integer, " +
                 "time text, " +
                 "status text, " +
-                "FOREIGN KEY (user_id)\n" +
-                "       REFERENCES " + USERS_TABLE_NAME + " (user_id))";   // causes error, unknown column
+                "user_id integer)";
         db.execSQL(sql);
     }
 
