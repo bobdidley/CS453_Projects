@@ -2,10 +2,8 @@ package com.example.todolist;
 
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +15,6 @@ public class Login extends AppCompatActivity {
     private EditText edtPassword;
     private Button btn_signup;
     private Button btn_login;
-    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
