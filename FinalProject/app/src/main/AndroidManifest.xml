@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.todolist">
 
     <application
@@ -9,20 +10,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ToDoList">
-<!--        <activity-->
-<!--            android:name=".ProfileActivity"-->
-<!--            android:label="@string/title_activity_profile"-->
-<!--            android:theme="@style/Theme.ToDoList.NoActionBar"></activity>-->
-<!--        <activity android:name=".MainActivity"></activity>-->
-        <activity android:name=".Login"></activity>
-        <activity android:name=".Signup"></activity>
-        <activity android:name=".ProfileActivity"></activity>
-
+        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".ChangePasswordActivity" /> <!-- <activity -->
+        <activity android:name=".Login" />
+        <activity android:name=".Signup" />
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".SplashWindow">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
