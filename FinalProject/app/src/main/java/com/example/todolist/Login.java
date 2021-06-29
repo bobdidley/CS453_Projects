@@ -43,8 +43,8 @@ public class Login extends AppCompatActivity {
                 // need to check if username and password exist in database, redirect to home page if they do
 
                 // Intent home --> Redirect to home page after clicking login Button
-//                Intent home = new Intent(Login.this, Home.class);
-//                startActivity(home);
+                Intent home = new Intent(Login.this, ProfileActivity.class);
+                startActivity(home);
             }
         });
 
