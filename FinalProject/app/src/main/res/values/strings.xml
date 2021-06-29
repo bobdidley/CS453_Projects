@@ -26,4 +26,8 @@
     <string name="menu_help">Help</string>
     <string name="menu_about">About</string>
     <string name="menu_task">Tasks</string>
+    <string name="taskTitle">Task Title</string>
+    <string name="taskCategory">Category</string>
+    <string name="taskTime">Time</string>
+    <string name="mmddyyyy">Date</string>
 </resources>
