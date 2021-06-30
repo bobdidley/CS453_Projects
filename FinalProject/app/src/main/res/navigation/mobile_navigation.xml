@@ -27,4 +27,15 @@
         android:name="com.example.todolist.ui.timer.TimerFragment"
         android:label="@string/menu_timer"
         tools:layout="@layout/fragment_timer" />
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="com.example.todolist.ui.help.HelpFragment"
+        android:label="@string/menu_help"
+        tools:layout="@layout/fragment_help" />
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.example.todolist.ui.about.AboutFragment"
+        android:label="@string/menu_about"
+        tools:layout="@layout/fragment_about" />
 </navigation>
