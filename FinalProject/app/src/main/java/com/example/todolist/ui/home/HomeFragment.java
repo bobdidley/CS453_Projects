@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.todolist.ChangePasswordActivity;
 import com.example.todolist.R;
+import com.example.todolist.TaskActivity;
 import com.example.todolist.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -45,6 +46,14 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent changePassword = new Intent(getActivity(), ChangePasswordActivity.class);
                 startActivity(changePassword);
+            }
+        });
+
+        binding.btnEditTasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editTask = new Intent(getActivity(), TaskActivity.class);
+                startActivity(editTask);
             }
         });
 

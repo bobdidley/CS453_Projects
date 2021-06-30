@@ -4,31 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TaskActivity">
+    tools:context=".CalendarActivity">
+
+    <fragment
+        android:id="@+id/calendar_fragment"
+        android:layout_width="431dp"
+        android:layout_height="416dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+
+    </fragment>
 
 
     <fragment
-        android:id="@+id/frag_image"
-        android:name="com.example.todolist.ui.home.HomeFragment"
-        android:layout_width="432dp"
-        android:layout_height="860dp"
+        android:id="@+id/task_fragment"
+        android:layout_width="429dp"
+        android:layout_height="437dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/calendar_fragment"
+        app:layout_constraintVertical_bias="1.0">
 
-    <include
-        layout="@layout/fragment_task"
-        android:layout_width="398dp"
-        android:layout_height="832dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+
+    </fragment>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

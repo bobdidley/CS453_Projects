@@ -19,7 +19,12 @@
 
     <fragment
         android:id="@+id/nav_calendar"
-        android:name="com.example.todolist.ui.slideshow.SlideshowFragment"
+        android:name="com.example.todolist.ui.calendar.CalendarFragment"
         android:label="@string/menu_calendar"
         tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/nav_timer"
+        android:name="com.example.todolist.ui.timer.TimerFragment"
+        android:label="@string/menu_timer"
+        tools:layout="@layout/fragment_timer" />
 </navigation>

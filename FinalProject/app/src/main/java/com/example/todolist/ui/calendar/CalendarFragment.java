@@ -1,4 +1,4 @@
-package com.example.todolist.ui.slideshow;
+package com.example.todolist.ui.calendar;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,29 +12,28 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.todolist.R;
 import com.example.todolist.databinding.FragmentCalendarBinding;
 
-public class SlideshowFragment extends Fragment {
+public class CalendarFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
+    private CalendarViewModel slideshowViewModel;
     private FragmentCalendarBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+                new ViewModelProvider(this).get(CalendarViewModel.class);
 
         binding = FragmentCalendarBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+//        final TextView textView = binding.textSlideshow;
+//        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
         return root;
     }
 

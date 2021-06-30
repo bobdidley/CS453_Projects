@@ -30,4 +30,9 @@
     <string name="taskCategory">Category</string>
     <string name="taskTime">Time</string>
     <string name="mmddyyyy">Date</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="start">start</string>
+    <string name="stop">stop</string>
+    <string name="reset">reset</string>
 </resources>
