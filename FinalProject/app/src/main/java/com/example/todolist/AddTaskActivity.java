@@ -11,7 +11,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.todolist.db_contents.DBHelper;
 import com.example.todolist.db_contents.Task;
+import com.example.todolist.ui.gallery.TaskFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -56,6 +58,9 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
         task_priority.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, priorities));
         task_time.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, times));
 
+        task_priority.setOnItemSelectedListener(this);
+        task_time.setOnItemSelectedListener(this);
+
         task_date.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
@@ -74,18 +79,18 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
                 date = task_date.getText().toString();
 
                 // debug
-                Log.i("Date", "task_date = " + getString(R.string.taskDate) + "\nDate = " + date);
+//                Log.i("Date", "task_date = " + getString(R.string.taskDate) + "\nDate = " + date);
 
                 if(name.equals("")) { task_name.setError("Missing field"); }
                 if(category.equals("")) { task_category.setError("Missing field"); }
                 boolean pryCheck = true;
                 boolean timeCheck = true;
                 boolean dateCheck = true;
-                if(task_priority.getSelectedItem().equals(priorities[0])) {
+                if(String.valueOf(priority).equals(priorities[0])) {
                     ((TextView) task_priority.getSelectedView()).setError(priorities[0]);
                     pryCheck = false;
                 }
-                if(task_time.getSelectedItem().equals(times[0])) {
+                if(time.equals(times[0])) {
                     ((TextView) task_time.getSelectedView()).setError(times[0]);
                     timeCheck = false;
                 }
@@ -95,7 +100,10 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
                 }
 
                 if(task_name.getError() == null && task_category.getError() == null && pryCheck && timeCheck && dateCheck) {
-                    Intent addTask = new Intent(AddTaskActivity.this, ProfileActivity.class);
+                    DBHelper db = new DBHelper(getApplicationContext());
+                    db.insertTask(new Task(Login.USER_ID, name, date, category, priority, time));
+
+                    Intent addTask = new Intent(AddTaskActivity.this, TaskActivity.class);
                     startActivity(addTask);
                 } else {
                     // sets an alert message if the Create a Task form is not complete
@@ -118,12 +126,20 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(position != 0){
-            switch (view.getId()) {
+            switch (((Spinner) parent).getId()) {
                 case R.id.spinnerPriority:
-                    priority = Integer.parseInt(task_priority.getSelectedItem().toString());
+                    priority = Integer.parseInt(priorities[position]);
+
+                    // debug
+//                    Log.i("Priority Spinner", "Position = " + position + " Priority = " + priority);
+
                     break;
                 case R.id.spinnerTime:
-                    time = task_time.getSelectedItem().toString();
+                    time = times[position];
+
+                    // debug
+//                    Log.i("Time Spinner", "Position = " + position + " Time = " + time);
+
                     break;
                 default:
                     Log.i("Spinner Selected", "No spinner options were selected");
@@ -151,8 +167,8 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
             };
 
     private void updateDate() {
-        String myFormat = "MM/dd/yyyy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
+        String dateFormat = "MM/dd/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.ENGLISH);
 
         task_date.setText(sdf.format(calendar.getTime()));
     }

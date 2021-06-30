@@ -18,6 +18,7 @@ public class Login extends AppCompatActivity {
     private EditText edtPassword;
     private Button btn_signup;
     private Button btn_login;
+    public static int USER_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,11 @@ public class Login extends AppCompatActivity {
                 if(db.isExistingUser(username, password)) {
                     // Intent home --> Redirect to home page after clicking login Button
                     edtPassword.setText("");   // empty out password field for security purposes
+                    USER_ID = db.getUserId(username);
+
+                    // debug
+                    Log.i("USER ID", "USER_ID = " + USER_ID);
+
                     Intent home = new Intent(Login.this, ProfileActivity.class);
 //                    Intent home = new Intent(Login.this, HomeActivity.class);
                     startActivity(home);
