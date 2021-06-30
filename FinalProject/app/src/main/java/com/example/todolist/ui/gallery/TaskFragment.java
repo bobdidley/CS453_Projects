@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.todolist.AddTaskActivity;
@@ -30,12 +32,12 @@ public class TaskFragment extends Fragment {
 
 
 //        final TextView textView = binding.textGallery;
-//        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
+        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
 //                textView.setText(s);
-//            }
-//        });
+            }
+        });
 
         binding.btnAddTask.setOnClickListener(new View.OnClickListener() {
             @Override

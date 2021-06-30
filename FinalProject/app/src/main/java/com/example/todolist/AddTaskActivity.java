@@ -22,6 +22,7 @@ import java.util.Locale;
 public class AddTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Button addTask;
+    private Button btn_cancel;
     private EditText task_name;
     private EditText task_category;
     private Spinner task_priority;
@@ -121,6 +122,7 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
                 }
             }
         });
+
     }
 
     @Override
