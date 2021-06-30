@@ -55,6 +55,7 @@ public class Login extends AppCompatActivity {
                     // Intent home --> Redirect to home page after clicking login Button
                     edtPassword.setText("");   // empty out password field for security purposes
                     Intent home = new Intent(Login.this, ProfileActivity.class);
+//                    Intent home = new Intent(Login.this, HomeActivity.class);
                     startActivity(home);
                 } else {
                     // sets an alert message if the credentials do not exist in the database
