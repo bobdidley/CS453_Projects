@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -71,7 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
 
             // check if username already exists
-            if(getAllUsers().contains(user.getUsername())) {
+            if(getAllUsers().containsKey(user.getUsername())) {
                 throw new Exception("User already exists");
             }
 
@@ -85,6 +86,17 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         return true;
+    }
+
+    /**
+     * Checks if the credentials exist in the database.
+     * @param username String
+     * @param password String
+     * @return boolean
+     */
+    public boolean isExistingUser(String username, String password) {
+        HashMap<String, String> users = getAllUsers();
+        return users.containsKey(username) && users.get(username).equals(password);
     }
 
     public boolean updateUserPassword(String newPassword, int user_id) {
@@ -132,8 +144,13 @@ public class DBHelper extends SQLiteOpenHelper {
         return curs;
     }
 
-    private ArrayList<String> getAllUsers() {
-        ArrayList<String> users_array = new ArrayList<>();
+    /**
+     * Returns all the users and passwords.
+     * @return HashMap<String, String>
+     */
+    private HashMap<String, String> getAllUsers() {
+//        ArrayList<String> users_array = new ArrayList<>();
+        HashMap<String, String> users_credentials = new HashMap<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
         sql = "SELECT * FROM " + USERS_TABLE_NAME;
@@ -141,11 +158,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
         curs.moveToFirst();
         while(!curs.isAfterLast()) {
-            users_array.add(curs.getString(curs.getColumnIndex(USERS_COL_USERNAME)));
+            users_credentials.put(curs.getString(curs.getColumnIndex(USERS_COL_USERNAME)),
+                    curs.getString(curs.getColumnIndex(USERS_COL_PASSWORD)));
             curs.moveToNext();
         }
 
-        return users_array;
+        return users_credentials;
     }
-
 }
