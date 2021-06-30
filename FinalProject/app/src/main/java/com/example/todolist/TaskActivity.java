@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,9 +16,7 @@ import java.util.List;
 
 public class TaskActivity extends AppCompatActivity {
 
-    private Button addTask;
-    private RecyclerView taskRecyclerView;
-    private CustomTaskAdapter taskAdapter;
+    private FloatingActionButton addTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +29,8 @@ public class TaskActivity extends AppCompatActivity {
         Intent intent = getIntent();
         HashMap<String,String> task_details = (HashMap<String, String>) intent.getSerializableExtra("detail");
 
+
+        addTask = findViewById(R.id.btnAddTask);
 
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override

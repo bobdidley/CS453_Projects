@@ -6,12 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
+import com.example.todolist.Login;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DBHelper extends SQLiteOpenHelper {
 
+    /* Users Table */
     public static final String DATABASE_NAME = "DBToDoList.db";
     public static final String USERS_TABLE_NAME = "users";
     public static final String TASKS_TABLE_NAME = "tasks";
@@ -19,6 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String USERS_COL_USERNAME = "username";
     public static final String USERS_COL_PASSWORD = "password";
 
+    /* Tasks Table */
     public static final String TASKS_COL_ID = "task_id";
     public static final String TASKS_COL_TASK_NAME = "task_name";
     public static final String TASKS_COL_DATE = "date";
@@ -29,10 +32,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
     String sql;
 
+    /**
+     *
+     * @param context Context
+     */
     public DBHelper(@Nullable Context context) {   // do we need a version number?
         super(context, DATABASE_NAME, null, 1);
     }
 
+    /**
+     *
+     * @param db SQLiteDatabase
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         // users
@@ -55,6 +66,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
 
+    /**
+     *
+     * @param db SQLiteDatabase
+     * @param oldVersion int
+     * @param newVersion int
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // users
@@ -66,6 +83,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
 
+    /**
+     *
+     * @param user User
+     * @return boolean
+     */
     public boolean insertUser(User user) {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -113,6 +135,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     *
+     * @param task Task
+     * @return boolean
+     */
     public boolean insertTask(Task task) {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -123,7 +150,7 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put(TASKS_COL_CATEGORY, task.getCategory());
             values.put(TASKS_COL_PRIORITY, task.getPriority());
             values.put(TASKS_COL_TIME, task.getTime());
-            values.put(TASKS_COL_STATUS, String.valueOf(Task.STATUS.TODO));
+            values.put(TASKS_COL_STATUS, task.getStatus());
             values.put(USERS_COL_ID, task.getUserId());
 
             db.insert(TASKS_TABLE_NAME, null, values);
@@ -135,15 +162,32 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public Cursor getUserTasks(int user_id) {
+    public ArrayList<HashMap<String, String>> getUserTasks(int user_id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + USERS_COL_ID + " = " + user_id;   // may not work for user_id column name
+        sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + USERS_COL_ID + " = " + Login.USER_ID;   // may not work for user_id column name
         Cursor curs = db.rawQuery(sql, null);
 
-        return curs;
+        ArrayList<HashMap<String, String>>  taskList = new ArrayList<>();
+        String[] columnNames = curs.getColumnNames();
+
+        curs.moveToFirst();
+        while(!curs.isAfterLast()) {
+            HashMap<String, String> individualTask = new HashMap<>();
+            for(String col_name : columnNames) {
+                individualTask.put(col_name, curs.getString(curs.getColumnIndex(col_name)));
+            }
+            taskList.add(individualTask);
+        }
+
+        return taskList;
     }
 
+    /**
+     *
+     * @param username String
+     * @return int
+     */
     public int getUserId(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
 
