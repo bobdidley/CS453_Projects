@@ -53,32 +53,22 @@
             app:layout_constraintVertical_bias="0.397"
             android:spinnerMode="dropdown"
             android:background="@android:drawable/btn_dropdown"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/txtTime"
-                android:layout_width="315dp"
-                android:layout_height="47dp"
-                android:ems="10"
-                android:layout_marginTop="15dp"
-                android:hint="@string/taskTime"
-                android:inputType="textPersonName"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerPriority"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:spinnerMode="dropdown"
-                android:background="@android:drawable/btn_dropdown"/>
-
-
-
-
-        </LinearLayout>
+        <Spinner
+            android:id="@+id/spinnerTime"
+            android:layout_width="315dp"
+            android:layout_height="47dp"
+            android:ems="10"
+            android:layout_marginTop="15dp"
+            android:hint="@string/taskTime"
+            android:inputType="textPersonName"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerPriority"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:spinnerMode="dropdown"
+            android:background="@android:drawable/btn_dropdown"/>
 
         <EditText
             android:id="@+id/editTextDate"
