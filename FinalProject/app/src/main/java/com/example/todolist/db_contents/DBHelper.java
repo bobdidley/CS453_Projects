@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
+import com.example.todolist.Login;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -135,13 +136,25 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public Cursor getUserTasks(int user_id) {
+    public ArrayList<HashMap<String, String>> getUserTasks(int user_id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + USERS_COL_ID + " = " + user_id;   // may not work for user_id column name
+        sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + USERS_COL_ID + " = " + Login.USER_ID;   // may not work for user_id column name
         Cursor curs = db.rawQuery(sql, null);
 
-        return curs;
+        ArrayList<HashMap<String, String>>  taskList = new ArrayList<>();
+        String[] columnNames = curs.getColumnNames();
+
+        curs.moveToFirst();
+        while(!curs.isAfterLast()) {
+            HashMap<String, String> individualTask = new HashMap<>();
+            for(String col_name : columnNames) {
+                individualTask.put(col_name, curs.getString(curs.getColumnIndex(col_name)));
+            }
+            taskList.add(individualTask);
+        }
+
+        return taskList;
     }
 
     public int getUserId(String username) {
