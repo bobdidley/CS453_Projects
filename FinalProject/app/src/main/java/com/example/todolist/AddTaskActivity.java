@@ -23,7 +23,7 @@ public class AddTaskActivity extends AppCompatActivity {
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent addTask = new Intent(AddTaskActivity.this,TaskActivity.class);
+                Intent addTask = new Intent(getApplicationContext(),ProfileActivity.class);
                 startActivity(addTask);
             }
         });
