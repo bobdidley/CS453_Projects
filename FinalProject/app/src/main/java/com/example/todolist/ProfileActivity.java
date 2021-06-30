@@ -2,6 +2,7 @@ package com.example.todolist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
@@ -64,9 +65,18 @@ public class ProfileActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.profile, menu);
-
-
         return true;
+    }
+
+
+    public boolean  onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            Intent logout = new Intent(ProfileActivity.this,Login.class);
+            startActivity(logout);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

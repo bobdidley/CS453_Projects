@@ -1,7 +1,10 @@
 package com.example.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.todolist.db_contents.Task;
 
@@ -17,4 +20,5 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
     }
+
 }
