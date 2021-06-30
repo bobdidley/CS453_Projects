@@ -16,6 +16,14 @@ public class TaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
+        addTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addTask = new Intent(TaskActivity.this, AddTaskActivity.class);
+                startActivity(addTask);
+            }
+        });
+
 
     }
 }
