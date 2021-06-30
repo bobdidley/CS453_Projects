@@ -102,7 +102,7 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
 
                 if(task_name.getError() == null && task_category.getError() == null && pryCheck && timeCheck && dateCheck) {
                     DBHelper db = new DBHelper(getApplicationContext());
-                    db.insertTask(new Task(Login.USER_ID, name, date, category, priority, time));
+                    db.insertTask(new Task(Login.USER_ID, name, date, category, priority, time, Task.STATUS.TODO));
 
                     Intent addTask = new Intent(AddTaskActivity.this, TaskActivity.class);
                     startActivity(addTask);

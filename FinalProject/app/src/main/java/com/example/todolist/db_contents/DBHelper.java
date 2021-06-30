@@ -123,7 +123,7 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put(TASKS_COL_CATEGORY, task.getCategory());
             values.put(TASKS_COL_PRIORITY, task.getPriority());
             values.put(TASKS_COL_TIME, task.getTime());
-            values.put(TASKS_COL_STATUS, String.valueOf(Task.STATUS.TODO));
+            values.put(TASKS_COL_STATUS, task.getStatus());
             values.put(USERS_COL_ID, task.getUserId());
 
             db.insert(TASKS_TABLE_NAME, null, values);
