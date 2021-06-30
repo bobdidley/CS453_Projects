@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 public class DBHelper extends SQLiteOpenHelper {
 
+    /* Users Table */
     public static final String DATABASE_NAME = "DBToDoList.db";
     public static final String USERS_TABLE_NAME = "users";
     public static final String TASKS_TABLE_NAME = "tasks";
@@ -20,6 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String USERS_COL_USERNAME = "username";
     public static final String USERS_COL_PASSWORD = "password";
 
+    /* Tasks Table */
     public static final String TASKS_COL_ID = "task_id";
     public static final String TASKS_COL_TASK_NAME = "task_name";
     public static final String TASKS_COL_DATE = "date";
@@ -30,10 +32,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
     String sql;
 
+    /**
+     *
+     * @param context Context
+     */
     public DBHelper(@Nullable Context context) {   // do we need a version number?
         super(context, DATABASE_NAME, null, 1);
     }
 
+    /**
+     *
+     * @param db SQLiteDatabase
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         // users
@@ -56,6 +66,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
 
+    /**
+     *
+     * @param db SQLiteDatabase
+     * @param oldVersion int
+     * @param newVersion int
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // users
@@ -67,6 +83,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
 
+    /**
+     *
+     * @param user User
+     * @return boolean
+     */
     public boolean insertUser(User user) {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -114,6 +135,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     *
+     * @param task Task
+     * @return boolean
+     */
     public boolean insertTask(Task task) {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -157,6 +183,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return taskList;
     }
 
+    /**
+     *
+     * @param username String
+     * @return int
+     */
     public int getUserId(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
 
