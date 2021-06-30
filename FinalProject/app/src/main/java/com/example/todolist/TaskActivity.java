@@ -6,15 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class TaskActivity extends AppCompatActivity {
 
-    private Button addTask;
+    private FloatingActionButton addTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
+
+        addTask = findViewById(R.id.btnAddTask);
 
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
