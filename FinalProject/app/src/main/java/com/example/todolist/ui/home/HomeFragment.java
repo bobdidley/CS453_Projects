@@ -22,7 +22,7 @@ public class HomeFragment extends Fragment {
     private TextView txtUsername;
     private TextView txtPassword;
     private Button btnChangePassword;
-    private Button btnEditTasks;
+//    private Button btnEditTasks;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment {
         txtPassword.setText("Password");
 
         btnChangePassword = view.findViewById(R.id.btnChangePassword);
-        btnEditTasks = view.findViewById(R.id.btnEditTasks);
+//        btnEditTasks = view.findViewById(R.id.btnEditTasks);
 
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,13 +47,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btnEditTasks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent editTask = new Intent(getActivity(), TaskActivity.class);
-                startActivity(editTask);
-            }
-        });
+//        btnEditTasks.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent editTask = new Intent(getActivity(), TaskActivity.class);
+//                startActivity(editTask);
+//            }
+//        });
 
 
         return view;
