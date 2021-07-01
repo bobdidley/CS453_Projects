@@ -27,23 +27,5 @@ public class TaskActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
 
-        //
-        Intent intent = getIntent();
-        HashMap<String,String> task_details = (HashMap<String, String>) intent.getSerializableExtra("detail");
-
-//
-//        addTask = findViewById(R.id.btnAddTask);
-//
-//        addTask.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent addTask = new Intent(TaskActivity.this, AddTaskActivity.class);
-//                startActivity(addTask);
-//            }
-//        });
-
-
-
-
     }
 }

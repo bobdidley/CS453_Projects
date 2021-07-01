@@ -63,7 +63,8 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
      */
     @Override
     public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = inflater.inflate(R.layout.task_layout,parent,false);
+        //View itemView = inflater.inflate(R.layout.task_layout,parent,false);
+        View itemView = inflater.from(parent.getContext()).inflate(viewType,parent,false);
         return new TaskViewHolder(itemView);
     }
 
@@ -125,7 +126,6 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
             this.priority_ans_box = itemView.findViewById(R.id.priority_ans_box);
             itemView.setOnClickListener(this);
         }
-
 
 
         @Override

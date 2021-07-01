@@ -36,7 +36,8 @@ public class TaskFragment extends Fragment {
     ArrayList<HashMap<String,String>> data = new ArrayList<>();
     private java.util.ArrayList<HashMap<String, String>> ArrayList;
     private FloatingActionButton add;
-
+    private Button btn_remove;
+    private RecyclerView recyclerView;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         galleryViewModel =
@@ -47,6 +48,8 @@ public class TaskFragment extends Fragment {
 
        View view = inflater.inflate(R.layout.fragment_task,container,false);
        add = view.findViewById(R.id.btnAddTask);
+       btn_remove = view.findViewById(R.id.btnRemoveTask);
+       recyclerView = view.findViewById(R.id.taskRecyclerView);
 
 //        final TextView textView = binding.textGallery;
         galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -63,24 +66,29 @@ public class TaskFragment extends Fragment {
                 startActivity(addTask);
             }
         });
+        /**
+         * REMOVE BUTTON TO REMOVE THE TASK FROM THE TASK LIST
+         */
+//
+//        btn_remove.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
 
         return view;
     }
 
-
-
-
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
-
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        binding.taskRecyclerView.setLayoutManager(manager);
-        binding.taskRecyclerView.setHasFixedSize(true);
-        adapter = new CustomTaskAdapter(getActivity());
-        binding.taskRecyclerView.setAdapter(adapter);
-      // adapter.setTasksList((ArrayList<HashMap<String,String>>) data);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setHasFixedSize(true);
+        adapter = new CustomTaskAdapter(view.getContext());
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
