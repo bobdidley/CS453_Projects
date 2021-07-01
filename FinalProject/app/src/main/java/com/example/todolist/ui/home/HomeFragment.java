@@ -16,6 +16,8 @@ import com.example.todolist.ChangePasswordActivity;
 import com.example.todolist.R;
 import com.example.todolist.TaskActivity;
 import com.example.todolist.db_contents.DBHelper;
+import com.example.todolist.ui.about.AboutFragment;
+import com.example.todolist.ui.help.HelpFragment;
 
 public class HomeFragment extends Fragment {
 
@@ -23,6 +25,8 @@ public class HomeFragment extends Fragment {
     private TextView txtPassword;
     private Button btnChangePassword;
 //    private Button btnEditTasks;
+    private Button btnHelp;
+    private Button btnAbout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -32,12 +36,14 @@ public class HomeFragment extends Fragment {
 
         txtUsername = view.findViewById(R.id.username);
         txtPassword = view.findViewById(R.id.password);
+        btnChangePassword = view.findViewById(R.id.btnChangePassword);
+//        btnEditTasks = view.findViewById(R.id.btnEditTasks);
+        btnHelp = view.findViewById(R.id.btnHelp);
+        btnAbout = view.findViewById(R.id.btnAbout);
+
         // i know it's hard coded but it's going to have to do for now
         txtUsername.setText(db.getUsername());
         txtPassword.setText("Password");
-
-        btnChangePassword = view.findViewById(R.id.btnChangePassword);
-//        btnEditTasks = view.findViewById(R.id.btnEditTasks);
 
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +61,18 @@ public class HomeFragment extends Fragment {
 //            }
 //        });
 
+        btnHelp.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+//                getChildFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.frag_image, new HelpFragment())
+//                        .commit();
+//                Intent help = new Intent(getContext(), HelpFragment.class);
+//                startActivity(help);
+            }
+        });
 
         return view;
     }
