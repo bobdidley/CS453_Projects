@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.todolist.databinding.FragmentTaskBinding;
 import com.example.todolist.db_contents.DBHelper;
 import com.example.todolist.db_contents.Task;
 import com.example.todolist.ui.gallery.TaskFragment;

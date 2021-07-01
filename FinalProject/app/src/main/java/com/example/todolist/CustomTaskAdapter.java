@@ -64,15 +64,15 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
     @Override
     public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.task_layout,parent,false);
-        return new TaskViewHolder(itemView, this);
+        return new TaskViewHolder(itemView);
     }
 
 
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position) {
 
-        String task_name = taskList.get(position).get("name");
-        String task_detail = taskList.get(position).get("detail");
+        String task_name = taskList.get(position).get("task_name");
+        String task_status = taskList.get(position).get("status");
         String task_date = taskList.get(position).get("date");
         String task_time= taskList.get(position).get("time");
         String task_category = taskList.get(position).get("category");
@@ -80,7 +80,7 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
 
 
         TextView txt_task_name = holder.itemView.findViewById(R.id.taskName);
-        TextView txt_task_detail = holder.itemView.findViewById(R.id.taskDetail);
+        TextView txt_task_status = holder.itemView.findViewById(R.id.taskDetail);
         TextView txt_task_date = holder.itemView.findViewById(R.id.taskDate);
         TextView txt_task_time = holder.itemView.findViewById(R.id.taskTime);
         TextView txt_task_category = holder.itemView.findViewById(R.id.category_ans_box);
@@ -88,7 +88,7 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
 
         //set text
         txt_task_name.setText(task_name);
-        txt_task_detail.setText(task_detail);
+        txt_task_status.setText(task_status);
         txt_task_date.setText(task_date);
         txt_task_time.setText(task_time);
         txt_task_category.setText(task_category);
@@ -99,7 +99,7 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
 
     @Override
     public int getItemCount() {
-        return 0;
+        return taskList.size();
     }
 
     private boolean toBoolean(int n){
@@ -108,42 +108,42 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
 
     public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView taskName;
-        public final TextView taskDetail;
+        public final TextView taskStatus;
         public final TextView taskDate;
         public final TextView taskTime;
         public final TextView category_ans_box;
         public final TextView priority_ans_box;
-        public final CustomTaskAdapter taskAdapter;
 
-        public TaskViewHolder(View itemView, CustomTaskAdapter customTaskAdapter) {
+        public TaskViewHolder(View itemView) {
             super(itemView);
 
             this.taskName = itemView.findViewById(R.id.taskName);
-            this.taskDetail = itemView.findViewById(R.id.taskDetail);
+            this.taskStatus = itemView.findViewById(R.id.taskDetail);
             this.taskDate = itemView.findViewById(R.id.taskDate);
             this.taskTime = itemView.findViewById(R.id.taskTime);
             this.category_ans_box = itemView.findViewById(R.id.category_ans_box);
             this.priority_ans_box = itemView.findViewById(R.id.priority_ans_box);
-            this.taskAdapter = customTaskAdapter;
             itemView.setOnClickListener(this);
         }
+
 
 
         @Override
         public void onClick(View v) {
 
+
             int position = getLayoutPosition();
-            final MainActivity mParentActivity = (MainActivity) inflater.getContext();
+            final TaskActivity mParentActivity = (TaskActivity) inflater.getContext();
 
             TaskFragment frg = new TaskFragment();
 
-            // send vehicle details through a Bundle
+            // send task details through a Bundle
             Bundle args = new Bundle();
             args.putSerializable("details", taskList.get(position));
             frg.setArguments(args);
 
             mParentActivity.getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.taskRecyclerView, frg)
+                    .replace(R.id.frag_task, frg)
                     .addToBackStack(null)
                     .commit();
 
