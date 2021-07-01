@@ -40,4 +40,5 @@
     <string name="retype_new_password">Retype New Password</string>
     <string name="new_password">New Password</string>
     <string name="current_password">Current Password</string>
+    <string name="app_title"><![CDATA[TO-DO LIST APP - J&F]]></string>
 </resources>

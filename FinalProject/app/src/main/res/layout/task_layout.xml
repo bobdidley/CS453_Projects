@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="4dp"
     app:cardCornerRadius="8dp"
-    android:backgroundTint="@color/silver"
+    android:background="@drawable/border_shadow"
     android:orientation="horizontal"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp">
@@ -17,14 +17,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="8dp">
-
-        <!--        <CheckBox-->
-        <!--            android:id="@+id/taskCheckBox"-->
-        <!--            android:layout_width="353dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="This is Sample Task"-->
-        <!--            android:paddingStart="8dp"-->
-        <!--            android:buttonTint="@color/purple_200" />-->
 
         <TextView
             android:id="@+id/taskName"
@@ -143,6 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/green"
             android:text="Remove" />
 
 

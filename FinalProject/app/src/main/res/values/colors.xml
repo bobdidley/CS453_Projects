@@ -12,6 +12,11 @@
     <color name="blue">#A6C0FE</color>
     <color name="silver">#C0C0C0</color>
     <color name="lightslategray">#778899</color>
+    <color name="olivedrab">#6B8E23</color>
+    <color name="green">#008000</color>
+    <color name="palegreen">#98FB98</color>
+    <color name="forestgreen">#228B22</color>
+
 
 
 </resources>

@@ -35,6 +35,7 @@
         android:layout_width="135dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/green"
         android:layout_marginTop="300dp"
         android:text="@string/start" />
 
@@ -42,6 +43,7 @@
         android:id="@+id/btnStop"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/green"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="370dp"
         android:text="@string/stop" />
@@ -50,6 +52,7 @@
         android:id="@+id/btnReset"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/green"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="440dp"
         android:text="@string/reset" />
