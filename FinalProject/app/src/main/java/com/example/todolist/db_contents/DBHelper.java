@@ -162,10 +162,73 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     *
+     * @param user_id int
+     * @return ArrayList<HashMap<String, String>>
+     */
     public ArrayList<HashMap<String, String>> getUserTasks(int user_id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + USERS_COL_ID + " = " + Login.USER_ID;   // may not work for user_id column name
+        Cursor curs = db.rawQuery(sql, null);
+
+        ArrayList<HashMap<String, String>>  taskList = new ArrayList<>();
+        String[] columnNames = curs.getColumnNames();
+
+        curs.moveToFirst();
+        while(!curs.isAfterLast()) {
+            HashMap<String, String> individualTask = new HashMap<>();
+            for(String col_name : columnNames) {
+                individualTask.put(col_name, curs.getString(curs.getColumnIndex(col_name)));
+            }
+            taskList.add(individualTask);
+            curs.moveToNext();
+        }
+
+        return taskList;
+    }
+
+    /**
+     *
+     * @param user_id int
+     * @param category String
+     * @return ArrayList<HashMap<String, String>>
+     */
+    public ArrayList<HashMap<String, String>> getCategoryTasks(int user_id, String category) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + USERS_COL_ID + " = " + Login.USER_ID +
+                " AND " + TASKS_COL_CATEGORY + " = \"" + category + "\"";   // may not work for user_id column name
+        Cursor curs = db.rawQuery(sql, null);
+
+        ArrayList<HashMap<String, String>>  taskList = new ArrayList<>();
+        String[] columnNames = curs.getColumnNames();
+
+        curs.moveToFirst();
+        while(!curs.isAfterLast()) {
+            HashMap<String, String> individualTask = new HashMap<>();
+            for(String col_name : columnNames) {
+                individualTask.put(col_name, curs.getString(curs.getColumnIndex(col_name)));
+            }
+            taskList.add(individualTask);
+            curs.moveToNext();
+        }
+
+        return taskList;
+    }
+
+    /**
+     *
+     * @param user_id int
+     * @param priority int
+     * @return ArrayList<HashMap<String, String>>
+     */
+    public ArrayList<HashMap<String, String>> getPriorityTasks(int user_id, int priority) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + USERS_COL_ID + " = " + Login.USER_ID +
+                " AND " + TASKS_COL_PRIORITY + " = " + priority;   // may not work for user_id column name
         Cursor curs = db.rawQuery(sql, null);
 
         ArrayList<HashMap<String, String>>  taskList = new ArrayList<>();
@@ -205,6 +268,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return -1;
     }
 
+    /**
+     * Return the logged in user's username.
+     * @return String
+     */
     public String getUsername() {
         SQLiteDatabase db = this.getReadableDatabase();
 
