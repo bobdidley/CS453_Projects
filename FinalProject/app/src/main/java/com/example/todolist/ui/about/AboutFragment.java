@@ -7,8 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.todolist.R;
+import com.example.todolist.databinding.FragmentAboutBinding;
+import com.example.todolist.databinding.FragmentHelpBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +19,9 @@ import com.example.todolist.R;
  * create an instance of this fragment.
  */
 public class AboutFragment extends Fragment {
+    private TextView txtView1, txtView2, txtView3, txtView4, txtView5, txtView6, txtView7;
+    public FragmentAboutBinding binding;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +67,30 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false);
+//        return inflater.inflate(R.layout.fragment_about, container, false);
+
+        binding = FragmentAboutBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+
+        View view = inflater.inflate(R.layout.fragment_about,container,false);
+
+        txtView1 = view.findViewById(R.id.line1);
+        txtView2 = view.findViewById(R.id.line2);
+        txtView3 = view.findViewById(R.id.line3);
+        txtView4 = view.findViewById(R.id.line4);
+        txtView5 = view.findViewById(R.id.line5);
+        txtView6 = view.findViewById(R.id.line6);
+        txtView7 = view.findViewById(R.id.line7);
+
+
+        txtView1.setText("TO-DO LIST");
+        txtView2.setText("Daily productivity app that keeps track of tasks.");
+        txtView3.setText("Contributors: Fiona Le & James Austin Jr.");
+        txtView4.setText("Sponsors: AJ Fahim");
+        txtView5.setText("Version #: 1.0");
+        txtView6.setText("Copyright: Summer 2021");
+        txtView7.setText("Donate here: GimmeMoney.com");
+        return view;
     }
 }
