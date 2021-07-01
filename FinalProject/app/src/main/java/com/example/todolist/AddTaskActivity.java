@@ -105,7 +105,7 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
                     DBHelper db = new DBHelper(getApplicationContext());
                     db.insertTask(new Task(Login.USER_ID, name, date, category, priority, time, Task.STATUS.TODO));
 
-                    Intent addTask = new Intent(AddTaskActivity.this, TaskActivity.class);
+                    Intent addTask = new Intent(AddTaskActivity.this, HomeActivity.class);
                     startActivity(addTask);
                 } else {
                     // sets an alert message if the Create a Task form is not complete
