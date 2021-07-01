@@ -2,6 +2,7 @@ package com.example.todolist.ui.gallery;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.todolist.AddTaskActivity;
-import com.example.todolist.CalendarActivity;
-import com.example.todolist.CustomTaskAdapter;
-import com.example.todolist.R;
-import com.example.todolist.TaskActivity;
+import com.example.todolist.*;
 import com.example.todolist.databinding.FragmentTaskBinding;
+import com.example.todolist.db_contents.DBHelper;
 import com.example.todolist.ui.calendar.CalendarFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -30,42 +28,29 @@ import java.util.HashMap;
 
 public class TaskFragment extends Fragment {
 
-    private TaskViewModel galleryViewModel;
-    private FragmentTaskBinding binding;
     CustomTaskAdapter adapter;
-    ArrayList<HashMap<String,String>> data = new ArrayList<>();
+    ArrayList<HashMap<String,String>> data;
     private java.util.ArrayList<HashMap<String, String>> ArrayList;
     private FloatingActionButton add;
     private Button btn_remove;
     private RecyclerView recyclerView;
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                new ViewModelProvider(this).get(TaskViewModel.class);
 
-        binding = FragmentTaskBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-       View view = inflater.inflate(R.layout.fragment_task,container,false);
+       View view = inflater.inflate(R.layout.fragment_task, container,false);
        add = view.findViewById(R.id.btnAddTask);
        btn_remove = view.findViewById(R.id.btnRemoveTask);
-       recyclerView = view.findViewById(R.id.taskRecyclerView);
+       recyclerView = (RecyclerView) view.findViewById(R.id.taskRecyclerView);
 
-//        final TextView textView = binding.textGallery;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-            }
-        });
-
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addTask = new Intent(getActivity(), AddTaskActivity.class);
-                startActivity(addTask);
-            }
-        });
+//        add.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent addTask = new Intent(getActivity(), AddTaskActivity.class);
+//                startActivity(addTask);
+//            }
+//        });
         /**
          * REMOVE BUTTON TO REMOVE THE TASK FROM THE TASK LIST
          */
@@ -77,6 +62,17 @@ public class TaskFragment extends Fragment {
 //            }
 //        });
 
+        /** THIS CODE RIGHT HERE SIR, THIS IS CAUSING ALL THE TROUBLE, I THINK... */
+        DBHelper db = new DBHelper(getContext());
+
+//        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        recyclerView.setHasFixedSize(true);
+        adapter = new CustomTaskAdapter(getActivity(), db.getUserTasks(Login.USER_ID));   // error starts here
+        recyclerView.setAdapter(adapter);
+
+        // debug
+        Log.i("RV Shown?", "" + recyclerView.isShown());
 
         return view;
     }
@@ -84,16 +80,18 @@ public class TaskFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setHasFixedSize(true);
-        adapter = new CustomTaskAdapter(view.getContext());
-        recyclerView.setAdapter(adapter);
+//        DBHelper db = new DBHelper(getContext());
+//
+//        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+//        recyclerView.setLayoutManager(manager);
+//        recyclerView.setHasFixedSize(true);
+//        adapter = new CustomTaskAdapter(view.getContext(), db.getUserTasks(Login.USER_ID));
+//        recyclerView.setAdapter(adapter);
+
+//        mParentActivity.getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.frag_task, frg)
+//                .addToBackStack(null)
+//                .commit();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 }
