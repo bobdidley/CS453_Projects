@@ -24,6 +24,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         btn_changePassword = findViewById(R.id.btnChangePassword);
+        btn_editTask = findViewById(R.id.btnEditTasks);
 
         btn_changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,13 +34,13 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        btn_editTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent editTask = new Intent(HomeActivity.this, TaskActivity.class);
-                startActivity(editTask);
-            }
-        });
+//        btn_editTask.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent editTask = new Intent(HomeActivity.this, TaskActivity.class);
+//                startActivity(editTask);
+//            }
+//        });
 
 
     }
