@@ -178,6 +178,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 individualTask.put(col_name, curs.getString(curs.getColumnIndex(col_name)));
             }
             taskList.add(individualTask);
+            curs.moveToNext();
         }
 
         return taskList;
