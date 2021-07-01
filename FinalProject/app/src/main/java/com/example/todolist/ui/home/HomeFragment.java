@@ -11,37 +11,35 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.todolist.ChangePasswordActivity;
 import com.example.todolist.R;
 import com.example.todolist.TaskActivity;
-import com.example.todolist.databinding.FragmentHomeBinding;
+import com.example.todolist.db_contents.DBHelper;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
-    private FragmentHomeBinding binding;
-    private Button changePassword;
+    private TextView txtUsername;
+    private TextView txtPassword;
+    private Button btnChangePassword;
+    private Button btnEditTasks;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        DBHelper db = new DBHelper(view.getContext());
 
-//        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-            }
-        });
+        txtUsername = view.findViewById(R.id.username);
+        txtPassword = view.findViewById(R.id.password);
+        // i know it's hard coded but it's going to have to do for now
+        txtUsername.setText(db.getUsername());
+        txtPassword.setText("Password");
 
-        binding.btnChangePassword.setOnClickListener(new View.OnClickListener() {
+        btnChangePassword = view.findViewById(R.id.btnChangePassword);
+        btnEditTasks = view.findViewById(R.id.btnEditTasks);
+
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent changePassword = new Intent(getActivity(), ChangePasswordActivity.class);
@@ -49,7 +47,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        binding.btnEditTasks.setOnClickListener(new View.OnClickListener() {
+        btnEditTasks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent editTask = new Intent(getActivity(), TaskActivity.class);
@@ -58,12 +56,6 @@ public class HomeFragment extends Fragment {
         });
 
 
-        return root;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+        return view;
     }
 }

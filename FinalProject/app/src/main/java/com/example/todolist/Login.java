@@ -18,7 +18,7 @@ public class Login extends AppCompatActivity {
     private EditText edtPassword;
     private Button btn_signup;
     private Button btn_login;
-    public static int USER_ID;
+    public static int USER_ID;   // how to make this final without initializing it here?
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

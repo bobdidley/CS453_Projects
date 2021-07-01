@@ -204,6 +204,19 @@ public class DBHelper extends SQLiteOpenHelper {
         return -1;
     }
 
+    public String getUsername() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        sql = "SELECT " + USERS_COL_ID + ", " + USERS_COL_USERNAME + " FROM " + USERS_TABLE_NAME +
+                " WHERE " + USERS_COL_ID + " = " + Login.USER_ID;
+        Cursor curs = db.rawQuery(sql, null);
+
+        curs.moveToFirst();
+        if(!curs.isAfterLast())
+            return curs.getString(curs.getColumnIndex(USERS_COL_USERNAME));
+        return null;
+    }
+
     /**
      * Returns all the users and passwords.
      * @return HashMap<String, String>
