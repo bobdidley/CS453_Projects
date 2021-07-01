@@ -15,7 +15,8 @@
         android:id="@+id/nav_task"
         android:name="com.example.todolist.ui.gallery.TaskFragment"
         android:label="@string/menu_task"
-        tools:layout="@layout/fragment_task" />
+        tools:layout="@layout/activity_task" />
+
 
     <fragment
         android:id="@+id/nav_calendar"
@@ -27,6 +28,7 @@
         android:name="com.example.todolist.ui.timer.TimerFragment"
         android:label="@string/menu_timer"
         tools:layout="@layout/fragment_timer" />
+
     <fragment
         android:id="@+id/nav_help"
         android:name="com.example.todolist.ui.help.HelpFragment"
@@ -38,8 +40,4 @@
         android:name="com.example.todolist.ui.about.AboutFragment"
         android:label="@string/menu_about"
         tools:layout="@layout/fragment_about" />
-<!--    <fragment-->
-<!--        android:id="@+id/nav_add_task"-->
-<!--        android:name="com.example.todolist.AddTaskActivity"-->
-<!--        tools:layout="@layout/activity_add_task" />-->
 </navigation>
