@@ -36,4 +36,5 @@
     <string name="stop">stop</string>
     <string name="reset">reset</string>
     <string name="action_logout">Logout</string>
+    <string name="default_time">20:00</string>
 </resources>
