@@ -1,7 +1,9 @@
 package com.example.todolist;
 
 import android.content.DialogInterface;
+import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,15 +28,15 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
         currentPassword = findViewById(R.id.currentPassword);
         updatePassword = findViewById(R.id.updatePassword);
-        updateRetypePassword = findViewById(R.id.txtRetypePassword);
+        updateRetypePassword = findViewById(R.id.updateRetypePassword);
         btn_update = findViewById(R.id.btnUpdate);
 
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String currPass = currentPassword.getText().toString();
-                String upPass = updatePassword.getText().toString();
-                String upRePass = updateRetypePassword.getText().toString();
+                String currPass = ((TextView) currentPassword).getText().toString();
+                String upPass = ((TextView) updatePassword).getText().toString();
+                String upRePass = ((TextView) updateRetypePassword).getText().toString();
 
                 if(currPass.isEmpty()) {
                     currentPassword.setError("Missing field");
@@ -56,8 +58,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     DBHelper db = new DBHelper(getApplicationContext());
 
                     if (db.isExistingUser(db.getUsername(), currPass)) {
+                        // debug
+//                        Log.i("Check User Password", "existing...");
+
                         if (db.updateUserPassword(updatePassword.getText().toString(), Login.USER_ID)) {
-                            Toast.makeText(ChangePasswordActivity.this,"Password is updated", Toast.LENGTH_SHORT)
+                            // debug
+//                            Log.i("Update User Password", "updating...");
+
+                            Toast.makeText(getApplicationContext(),"Password is updated", Toast.LENGTH_SHORT)
                                     .show();
                             Intent profile = new Intent(ChangePasswordActivity.this, ProfileActivity.class);
                             startActivity(profile);
