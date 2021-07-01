@@ -35,8 +35,6 @@ public class TimerFragment extends Fragment {
     private final int min_ms = 60000;
     private final int sec_ms = 1000;
 
-//    private boolean isRunning;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,8 +77,8 @@ public class TimerFragment extends Fragment {
     }
 
     private void startTimer() {
-        String time = timeInput.getText().toString();
-        timeDisplay.setText(time);
+        initialTime = timeInput.getText().toString();
+        timeDisplay.setText(initialTime);
         timeInput.setVisibility(View.INVISIBLE);
         timeDisplay.setVisibility(View.VISIBLE);
 
@@ -88,7 +86,7 @@ public class TimerFragment extends Fragment {
         btnReset.setClickable(true);
         btnStop.setClickable(true);
 
-        String[] min_sec = time.split(":");
+        String[] min_sec = initialTime.split(":");
         int minute_ms = Integer.parseInt(min_sec[0]) * min_ms;
         int second_ms = Integer.parseInt(min_sec[1]) * sec_ms;
         time_in_ms = minute_ms + second_ms;
