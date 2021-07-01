@@ -23,6 +23,7 @@
             android:id="@+id/timeDisplay"
             android:layout_width="251dp"
             android:layout_height="104dp"
+            android:background="@drawable/border_shadow"
             android:textSize="50sp"
             android:textColor="@color/black"
             android:textAlignment="center"
@@ -35,7 +36,7 @@
         android:layout_width="135dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/royalblue"
         android:layout_marginTop="300dp"
         android:text="@string/start" />
 
@@ -43,7 +44,7 @@
         android:id="@+id/btnStop"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/royalblue"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="370dp"
         android:text="@string/stop" />
@@ -52,7 +53,7 @@
         android:id="@+id/btnReset"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/royalblue"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="440dp"
         android:text="@string/reset" />

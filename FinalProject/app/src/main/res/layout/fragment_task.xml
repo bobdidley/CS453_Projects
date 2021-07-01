@@ -57,6 +57,7 @@
             android:layout_width="57dp"
             android:layout_height="55dp"
             android:src="@drawable/ic_icon_add_task"
+            android:backgroundTint="@color/cadetblue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.917"

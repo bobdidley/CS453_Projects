@@ -23,7 +23,7 @@
         android:id="@+id/taskRecyclerView"
         android:layout_width="390dp"
         android:layout_height="381dp"
-        android:background="@color/silver"
+        android:background="@color/blue"
         android:numColumns="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

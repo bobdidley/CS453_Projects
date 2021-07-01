@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:textColor="@color/silver"
+        android:textColor="@color/white_smoke"
         android:textFontWeight="@integer/config_navAnimTime"
         android:text="@string/app_title" />
 </LinearLayout>
