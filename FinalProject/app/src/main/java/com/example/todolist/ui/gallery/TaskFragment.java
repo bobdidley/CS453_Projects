@@ -89,12 +89,6 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
          * REMOVE BUTTON TO REMOVE THE TASK FROM THE TASK LIST
          */
 
-        btn_remove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                taskList.remove(btn_remove.getRootView().findViewById(R.id.taskName).toString());
-            }
-        });
 
         setRecyclerView(taskList);
 

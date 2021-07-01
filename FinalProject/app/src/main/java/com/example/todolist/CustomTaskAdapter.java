@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -79,20 +80,14 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
         String task_time= taskList.get(position).get("time");
         String task_category = taskList.get(position).get("category");
         String task_priority = taskList.get(position).get("priority");
-
-//        TextView txt_task_name = holder.itemView.findViewById(R.id.taskName);
-//        TextView txt_task_status = holder.itemView.findViewById(R.id.taskDetail);
-//        TextView txt_task_date = holder.itemView.findViewById(R.id.taskDate);
-//        TextView txt_task_time = holder.itemView.findViewById(R.id.taskTime);
-//        TextView txt_task_category = holder.itemView.findViewById(R.id.category_ans_box);
-//        TextView txt_task_priority = holder.itemView.findViewById(R.id.priority_ans_box);
-
+        
         TextView txt_task_name = holder.taskName;
         TextView txt_task_status = holder.taskStatus;
         TextView txt_task_date = holder.taskDate;
         TextView txt_task_time = holder.taskTime;
         TextView txt_task_category = holder.category_ans_box;
         TextView txt_task_priority = holder.priority_ans_box;
+        Button btnRemoveTask = holder.btnRemoveTask;
 
         //set text
         txt_task_name.setText(task_name);
@@ -102,18 +97,14 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
         txt_task_category.setText(task_category);
         txt_task_priority.setText(task_priority);
 
-//        final TaskActivity mParentActivity = (TaskActivity) inflater.getContext();
-//        TaskFragment frg = new TaskFragment();
-//
-//        // send vehicle details through a Bundle
-//        Bundle args = new Bundle();
-//        args.putSerializable("details", taskList);
-//        frg.setArguments(args);
-//
-//        mParentActivity.getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.frag_task, frg)
-//                .addToBackStack(null)
-//                .commit();
+        // set onclick listener to remove a task
+        btnRemoveTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                taskList.remove(position);
+                notifyDataSetChanged();
+            }
+        });
     }
 
 
@@ -133,6 +124,7 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
         public final TextView taskTime;
         public final TextView category_ans_box;
         public final TextView priority_ans_box;
+        public final Button btnRemoveTask;
         final CustomTaskAdapter customTaskAdapter;
 
         public TaskViewHolder(View itemView, CustomTaskAdapter customTaskAdapter) {
@@ -144,7 +136,11 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
             this.taskTime = itemView.findViewById(R.id.taskTime);
             this.category_ans_box = itemView.findViewById(R.id.category_ans_box);
             this.priority_ans_box = itemView.findViewById(R.id.priority_ans_box);
+            this.btnRemoveTask = itemView.findViewById(R.id.btnRemoveTask);
             this.customTaskAdapter = customTaskAdapter;
+
         }
+
+
     }
 }
