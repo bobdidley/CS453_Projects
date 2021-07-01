@@ -14,22 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.lifecycle.ViewModelProvider;
-import com.example.todolist.AddTaskActivity;
 import com.example.todolist.R;
-import com.example.todolist.databinding.ActivityProfileBinding;
-import com.example.todolist.databinding.FragmentTaskBinding;
-import com.example.todolist.databinding.FragmentTimerBinding;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TimerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class TimerFragment extends Fragment {
-
-    private TimerViewModel timerViewModel;
-    private FragmentTimerBinding binding;
 
     private EditText timeInput;
     private TextView timeDisplay;
@@ -39,44 +30,52 @@ public class TimerFragment extends Fragment {
 
     CountDownTimer timer;
     private long time_in_ms;
+    private String initialTime;
 
     private final int min_ms = 60000;
     private final int sec_ms = 1000;
 
-    private boolean isRunning;
+//    private boolean isRunning;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        timerViewModel =
-                new ViewModelProvider(this).get(TimerViewModel.class);
-        binding = FragmentTimerBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View view = inflater.inflate(R.layout.fragment_timer, container, false);
 
-        if(container != null) {
-            timeInput = container.findViewById(R.id.timeInput);
-            timeDisplay = container.findViewById(R.id.timeDisplay);
-            btnStart = container.findViewById(R.id.btnStart);
+        if(view != null) {
+            timeInput = view.findViewById(R.id.timeInput);
+            timeDisplay = view.findViewById(R.id.timeDisplay);
+            btnStart = view.findViewById(R.id.btnStart);
+            btnStop = view.findViewById(R.id.btnStop);
+            btnReset = view.findViewById(R.id.btnReset);
 
             // debug
-            Log.i("Init Start", "btnStart was initialized");
-
-            btnStop = container.findViewById(R.id.btnStop);
-            btnReset = container.findViewById(R.id.btnReset);
+//            Log.i("Init Btns", "Buttons are initialized");
         }
 
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_timer, container, false);
-
-        binding.btnStart.setOnClickListener(new View.OnClickListener() {
+        btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startTimer();
             }
         });
-        
-        return root;
+
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetTimer();
+            }
+        });
+
+        btnStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopTimer();
+            }
+        });
+
+        return view;
     }
 
     private void startTimer() {
@@ -84,6 +83,10 @@ public class TimerFragment extends Fragment {
         timeDisplay.setText(time);
         timeInput.setVisibility(View.INVISIBLE);
         timeDisplay.setVisibility(View.VISIBLE);
+
+        btnStart.setClickable(false);
+        btnReset.setClickable(true);
+        btnStop.setClickable(true);
 
         String[] min_sec = time.split(":");
         int minute_ms = Integer.parseInt(min_sec[0]) * min_ms;
@@ -101,8 +104,26 @@ public class TimerFragment extends Fragment {
             public void onFinish() {
             }
         }.start();
+    }
 
-        isRunning = true;
+    private void resetTimer() {
+        timer.cancel();
+        timeDisplay.setText(initialTime);
+        timeInput.setText(initialTime);
+        timeDisplay.setVisibility(View.INVISIBLE);
+        timeInput.setVisibility(View.VISIBLE);
+
+        btnStart.setClickable(true);
+        btnReset.setClickable(false);
+        btnStop.setClickable(false);
+    }
+
+    private void stopTimer() {
+        timer.cancel();
+
+        btnStart.setClickable(true);
+        btnReset.setClickable(true);
+        btnStop.setClickable(false);
     }
 
     private void updateTimer() {
@@ -110,18 +131,18 @@ public class TimerFragment extends Fragment {
         int second = (int) time_in_ms % min_ms / sec_ms;
 
         StringBuilder timeLeft = new StringBuilder();
+        if(minute < 10) timeLeft.append(0);
         timeLeft.append(minute);
         timeLeft.append(":");
         if(second < 10) timeLeft.append(0);
         timeLeft.append(second);
 
         timeDisplay.setText(timeLeft.toString());
+        timeInput.setText(timeLeft.toString());
+
+        // maybe include a ringer for when the timer is finished?
     }
 
     public TimerFragment() {}
 
-    public static TimerFragment newInstance(String param1, String param2) {
-        TimerFragment fragment = new TimerFragment();
-        return fragment;
-    }
 }
