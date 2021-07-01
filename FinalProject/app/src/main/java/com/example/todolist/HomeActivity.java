@@ -24,7 +24,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         btn_changePassword = findViewById(R.id.btnChangePassword);
-        btn_editTask = findViewById(R.id.btnEditTasks);
+//        btn_editTask = findViewById(R.id.btnEditTasks);
 
         btn_changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
