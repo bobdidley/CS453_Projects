@@ -11,8 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.todolist.AboutActivity;
 import com.example.todolist.ChangePasswordActivity;
+import com.example.todolist.HelpActivity;
 import com.example.todolist.R;
 import com.example.todolist.TaskActivity;
 import com.example.todolist.db_contents.DBHelper;
@@ -53,6 +57,24 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        btnHelp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent help = new Intent(getActivity(), HelpActivity.class);
+                startActivity(help);
+            }
+
+        });
+
+        btnAbout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent help = new Intent(getActivity(), AboutActivity.class);
+                startActivity(help);
+            }
+
+        });
+
 //        btnEditTasks.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -61,18 +83,28 @@ public class HomeFragment extends Fragment {
 //            }
 //        });
 
-        btnHelp.setOnClickListener(new View.OnClickListener() {
+//        btnHelp.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
 
-            @Override
-            public void onClick(View v) {
+                /*************************************************************************************************
 //                getChildFragmentManager()
 //                        .beginTransaction()
 //                        .replace(R.id.frag_image, new HelpFragment())
 //                        .commit();
 //                Intent help = new Intent(getContext(), HelpFragment.class);
 //                startActivity(help);
-            }
-        });
+                 *************************************************************************************************/
+/*************************************************************************************************
+//                getFragmentManager().beginTransaction()
+//                        .replace(R.id.frag_help, new HelpFragment(),"frag_image")
+//                        .addToBackStack(null).commit();
+                 *************************************************************************************************/
+
+
+//            }
+//        });
 
         return view;
     }

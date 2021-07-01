@@ -4,11 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".HelpActivity">
 
+    <include layout="@layout/fragment_help"/>
 
-    <include
-        layout="@layout/fragment_home"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"></include>
 </androidx.constraintlayout.widget.ConstraintLayout>
