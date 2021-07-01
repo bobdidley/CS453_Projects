@@ -44,13 +44,13 @@ public class TaskFragment extends Fragment {
        btn_remove = view.findViewById(R.id.btnRemoveTask);
        recyclerView = (RecyclerView) view.findViewById(R.id.taskRecyclerView);
 
-//        add.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent addTask = new Intent(getActivity(), AddTaskActivity.class);
-//                startActivity(addTask);
-//            }
-//        });
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addTask = new Intent(getActivity(), AddTaskActivity.class);
+                startActivity(addTask);
+            }
+        });
         /**
          * REMOVE BUTTON TO REMOVE THE TASK FROM THE TASK LIST
          */
