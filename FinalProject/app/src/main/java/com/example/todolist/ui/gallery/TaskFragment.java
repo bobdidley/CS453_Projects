@@ -31,12 +31,9 @@ import java.util.HashMap;
 public class TaskFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     CustomTaskAdapter adapter;
-    ArrayList<HashMap<String,String>> data;
-    private java.util.ArrayList<HashMap<String, String>> ArrayList;
     private Spinner categoryFilter;
     private Spinner priorityFilter;
     private FloatingActionButton add;
-    private Button btn_remove;
     private RecyclerView recyclerView;
 
     ArrayList<String> pry_filters;
@@ -53,7 +50,6 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
         priorityFilter = view.findViewById(R.id.spnPriorityFilter);
 
        add = view.findViewById(R.id.btnAddTask);
-       btn_remove = view.findViewById(R.id.btnRemoveTask);
        recyclerView = (RecyclerView) view.findViewById(R.id.taskRecyclerView);
         cat_filters = new ArrayList<>();
         pry_filters = new ArrayList<>();

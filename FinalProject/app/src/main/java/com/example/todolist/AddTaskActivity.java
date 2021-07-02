@@ -92,7 +92,7 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
                     ((TextView) task_priority.getSelectedView()).setError(priorities[0]);
                     pryCheck = false;
                 }
-                if(time.equals(times[0])) {
+                if(time == null || time.equals(times[0])) {
                     ((TextView) task_time.getSelectedView()).setError(times[0]);
                     timeCheck = false;
                 }
@@ -102,8 +102,16 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
                 }
 
                 if(task_name.getError() == null && task_category.getError() == null && pryCheck && timeCheck && dateCheck) {
+                    // debug
+                    Log.i("AddTask 1", "Here");
+
                     DBHelper db = new DBHelper(getApplicationContext());
                     if(db.insertTask(new Task(Login.USER_ID, name, date, category, priority, time, Task.STATUS.TODO))) {
+                        // debug
+                        Log.i("AddTask 2", "Here 2");
+
+                        Toast.makeText(getApplicationContext(), "Added " + name + "!", Toast.LENGTH_SHORT).show();
+
                         Intent addTask = new Intent(AddTaskActivity.this, ProfileActivity.class);
                         startActivity(addTask);
                     }

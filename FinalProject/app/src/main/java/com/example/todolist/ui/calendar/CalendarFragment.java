@@ -1,6 +1,7 @@
 package com.example.todolist.ui.calendar;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,16 +62,30 @@ public class CalendarFragment extends Fragment {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                selectedDate = sdf.format(new Date(year, month, dayOfMonth).getDate());
+                selectedDate = "";
+                if(month < 10) selectedDate += 0;
+                selectedDate += (month+1) + "/";
+                if(dayOfMonth < 10) selectedDate += 0;
+                selectedDate += dayOfMonth + "/";
+                if(year < 10) selectedDate += 0;
+                selectedDate += year;
+
+                // debug
+                Log.i("Select Date", "Selected Date = " + selectedDate);
+
                 Toast.makeText(getContext(), selectedDate, Toast.LENGTH_SHORT).show();
                 setRecyclerView(db.getDateTasks(Login.USER_ID, selectedDate));
             }
         });
-        
+
         return view;
     }
 
     private void setRecyclerView(ArrayList<HashMap<String, String>> taskList) {
+
+        // debug
+        Log.i("Calendar RV", "Setting the recycler view");
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         if(adapter == null) { adapter = new CustomTaskAdapter(getActivity(), taskList); }
