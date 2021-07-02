@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/calendar_fragment"
-        android:layout_width="431dp"
+        android:layout_width="match_parent"
         android:layout_height="416dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,8 +22,8 @@
 
     <fragment
         android:id="@+id/task_fragment"
-        android:layout_width="429dp"
-        android:layout_height="437dp"
+        android:layout_width="393dp"
+        android:layout_height="387dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
