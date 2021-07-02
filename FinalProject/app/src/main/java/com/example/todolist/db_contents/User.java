@@ -1,25 +1,31 @@
 package com.example.todolist.db_contents;
 
-import java.util.HashMap;
-
 public class User {
     private final String username;
     private String password;
-//    private HashMap<Integer, Task> task_list;
 
+    /**
+     * Overload Constructor
+     * @param username String
+     * @param password String
+     */
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
+    /**
+     * Returns the username.
+     * @return String
+     */
     public String getUsername() {
         return username;
     }
 
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
-
+    /**
+     * Returns the password.
+     * @return String
+     */
     public String getPassword() {
         return password;
     }
