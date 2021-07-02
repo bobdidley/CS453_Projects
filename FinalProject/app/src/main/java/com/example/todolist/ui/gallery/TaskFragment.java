@@ -61,19 +61,7 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
 
        db = new DBHelper(getContext());
 
-       ArrayList<HashMap<String, String>> taskList = db.getUserTasks(Login.USER_ID);
-        for(HashMap<String, String> task : db.getUserTasks(Login.USER_ID)) {
-            String pry = task.get(DBHelper.TASKS_COL_PRIORITY);
-            String cat = task.get(DBHelper.TASKS_COL_CATEGORY);
-            if(!pry_filters.contains(pry))
-                pry_filters.add(pry);
-            if(!cat_filters.contains(cat)) {
-                cat_filters.add(cat);
-            }
-        }
-
-        priorityFilter.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, pry_filters));
-        categoryFilter.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, cat_filters));
+        setRecyclerView(0, null, -1);
 
         priorityFilter.setOnItemSelectedListener(this);
         categoryFilter.setOnItemSelectedListener(this);
@@ -85,12 +73,6 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
                 startActivity(addTask);
             }
         });
-        /**
-         * REMOVE BUTTON TO REMOVE THE TASK FROM THE TASK LIST
-         */
-
-
-        setRecyclerView(taskList);
 
         return view;
     }
@@ -123,14 +105,14 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
 //                    Log.i("Category Filter", "Category spinner chose " + parent.getSelectedItem());
                     priorityFilter.setSelection(0);
                     categoryTasks = db.getCategoryTasks(Login.USER_ID, parent.getSelectedItem().toString());
-                    setRecyclerView(categoryTasks);
+                    setRecyclerView(1, parent.getSelectedItem().toString(), -1);
                     break;
                 case R.id.spnPriorityFilter:
                     // debug
 //                    Log.i("Priority Filter", "Priority spinner chose " + parent.getSelectedItem());
                     categoryFilter.setSelection(0);
                     priorityTasks = db.getPriorityTasks(Login.USER_ID, Integer.parseInt(parent.getSelectedItem().toString()));
-                    setRecyclerView(priorityTasks);
+                    setRecyclerView(2, null, Integer.parseInt(parent.getSelectedItem().toString()));
                     break;
                 default:
                     break;
@@ -141,11 +123,45 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onNothingSelected(AdapterView<?> parent) {}
 
-    private void setRecyclerView(ArrayList<HashMap<String, String>> taskList) {
+    private void setRecyclerView(int filter, @Nullable String category, @Nullable int priority) {
+        ArrayList<HashMap<String, String>> taskList = new ArrayList<>();
+        switch(filter) {
+            case 0:
+                taskList = db.getUserTasks(Login.USER_ID);
+                setSpinners(taskList);
+                break;
+            case 1:
+                taskList = db.getCategoryTasks(Login.USER_ID, category);
+                break;
+            case 2:
+                taskList = db.getPriorityTasks(Login.USER_ID, priority);
+                break;
+        }
+//        updateSpinners(taskList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
-        adapter = new CustomTaskAdapter(getActivity(), taskList);
-        adapter.notifyDataSetChanged();
+//        adapter = new CustomTaskAdapter(getActivity(), taskList);
+//        adapter.notifyDataSetChanged();
+        if(adapter == null) { adapter = new CustomTaskAdapter(getActivity(), taskList); }
+        else {
+            adapter.reset();
+            adapter.setTasksList(taskList);
+        }
         recyclerView.setAdapter(adapter);
+    }
+
+    private void setSpinners(ArrayList<HashMap<String, String>> taskList) {
+        for(HashMap<String, String> task : taskList) {
+            String pry = task.get(DBHelper.TASKS_COL_PRIORITY);
+            String cat = task.get(DBHelper.TASKS_COL_CATEGORY);
+            if(!pry_filters.contains(pry))
+                pry_filters.add(pry);
+            if(!cat_filters.contains(cat)) {
+                cat_filters.add(cat);
+            }
+        }
+
+        priorityFilter.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, pry_filters));
+        categoryFilter.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, cat_filters));
     }
 }

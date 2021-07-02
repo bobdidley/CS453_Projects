@@ -2,6 +2,7 @@ package com.example.todolist;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.todolist.db_contents.DBHelper;
 import com.example.todolist.ui.gallery.TaskFragment;
 
 import org.jetbrains.annotations.NotNull;
@@ -35,21 +38,21 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
     }
 
     /**
-     * Clears the vehicle list array and updates so a new vehicle list can be put in.
+     * Clears the task list array and updates so a new task list can be put in.
      */
-//    public void reset() {
-//        this.taskList.clear();
-//        notifyDataSetChanged();
-//    }
+    public void reset() {
+        this.taskList.clear();
+        notifyDataSetChanged();
+    }
 
     /**
-     * Sets the new vehicle list.
+     * Sets the new task list.
      * @param taskList ArrayList<HashMap<String, String>>
      */
-//    public void setTasksList(ArrayList<HashMap<String,String>> taskList){
-//        this.taskList = taskList;
-//        notifyDataSetChanged();
-//    }
+    public void setTasksList(ArrayList<HashMap<String,String>> taskList){
+        this.taskList = taskList;
+        notifyDataSetChanged();
+    }
 //
 //    public CustomTaskAdapter(Context context, List<taskModel> list) {
 //        this.taskList = list;
@@ -74,12 +77,12 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position) {
 
-        String task_name = taskList.get(position).get("task_name");
-        String task_status = taskList.get(position).get("status");
-        String task_date = taskList.get(position).get("date");
-        String task_time= taskList.get(position).get("time");
-        String task_category = taskList.get(position).get("category");
-        String task_priority = taskList.get(position).get("priority");
+        String task_name = taskList.get(position).get(DBHelper.TASKS_COL_TASK_NAME);
+        String task_status = taskList.get(position).get(DBHelper.TASKS_COL_STATUS);
+        String task_date = taskList.get(position).get(DBHelper.TASKS_COL_DATE);
+        String task_time= taskList.get(position).get(DBHelper.TASKS_COL_TIME);
+        String task_category = taskList.get(position).get(DBHelper.TASKS_COL_CATEGORY);
+        String task_priority = taskList.get(position).get(DBHelper.TASKS_COL_PRIORITY);
         
         TextView txt_task_name = holder.taskName;
         TextView txt_task_status = holder.taskStatus;
@@ -101,6 +104,16 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
         btnRemoveTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int task_id = Integer.parseInt(taskList.get(position).get(DBHelper.TASKS_COL_ID));
+                DBHelper db = new DBHelper(btnRemoveTask.getContext());
+
+                // debug
+                Log.i("DB Update", "Updated TID = " + task_id + " USER ID = " + Login.USER_ID);
+
+                if(db.updateUserTask(task_id, Login.USER_ID)) {
+                    Toast.makeText(btnRemoveTask.getContext(), "Finished " + task_name + "!", Toast.LENGTH_SHORT).show();
+                }
+
                 taskList.remove(position);
                 notifyDataSetChanged();
             }
