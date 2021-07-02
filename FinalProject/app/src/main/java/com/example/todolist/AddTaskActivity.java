@@ -88,7 +88,7 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
                 boolean pryCheck = true;
                 boolean timeCheck = true;
                 boolean dateCheck = true;
-                if(String.valueOf(priority).equals(priorities[0])) {
+                if(priority == 0 || String.valueOf(priority).equals(priorities[0])) {
                     ((TextView) task_priority.getSelectedView()).setError(priorities[0]);
                     pryCheck = false;
                 }
