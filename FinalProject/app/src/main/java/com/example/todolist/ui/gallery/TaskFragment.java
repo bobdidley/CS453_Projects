@@ -12,19 +12,13 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todolist.*;
-import com.example.todolist.databinding.FragmentTaskBinding;
 import com.example.todolist.db_contents.DBHelper;
-import com.example.todolist.ui.calendar.CalendarFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -55,16 +49,20 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
        recyclerView = (RecyclerView) view.findViewById(R.id.taskRecyclerView);
         cat_filters = new ArrayList<>();
         pry_filters = new ArrayList<>();
+
+        // default positions
        cat_filters.add("Category Filter");
        pry_filters.add("Priority Filter");
 
        db = new DBHelper(getContext());
 
+       // initial task list set here
         setRecyclerView(0, null, -1);
 
         priorityFilter.setOnItemSelectedListener(this);
         categoryFilter.setOnItemSelectedListener(this);
 
+        // Add Task button
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +71,7 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
             }
         });
 
+        // Refresh to original task list button
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +83,7 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
         return view;
     }
 
+    // spinner options
     ArrayList<HashMap<String, String>> categoryTasks;
     ArrayList<HashMap<String, String>> priorityTasks;
 
@@ -130,6 +130,12 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onNothingSelected(AdapterView<?> parent) {}
 
+    /**
+     * Sets the recycler view with the appropriate data.
+     * @param filter int
+     * @param category String
+     * @param priority int
+     */
     private void setRecyclerView(int filter, @Nullable String category, @Nullable int priority) {
         ArrayList<HashMap<String, String>> taskList = new ArrayList<>();
         switch(filter) {
@@ -144,11 +150,9 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
                 taskList = db.getPriorityTasks(Login.USER_ID, priority);
                 break;
         }
-//        updateSpinners(taskList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
-//        adapter = new CustomTaskAdapter(getActivity(), taskList);
-//        adapter.notifyDataSetChanged();
+
         if(adapter == null) { adapter = new CustomTaskAdapter(getActivity(), taskList); }
         else {
             adapter.reset();
@@ -157,6 +161,10 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Sets the spinner options to each spinner.
+     * @param taskList ArrayList<HashMap<String, String>>
+     */
     private void setSpinners(ArrayList<HashMap<String, String>> taskList) {
         for(HashMap<String, String> task : taskList) {
             String pry = task.get(DBHelper.TASKS_COL_PRIORITY);

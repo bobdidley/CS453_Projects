@@ -33,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
     String sql;
 
     /**
-     *
+     * Overloaded Constructor.
      * @param context Context
      */
     public DBHelper(@Nullable Context context) {   // do we need a version number?
@@ -41,7 +41,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * Creates the database if need be.
      * @param db SQLiteDatabase
      */
     @Override
@@ -67,7 +67,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * Upgrades the database if necessary.
      * @param db SQLiteDatabase
      * @param oldVersion int
      * @param newVersion int
@@ -84,7 +84,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * Inserts a new user into the database. Boolean is to determine whether insertion was successful or not.
      * @param user User
      * @return boolean
      */
@@ -121,6 +121,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return users.containsKey(username) && users.get(username).equals(password);
     }
 
+    /**
+     * Updates a user's password in the database. Boolean is to determine whether update was successful or not.
+     * @param newPassword String
+     * @param user_id int
+     * @return boolean
+     */
     public boolean updateUserPassword(String newPassword, int user_id) {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -135,6 +141,13 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * Updates a user's task in the database. Boolean is to determine whether update was successful or not.
+     * Sets the task status to be DONE.
+     * @param task_id int
+     * @param user_id int
+     * @return boolean
+     */
     public boolean updateUserTask(int task_id, int user_id) {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -150,7 +163,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * Inserts a new task into the database. Boolean is to determine whether insertion was successful or not.
      * @param task Task
      * @return boolean
      */
@@ -177,7 +190,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * Returns the task list based on the user id query.
      * @param user_id int
      * @return ArrayList<HashMap<String, String>>
      */
@@ -205,7 +218,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * Returns the task list based on the category query.
      * @param user_id int
      * @param category String
      * @return ArrayList<HashMap<String, String>>
@@ -235,7 +248,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * Returns the task list based on the priority query.
      * @param user_id int
      * @param priority int
      * @return ArrayList<HashMap<String, String>>
@@ -264,6 +277,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return taskList;
     }
 
+    /**
+     * Returns the task list based on the date query.
+     * @param user_id int
+     * @param date String
+     * @return ArrayList<HashMap<String, String>>
+     */
     public ArrayList<HashMap<String, String>> getDateTasks(int user_id, String date) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -289,7 +308,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * Returns the user id associated to the username. Usernames must be unique.
      * @param username String
      * @return int
      */

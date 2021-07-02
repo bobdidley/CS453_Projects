@@ -29,7 +29,7 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
     private LayoutInflater inflater;
 
     /**
-     * Overloaded constructor
+     * Overloaded Constructor
      * @param context Context
      */
     public CustomTaskAdapter(Context context, ArrayList<HashMap<String, String>> taskList){
@@ -53,27 +53,24 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
         this.taskList = taskList;
         notifyDataSetChanged();
     }
-//
-//    public CustomTaskAdapter(Context context, List<taskModel> list) {
-//        this.taskList = list;
-//        this.inflater = LayoutInflater.from(context);
-//    }
 
     /**
-     *
-     * @param parent
-     * @param viewType
+     * Creates the view holder containing items.
+     * @param parent ViewGroup
+     * @param viewType int
      * @return
      */
     @Override
     public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //View itemView = inflater.inflate(R.layout.task_layout,parent,false);
-//        View itemView = inflater.from(parent.getContext()).inflate(viewType,parent,false);
         View itemView = inflater.inflate(R.layout.task_layout, parent, false);
         return new TaskViewHolder(itemView, this);
     }
 
-
+    /**
+     * Binds each item with the appropriate information and functionality.
+     * @param holder TaskViewHolder
+     * @param position int
+     */
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position) {
 
@@ -120,14 +117,13 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
         });
     }
 
-
+    /**
+     * Return size of task list.
+     * @return int
+     */
     @Override
     public int getItemCount() {
         return taskList.size();
-    }
-
-    private boolean toBoolean(int n){
-        return n!=0;
     }
 
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
@@ -140,6 +136,11 @@ public class CustomTaskAdapter extends RecyclerView.Adapter<CustomTaskAdapter.Ta
         public final Button btnRemoveTask;
         final CustomTaskAdapter customTaskAdapter;
 
+        /**
+         * Overloaded Constructor
+         * @param itemView View
+         * @param customTaskAdapter CustomTaskAdapter
+         */
         public TaskViewHolder(View itemView, CustomTaskAdapter customTaskAdapter) {
             super(itemView);
 
