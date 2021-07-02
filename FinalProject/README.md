@@ -32,6 +32,7 @@ for the application is to be practical for daily use with hopes to boost product
 - Timer to set time to complete tasks
 - Calendar to view specific tasks on specific dates
   - Calendar to schedule tasks for the future
+- Database to store all user information and tasks
 
 
 ### <b>Contribution</b>
