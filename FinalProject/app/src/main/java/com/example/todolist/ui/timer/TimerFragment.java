@@ -16,10 +16,6 @@ import android.view.ViewGroup;
 
 import com.example.todolist.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
- */
 public class TimerFragment extends Fragment {
 
     private EditText timeInput;
@@ -32,6 +28,7 @@ public class TimerFragment extends Fragment {
     private long time_in_ms;
     private String initialTime;
 
+    // for time conversions
     private final int min_ms = 60000;
     private final int sec_ms = 1000;
 
@@ -52,6 +49,7 @@ public class TimerFragment extends Fragment {
 //            Log.i("Init Btns", "Buttons are initialized");
         }
 
+        // timer start button
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +57,7 @@ public class TimerFragment extends Fragment {
             }
         });
 
+        // timer reset button
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +65,7 @@ public class TimerFragment extends Fragment {
             }
         });
 
+        // timer stop button
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +76,9 @@ public class TimerFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Starts the time with the set value.
+     */
     private void startTimer() {
         initialTime = timeInput.getText().toString();
         timeDisplay.setText(initialTime);
@@ -104,6 +107,9 @@ public class TimerFragment extends Fragment {
         }.start();
     }
 
+    /**
+     * Resets the timer to the last value from Start.
+     */
     private void resetTimer() {
         timer.cancel();
         timeDisplay.setText(initialTime);
@@ -116,6 +122,9 @@ public class TimerFragment extends Fragment {
         btnStop.setClickable(false);
     }
 
+    /**
+     * Stops the timer where it's at.
+     */
     private void stopTimer() {
         timer.cancel();
 
@@ -124,6 +133,9 @@ public class TimerFragment extends Fragment {
         btnStop.setClickable(false);
     }
 
+    /**
+     * Updates the timer.
+     */
     private void updateTimer() {
         int minute = (int) time_in_ms / min_ms;
         int second = (int) time_in_ms % min_ms / sec_ms;
@@ -137,8 +149,6 @@ public class TimerFragment extends Fragment {
 
         timeDisplay.setText(timeLeft.toString());
         timeInput.setText(timeLeft.toString());
-
-        // maybe include a ringer for when the timer is finished?
     }
 
     public TimerFragment() {}

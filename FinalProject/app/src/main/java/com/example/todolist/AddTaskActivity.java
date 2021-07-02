@@ -11,10 +11,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.todolist.databinding.FragmentTaskBinding;
 import com.example.todolist.db_contents.DBHelper;
 import com.example.todolist.db_contents.Task;
-import com.example.todolist.ui.gallery.TaskFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -103,12 +101,12 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
 
                 if(task_name.getError() == null && task_category.getError() == null && pryCheck && timeCheck && dateCheck) {
                     // debug
-                    Log.i("AddTask 1", "Here");
+//                    Log.i("AddTask 1", "Here");
 
                     DBHelper db = new DBHelper(getApplicationContext());
                     if(db.insertTask(new Task(Login.USER_ID, name, date, category, priority, time, Task.STATUS.TODO))) {
                         // debug
-                        Log.i("AddTask 2", "Here 2");
+//                        Log.i("AddTask 2", "Here 2");
 
                         Toast.makeText(getApplicationContext(), "Added " + name + "!", Toast.LENGTH_SHORT).show();
 
@@ -162,8 +160,13 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
     @Override
     public void onNothingSelected(AdapterView<?> parent) {}
 
+    /* Calendar stuff for date selection */
+
     private Calendar calendar = Calendar.getInstance();
 
+    /**
+     * Listener object for updating the date when date selected changes.
+     */
     private DatePickerDialog.OnDateSetListener dateListener = new
             DatePickerDialog.OnDateSetListener() {
                 @Override
@@ -177,6 +180,9 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
                 }
             };
 
+    /**
+     * Updates the date with the new string.
+     */
     private void updateDate() {
         String dateFormat = "MM/dd/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.ENGLISH);

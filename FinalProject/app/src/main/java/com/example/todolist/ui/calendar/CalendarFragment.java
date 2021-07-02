@@ -8,16 +8,10 @@ import android.view.ViewGroup;
 
 import android.widget.CalendarView;
 
-import android.widget.Button;
-import android.widget.Spinner;
-
-import android.widget.TextView;
-
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 
 
 import com.example.todolist.R;
@@ -27,9 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todolist.CustomTaskAdapter;
 import com.example.todolist.Login;
-import com.example.todolist.R;
 import com.example.todolist.db_contents.DBHelper;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,9 +63,9 @@ public class CalendarFragment extends Fragment {
                 selectedDate += year;
 
                 // debug
-                Log.i("Select Date", "Selected Date = " + selectedDate);
+//                Log.i("Select Date", "Selected Date = " + selectedDate);
+//                Toast.makeText(getContext(), selectedDate, Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(getContext(), selectedDate, Toast.LENGTH_SHORT).show();
                 setRecyclerView(db.getDateTasks(Login.USER_ID, selectedDate));
             }
         });
@@ -81,13 +73,18 @@ public class CalendarFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Sets the recycler view with the appropriate data.
+     * @param taskList ArrayList<HashMap<String, String>>
+     */
     private void setRecyclerView(ArrayList<HashMap<String, String>> taskList) {
 
         // debug
-        Log.i("Calendar RV", "Setting the recycler view");
+//        Log.i("Calendar RV", "Setting the recycler view");
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
+        // necessary for initial set up
         if(adapter == null) { adapter = new CustomTaskAdapter(getActivity(), taskList); }
         else {
             adapter.reset();

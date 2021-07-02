@@ -11,17 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.todolist.AboutActivity;
 import com.example.todolist.ChangePasswordActivity;
 import com.example.todolist.HelpActivity;
 import com.example.todolist.R;
-import com.example.todolist.TaskActivity;
 import com.example.todolist.db_contents.DBHelper;
-import com.example.todolist.ui.about.AboutFragment;
-import com.example.todolist.ui.help.HelpFragment;
 
 public class HomeFragment extends Fragment {
 
@@ -45,10 +40,10 @@ public class HomeFragment extends Fragment {
         btnHelp = view.findViewById(R.id.btnHelp);
         btnAbout = view.findViewById(R.id.btnAbout);
 
-        // i know it's hard coded but it's going to have to do for now
         txtUsername.setText(db.getUsername());
         txtPassword.setText("Password");
 
+        // redirects to change password activity
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +52,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // redirects to help activity
         btnHelp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -66,6 +62,7 @@ public class HomeFragment extends Fragment {
 
         });
 
+        // redirects to about activity
         btnAbout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -80,29 +77,6 @@ public class HomeFragment extends Fragment {
 //            public void onClick(View v) {
 //                Intent editTask = new Intent(getActivity(), TaskActivity.class);
 //                startActivity(editTask);
-//            }
-//        });
-
-//        btnHelp.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-
-                /*************************************************************************************************
-//                getChildFragmentManager()
-//                        .beginTransaction()
-//                        .replace(R.id.frag_image, new HelpFragment())
-//                        .commit();
-//                Intent help = new Intent(getContext(), HelpFragment.class);
-//                startActivity(help);
-                 *************************************************************************************************/
-/*************************************************************************************************
-//                getFragmentManager().beginTransaction()
-//                        .replace(R.id.frag_help, new HelpFragment(),"frag_image")
-//                        .addToBackStack(null).commit();
-                 *************************************************************************************************/
-
-
 //            }
 //        });
 
