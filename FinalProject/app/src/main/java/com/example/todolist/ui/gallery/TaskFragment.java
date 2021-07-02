@@ -51,6 +51,7 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
        View view = inflater.inflate(R.layout.fragment_task, container,false);
         categoryFilter = view.findViewById(R.id.spnCategoryFilter);
         priorityFilter = view.findViewById(R.id.spnPriorityFilter);
+
        add = view.findViewById(R.id.btnAddTask);
        btn_remove = view.findViewById(R.id.btnRemoveTask);
        recyclerView = (RecyclerView) view.findViewById(R.id.taskRecyclerView);
