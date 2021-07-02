@@ -1,3 +1,12 @@
+/**
+ * Database class and relevant functions.
+ *
+ * @file DBHelper.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 07/01/2021
+ * @version 1.0
+ */
+
 package com.example.todolist.db_contents;
 
 import android.content.ContentValues;

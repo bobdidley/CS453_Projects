@@ -1,3 +1,12 @@
+/**
+ * Host activity containing the Profile page. Sets up the navigation drawer.
+ *
+ * @file ProfileActivity.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 07/01/2021
+ * @version 1.0
+ */
+
 package com.example.todolist;
 
 import android.content.Intent;
@@ -31,7 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        // binder for appropriate views
         binding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -52,8 +61,6 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

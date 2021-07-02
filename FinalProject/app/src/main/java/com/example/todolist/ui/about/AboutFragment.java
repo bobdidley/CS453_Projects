@@ -1,3 +1,12 @@
+/**
+ * About page.
+ *
+ * @file AboutFragment.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 07/01/2021
+ * @version 1.0
+ */
+
 package com.example.todolist.ui.about;
 
 import android.os.Bundle;

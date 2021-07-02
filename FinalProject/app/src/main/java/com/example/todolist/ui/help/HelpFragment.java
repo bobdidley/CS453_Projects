@@ -1,3 +1,12 @@
+/**
+ * Help page.
+ *
+ * @file HelpFragment.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 07/01/2021
+ * @version 1.0
+ */
+
 package com.example.todolist.ui.help;
 
 
@@ -17,7 +26,7 @@ import com.example.todolist.R;
 public class HelpFragment extends Fragment {
 
     private TextView txtView1, txtView2, txtView3, txtView4, txtView5, txtView6;
-    
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {

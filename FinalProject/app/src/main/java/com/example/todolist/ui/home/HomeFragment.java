@@ -1,3 +1,12 @@
+/**
+ * Home page.
+ *
+ * @file HomeFragment.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 07/01/2021
+ * @version 1.0
+ */
+
 package com.example.todolist.ui.home;
 
 import android.content.Intent;

@@ -1,3 +1,12 @@
+/**
+ * App starts here for however much time set then redirects to login page.
+ *
+ * @file SplashWindow.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 07/01/2021
+ * @version 1.0
+ */
+
 package com.example.todolist;
 
 import android.content.Intent;
@@ -15,6 +24,7 @@ public class SplashWindow extends AppCompatActivity {
         getSupportActionBar().hide();
         Handler handler = new Handler();
 
+        // redirects to login page once time is up
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -1,3 +1,12 @@
+/**
+ * Task activity.
+ *
+ * @file TaskActivity.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 07/01/2021
+ * @version 1.0
+ */
+
 package com.example.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,15 +26,10 @@ import java.util.List;
 
 public class TaskActivity extends AppCompatActivity {
 
-    private FloatingActionButton addTask;
-    private CustomTaskAdapter adapter;
-    private RecyclerView rv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_task);
         getSupportActionBar().hide();
-
-
     }
 }

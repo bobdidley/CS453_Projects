@@ -1,3 +1,12 @@
+/**
+ * Task list page.
+ *
+ * @file TaskFragment.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 07/01/2021
+ * @version 1.0
+ */
+
 package com.example.todolist.ui.gallery;
 
 import android.content.Intent;

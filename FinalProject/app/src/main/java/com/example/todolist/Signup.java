@@ -1,3 +1,12 @@
+/**
+ * Signup page redirects to login page once successful signed up.
+ *
+ * @file Signup.java
+ * @authors Fiona Le & James Austin Jr.
+ * @date 07/01/2021
+ * @version 1.0
+ */
+
 package com.example.todolist;
 
 import android.content.DialogInterface;
@@ -35,11 +44,14 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         txtRetypePass = findViewById(R.id.txtRetypePassword);
         btnSignup = findViewById(R.id.btnSignup);
 
+        // checks all input field for validity
+        // inserts new user if no errors
         btnSignup.setOnClickListener((View.OnClickListener) this);
     }
 
     @Override
     public void onClick(View v) {
+        // checks for input errors
         String username = txtUsername.getText().toString();
         String password = txtPassword.getText().toString();
         String retypePass = txtRetypePass.getText().toString();
@@ -59,7 +71,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             txtRetypePass.setError("Password does not match");
         }
 
+        // checks for errors
         if (txtUsername.getError() == null && txtPassword.getError() == null && txtRetypePass.getError() == null && retypeCheck) {
+            // checks for successful insertion to database
             if(db.insertUser(new User(username, password))) {
 
                 // debug
