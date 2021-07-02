@@ -34,6 +34,7 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
     private Spinner categoryFilter;
     private Spinner priorityFilter;
     private FloatingActionButton add;
+    private Button refresh;
     private RecyclerView recyclerView;
 
     ArrayList<String> pry_filters;
@@ -50,6 +51,7 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
         priorityFilter = view.findViewById(R.id.spnPriorityFilter);
 
        add = view.findViewById(R.id.btnAddTask);
+       refresh = view.findViewById(R.id.btnRefresh);
        recyclerView = (RecyclerView) view.findViewById(R.id.taskRecyclerView);
         cat_filters = new ArrayList<>();
         pry_filters = new ArrayList<>();
@@ -68,6 +70,14 @@ public class TaskFragment extends Fragment implements AdapterView.OnItemSelected
             public void onClick(View v) {
                 Intent addTask = new Intent(getActivity(), AddTaskActivity.class);
                 startActivity(addTask);
+            }
+        });
+
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter = null;
+                setRecyclerView(0, null, -1);
             }
         });
 
