@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:backgroundTint="@color/royalblue"
-            android:text="Remove" />
+            android:text="Done" />
 
 
     </LinearLayout>
