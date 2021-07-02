@@ -41,7 +41,6 @@ import java.util.Date;
 public class CalendarFragment extends Fragment {
 
     private CalendarViewModel slideshowViewModel;
-    private FragmentCalendarBinding binding;
     CustomTaskAdapter adapter;
     private Spinner categoryFilter;
     private Spinner priorityFilter;
