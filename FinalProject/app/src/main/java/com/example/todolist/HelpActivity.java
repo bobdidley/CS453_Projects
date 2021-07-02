@@ -12,7 +12,7 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-
+        getSupportActionBar().setTitle("Help");
 
         txtView1 = findViewById(R.id.line1);
         txtView2 = findViewById(R.id.line2);
