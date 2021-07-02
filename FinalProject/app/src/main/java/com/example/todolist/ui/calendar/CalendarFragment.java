@@ -40,16 +40,9 @@ import java.util.Date;
 
 public class CalendarFragment extends Fragment {
 
-    private CalendarViewModel slideshowViewModel;
     CustomTaskAdapter adapter;
-    private Spinner categoryFilter;
-    private Spinner priorityFilter;
-    private FloatingActionButton add;
-    private Button btn_remove;
     private RecyclerView recyclerView;
-
-    ArrayList<String> pry_filters;
-    ArrayList<String> cat_filters;
+    private String selectedDate;
 
     private DBHelper db;
 
@@ -60,42 +53,26 @@ public class CalendarFragment extends Fragment {
 
         CalendarView calendar = view.findViewById(R.id.calendarView);
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        String selectedDate = sdf.format(new Date(calendar.getDate()));
+        selectedDate = sdf.format(new Date(calendar.getDate()));
+        recyclerView = (RecyclerView) view.findViewById(R.id.taskRecyclerView);
+        db = new DBHelper(getContext());
+        setRecyclerView(db.getDateTasks(Login.USER_ID, selectedDate));
 
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                Toast.makeText(getContext(), month + "/" + dayOfMonth + "/" + year, Toast.LENGTH_SHORT).show();
+                selectedDate = sdf.format(new Date(year, month, dayOfMonth).getDate());
+                Toast.makeText(getContext(), selectedDate, Toast.LENGTH_SHORT).show();
+                setRecyclerView(db.getDateTasks(Login.USER_ID, selectedDate));
             }
         });
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.taskRecyclerView);
-
-        db = new DBHelper(getContext());
-        setRecyclerView(0, null, -1);
-
+        
         return view;
     }
 
-    private void setRecyclerView(int filter, @Nullable String category, @Nullable int priority) {
-        ArrayList<HashMap<String, String>> taskList = new ArrayList<>();
-        switch(filter) {
-            case 0:
-                taskList = db.getUserTasks(Login.USER_ID);
-               // setSpinners(taskList);
-                break;
-            case 1:
-                taskList = db.getCategoryTasks(Login.USER_ID, category);
-                break;
-            case 2:
-                taskList = db.getPriorityTasks(Login.USER_ID, priority);
-                break;
-        }
-//        updateSpinners(taskList);
+    private void setRecyclerView(ArrayList<HashMap<String, String>> taskList) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
-//        adapter = new CustomTaskAdapter(getActivity(), taskList);
-//        adapter.notifyDataSetChanged();
         if(adapter == null) { adapter = new CustomTaskAdapter(getActivity(), taskList); }
         else {
             adapter.reset();

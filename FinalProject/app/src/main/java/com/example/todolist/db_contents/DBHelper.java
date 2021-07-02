@@ -264,6 +264,30 @@ public class DBHelper extends SQLiteOpenHelper {
         return taskList;
     }
 
+    public ArrayList<HashMap<String, String>> getDateTasks(int user_id, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + USERS_COL_ID + " = " + user_id +
+                " AND " + TASKS_COL_PRIORITY + " = " + date +
+                " AND NOT " + TASKS_COL_STATUS + " = \"" + Task.STATUS.DONE.name() + "\"";   // may not work for user_id column name
+        Cursor curs = db.rawQuery(sql, null);
+
+        ArrayList<HashMap<String, String>>  taskList = new ArrayList<>();
+        String[] columnNames = curs.getColumnNames();
+
+        curs.moveToFirst();
+        while(!curs.isAfterLast()) {
+            HashMap<String, String> individualTask = new HashMap<>();
+            for(String col_name : columnNames) {
+                individualTask.put(col_name, curs.getString(curs.getColumnIndex(col_name)));
+            }
+            taskList.add(individualTask);
+            curs.moveToNext();
+        }
+
+        return taskList;
+    }
+
     /**
      *
      * @param username String
