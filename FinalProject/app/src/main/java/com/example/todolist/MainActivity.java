@@ -2,16 +2,11 @@ package com.example.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import com.example.todolist.db_contents.Task;
-
-import java.time.MonthDay;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
+/**
+ * Not Used.
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override

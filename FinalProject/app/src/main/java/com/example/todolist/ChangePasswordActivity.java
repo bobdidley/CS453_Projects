@@ -31,6 +31,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
         updateRetypePassword = findViewById(R.id.updateRetypePassword);
         btn_update = findViewById(R.id.btnUpdate);
 
+        // verifies all text fields and spinners are valid upon click
+        // updates user's account if no errors
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,14 +55,17 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     updateRetypePassword.setError("Password does not match");
                 }
 
+                // checks for input errors
                 if(currentPassword.getError() == null && updatePassword.getError() == null
                         && updateRetypePassword.getError() == null && retypeCheck) {
                     DBHelper db = new DBHelper(getApplicationContext());
 
+                    // checks for existing user
                     if (db.isExistingUser(db.getUsername(), currPass)) {
                         // debug
 //                        Log.i("Check User Password", "existing...");
 
+                        // checks for successful insertion of data
                         if (db.updateUserPassword(updatePassword.getText().toString(), Login.USER_ID)) {
                             // debug
 //                            Log.i("Update User Password", "updating...");
@@ -72,6 +77,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                         }
                     }
                 } else {
+                    // alerts user if there are invalid credentials in the input
                     new AlertDialog.Builder(ChangePasswordActivity.this)
                             .setTitle("Invalid Credentials")
                             .setMessage("The account credentials are not correct or do not exist, try again.")

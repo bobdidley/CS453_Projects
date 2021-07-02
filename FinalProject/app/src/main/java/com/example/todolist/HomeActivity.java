@@ -1,21 +1,17 @@
 package com.example.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.ui.AppBarConfiguration;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.todolist.databinding.ActivityHomeBinding;
-import com.example.todolist.databinding.ActivityProfileBinding;
-import com.example.todolist.ui.gallery.TaskFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
     private Button btn_changePassword;
-    private Button btn_editTask;
+//    private Button btn_editTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +22,7 @@ public class HomeActivity extends AppCompatActivity {
         btn_changePassword = findViewById(R.id.btnChangePassword);
 //        btn_editTask = findViewById(R.id.btnEditTasks);
 
+        // redirects to change password activity
         btn_changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

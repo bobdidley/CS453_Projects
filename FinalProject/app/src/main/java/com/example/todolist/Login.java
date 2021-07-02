@@ -32,6 +32,7 @@ public class Login extends AppCompatActivity {
         btn_signup = findViewById(R.id.btnSignup);
         btn_login = findViewById(R.id.btnLogin);
 
+        // redirects to sign up activity
         btn_signup.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -41,6 +42,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        // redirects to the home page if login is successful
         btn_login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -52,6 +54,7 @@ public class Login extends AppCompatActivity {
                 if(username.equals("")) { edtUsername.setError("Missing field"); }
                 if(password.equals("")) { edtPassword.setError("Missing field"); }
 
+                // checks if the user exists
                 if(db.isExistingUser(username, password)) {
                     // Intent home --> Redirect to home page after clicking login Button
                     edtPassword.setText("");   // empty out password field for security purposes
